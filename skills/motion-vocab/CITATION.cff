@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "如果这个 Skill 帮到了你，请按下面的格式引用。"
+title: "motion-vocab：把说不出口的动效，拆成一个词"
+abstract: "一个可装进 AI 编程助手（Claude Code / Cursor）的技能包：拆解真实项目里的动效，命名为有参数、有边界的术语，再立成能照着抄的词汇册。五入口：拆解、领域、立册、设计、查词。"
+type: software
+authors:
+  - name: "Alpha_领域"
+version: "0.1.0"
+date-released: 2026-11-23
+license: MIT
+repository-code: "https://github.com/AlphEJ/motion-vocab"
+keywords:
+  - motion design
+  - css animation
+  - ai skill
+  - claude code
+  - design vocabulary

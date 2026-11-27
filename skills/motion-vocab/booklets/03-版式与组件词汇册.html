@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>版式与组件词汇册 · 页面该怎么分布</title>
+<meta name="description" content="14 个版式原型的线框骨架、16 个组件的名称与职责，以及把三者拼成一句话的方法。">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' fill='%23F2F0EA'/%3E%3Crect x='5' y='5' width='22' height='22' fill='none' stroke='%231E4D46' stroke-width='1.6'/%3E%3Crect x='8' y='8' width='8' height='5' fill='%231E4D46'/%3E%3Crect x='8' y='15' width='16' height='2' fill='%23A85B36'/%3E%3Crect x='8' y='19' width='11' height='2' fill='%23A85B36'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#F2F0EA; --stage:#FAF9F4; --ink:#1B1C1A; --ink-2:#5D5F58; --ink-3:#8B8D85;
+  --line:#D5D2C8; --line-strong:#C4BFB1; --line-soft:#E3E0D7;
+  --accent:#1E4D46; --accent-2:#A85B36;
+  --out:cubic-bezier(.22,1,.36,1);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);
+  font-family:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.7;
+  -webkit-font-smoothing:antialiased}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace}
+a{color:var(--accent);text-decoration:none;border-bottom:1px solid rgba(30,77,70,.35)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px}
+body::after{content:"";position:fixed;inset:0;z-index:9998;pointer-events:none;opacity:.05;mix-blend-mode:multiply;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{max-width:1360px;margin:0 auto;padding:0 32px}
+
+.topbar{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:22px 0 0;border-bottom:1px solid var(--line-soft)}
+.brand{font-size:12px;color:var(--ink-3)}
+.brand b{color:var(--ink);font-weight:500}
+.topmeta{font-size:11.5px;color:var(--ink-3);text-align:right;line-height:1.5}
+
+.masthead{padding:58px 0 0;max-width:900px}
+.masthead h1{font-family:"Noto Serif SC",Georgia,"Songti SC",serif;font-weight:900;font-size:clamp(32px,4.9vw,54px);line-height:1.16;margin:0 0 10px;letter-spacing:-.01em}
+.masthead .en{font-size:12px;color:var(--ink-3);letter-spacing:.1em;margin:0 0 24px}
+.masthead .lead{font-size:16px;color:var(--ink-2);max-width:58ch;margin:0}
+.masthead .lead strong{color:var(--ink);font-weight:500;border-bottom:1.5px solid var(--accent-2);padding-bottom:1px}
+
+.sec{margin:56px 0 0;padding-top:28px;border-top:1px solid var(--line)}
+.sec-h{font-family:"Noto Serif SC",Georgia,serif;font-weight:700;font-size:25px;margin:0 0 6px}
+.sec-sub{font-size:13.5px;color:var(--ink-2);margin:0 0 24px;max-width:66ch}
+
+/* ===== 图版 ===== */
+.plates{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:20px}
+.plate{background:var(--stage);border:1px solid var(--line);border-radius:2px;overflow:hidden}
+.frame{
+  position:relative;height:206px;margin:9px;
+  border:1px solid var(--line);border-radius:2px;
+  background:
+    radial-gradient(circle at 1px 1px, rgba(27,28,26,.055) 1px, transparent 0) 0 0/12px 12px,
+    #F7F5EF;
+  overflow:hidden;
+}
+.pn{position:absolute;top:6px;left:8px;font-size:9.5px;color:var(--ink-3);letter-spacing:.08em;z-index:3}
+.wf{position:absolute;inset:9px}
+.b{position:absolute;border-radius:2px;overflow:hidden}
+.b-txt{display:flex;flex-direction:column;justify-content:center;gap:4px;background:rgba(247,245,239,.9);padding:2px}
+.b-txt i{display:block;height:3px;background:var(--ink);opacity:.6}
+.b-txt i:nth-child(1){width:86%}
+.b-txt i:nth-child(2){width:66%;opacity:.4}
+.b-txt i:nth-child(3){width:42%;opacity:.26}
+.b-img{border:1px solid var(--line-strong);background:repeating-linear-gradient(45deg,rgba(27,28,26,.10) 0 1px,transparent 1px 8px)}
+.b-card,.b-card2{border:1px solid var(--line-strong);background:#fff;display:flex;flex-direction:column;justify-content:flex-end;gap:4px;padding:7px}
+.b-card s,.b-card2 s{display:block;flex:1;background:rgba(27,28,26,.07);border-radius:2px}
+.b-card i,.b-card2 i{display:block;height:3px;background:var(--ink);opacity:.3}
+.b-card2{border:1.5px solid var(--ink)}
+.b-bar{background:var(--ink)}
+.b-nav{background:rgba(27,28,26,.13)}
+.b-chart{display:flex;align-items:flex-end;gap:5%;padding:9px 10px;border:1px solid var(--line-strong);background:#fff}
+.b-chart u{flex:1;display:block;background:rgba(30,77,70,.32);border-radius:2px 2px 0 0}
+.b-circle{border:1px solid var(--line-strong);border-radius:50%;background:#fff}
+.b-dash{border:1px dashed var(--accent-2);border-radius:2px}
+
+.pinfo{padding:11px 15px 14px}
+.pinfo h3{font-family:"Noto Serif SC",Georgia,serif;font-size:18px;font-weight:700;margin:0 0 2px;line-height:1.35}
+.pinfo .en{font-size:10.5px;color:var(--ink-3);letter-spacing:.05em;margin:0 0 7px}
+.pinfo p{font-size:12.5px;color:var(--ink-2);margin:0 0 8px;line-height:1.65}
+.pinfo .say{font-size:11.5px;color:var(--accent);line-height:1.6;padding-top:8px;border-top:1px solid var(--line-soft)}
+
+/* ===== 组件清单 ===== */
+.bom{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 40px}
+.group{grid-column:1/-1;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;margin:22px 0 2px;padding-top:9px;border-top:2px solid var(--ink)}
+.group h3{font-family:"Noto Serif SC",Georgia,serif;font-size:15px;font-weight:700;margin:0}
+.group .len{font-size:10px;color:var(--ink-3);letter-spacing:.06em}
+.part{border-top:1px solid var(--line-soft);padding:9px 0 10px}
+.part h4{font-size:13px;font-weight:500;margin:0}
+.part h4 .en{font-size:10px;color:var(--ink-3);font-weight:400;margin-left:6px}
+.part p{font-size:12px;color:var(--ink-2);margin:2px 0 0;line-height:1.6}
+
+/* ===== 令牌 ===== */
+.tokens{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0 32px}
+.tblock{border-top:2px solid var(--ink);padding-top:12px}
+.tblock h3{font-size:13.5px;font-weight:500;margin:0 0 2px}
+.tblock .en{font-size:10px;color:var(--ink-3);letter-spacing:.05em;display:block;margin-bottom:12px}
+.space-row{display:flex;flex-direction:column;gap:6px}
+.space-row div{display:flex;align-items:center;gap:9px}
+.space-row .s{height:8px;background:rgba(30,77,70,.45);border-radius:2px}
+.space-row .v{font-size:10px;color:var(--ink-3);width:26px;text-align:right}
+.radii{display:flex;gap:10px;align-items:flex-end}
+.radii figure{margin:0;text-align:center}
+.radii .sq{width:46px;height:46px;background:#fff;border:1px solid var(--line-strong)}
+.radii figcaption{font-size:10px;color:var(--ink-3);margin-top:6px}
+.shadows{display:flex;gap:12px}
+.shadows div{flex:1;height:70px;background:#fff;border-radius:2px;display:grid;place-items:end center;font-size:10px;color:var(--ink-3);padding-bottom:6px}
+.tnote{grid-column:1/-1;margin-top:16px;font-size:12.5px;color:var(--ink-2);border-top:1px solid var(--line-soft);padding-top:12px;line-height:1.7}
+
+/* ===== 拼装 ===== */
+.assemble{margin-top:66px;padding-top:30px;border-top:1px solid var(--line)}
+.legend{display:flex;flex-wrap:wrap;gap:16px;margin-bottom:12px}
+.legend span{font-size:11.5px;color:var(--ink-2);display:flex;align-items:center;gap:6px}
+.legend i{display:block;width:16px;height:2px}
+.legend .l-lay i{background:var(--accent)}
+.legend .l-cmp i{background:var(--accent-2)}
+.legend .l-mot i{background:#7E8C7A}
+.legend .l-tok i{background:#8B8D85}
+.compose{background:#22312E;color:#E7E9E4;border-radius:2px;padding:20px 22px;font-size:13px;line-height:2.1}
+.compose b{color:#9FC5B8;font-weight:500;font-size:11px;letter-spacing:.06em;display:block;margin-bottom:10px}
+.k-lay{border-bottom:1px solid #6FA093;color:#BFD9CF}
+.k-cmp{border-bottom:1px solid #B9825E;color:#E4C2A8}
+.k-mot{border-bottom:1px solid #98A893;color:#C8D2C3}
+.k-tok{border-bottom:1px solid #7C7F78;color:#C7C9C3}
+
+footer{margin:60px 0 0;padding:26px 0 46px;border-top:1px solid var(--line);display:flex;flex-wrap:wrap;gap:16px 48px;justify-content:space-between;font-size:12px;color:var(--ink-3);line-height:1.8}
+footer div{max-width:54ch}
+footer a{color:var(--ink-2);border-bottom-color:var(--line)}
+
+@media (max-width:1000px){
+  .plates{grid-template-columns:minmax(0,1fr)}
+  .tokens{grid-template-columns:minmax(0,1fr);gap:26px}
+  .bom{grid-template-columns:minmax(0,1fr)}
+}
+@media (max-width:680px){
+  .wrap{padding:0 18px}
+  .frame{height:180px}
+  .topmeta{display:none}
+  .masthead{padding-top:40px}
+}
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <div class="topbar">
+    <div class="brand"><b>版式与组件词汇册</b> / 第三册</div>
+    <div class="topmeta mono">14 个版式骨架 · 16 个组件 · 4 组刻度<br>前两册管怎么动，这一册管怎么分布</div>
+  </div>
+
+  <header class="masthead">
+    <h1>先定骨架，<br>再谈好不好看。</h1>
+    <p class="en mono">layout archetypes, components, tokens</p>
+    <p class="lead">动效决定它怎么动，版式决定它长什么样。你和 AI 说「有标题、有图、有卡片」，它只能给你一套通用栅格；你说<strong>split hero</strong>、<strong>bento grid</strong>、<strong>sticky scroll</strong>，骨架当场就换了一副。下面每个线框都是这句话的图解。</p>
+  </header>
+
+  <section class="sec" aria-labelledby="p-h">
+    <h2 class="sec-h" id="p-h">14 个版式骨架</h2>
+    <p class="sec-sub">灰块是文字，斜纹是图，白块是卡片。看骨架比看成品快：成品里那些颜色和字体会骗你，骨架不会。</p>
+    <div class="plates" id="plates"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="c-h">
+    <h2 class="sec-h" id="c-h">16 个零件</h2>
+    <p class="sec-sub">版式是布局，组件是零件。零件名说对了，AI 就不会自己发明一个似曾相识的东西——它调出来的和你脑子里的是同一个。</p>
+    <div class="bom" id="bom"></div>
+  </section>
+
+  <section class="sec" aria-labelledby="t-h">
+    <h2 class="sec-h" id="t-h">刻度：高级感唯一可量的部分</h2>
+    <p class="sec-sub">"高级感"说不清，但它有一半是刻度：全站只用 4 个间距值、2 个圆角、3 档阴影。刻度一乱，再好的配色也散。</p>
+    <div class="tokens">
+      <div class="tblock">
+        <h3>间距</h3><span class="en mono">spacing scale</span>
+        <div class="space-row" id="sp"></div>
+      </div>
+      <div class="tblock">
+        <h3>圆角</h3><span class="en mono">radius</span>
+        <div class="radii">
+          <figure><div class="sq" style="border-radius:0"></div><figcaption class="mono">0</figcaption></figure>
+          <figure><div class="sq" style="border-radius:2px"></div><figcaption class="mono">2px</figcaption></figure>
+          <figure><div class="sq" style="border-radius:999px"></div><figcaption class="mono">999px</figcaption></figure>
+          <figure><div class="sq" style="border-radius:50%"></div><figcaption class="mono">50%</figcaption></figure>
+        </div>
+      </div>
+      <div class="tblock">
+        <h3>阴影</h3><span class="en mono">elevation</span>
+        <div class="shadows">
+          <div style="box-shadow:0 1px 2px rgba(27,28,26,.10)">1</div>
+          <div style="box-shadow:0 4px 12px -4px rgba(27,28,26,.18)">2</div>
+          <div style="box-shadow:0 16px 32px -12px rgba(27,28,26,.28)">3</div>
+        </div>
+      </div>
+      <div class="tnote">间距取 4 的倍数：4 / 8 / 12 / 16 / 24 / 32 / 48 / 64 / 96。一张卡里的内边距只取一档，一个区块的外间距只取一档。圆角只有四个合法值：0 / 2px / 999px / 50%。6px、12px 这类中间值一旦出现，就等于自己发明了一套软角——混着来是 AI 生成页面最典型的破绽之一。</div>
+    </div>
+  </section>
+
+  <section class="assemble" aria-labelledby="a-h">
+    <div class="tnote" style="margin:0 0 24px">定位说明：本页是版式与组件词表（14 骨架 / 16 零件 / 刻度），**可以当立册的起步骨架**——版式配方、术语卡四段、演示与读数、页脚都在里面，复制改词就能开工。它只有 3 个 section，离十节册还差 7 节（§08 十二词速查、§09 五槽位、§10 四条边界是必须自己补的三块），补完再跑 run_all.py --section 10。</div>
+    <h3 class="sec-h" id="a-h">把三册拼成一句话</h3>
+    <p class="sec-sub">版式定骨架、组件定零件、动效定手感、刻度定分寸。四段各管一件事，分开写，AI 的错误就能被定位到某一段。</p>
+    <div class="legend">
+      <span><i class="l-lay"></i>版式</span>
+      <span><i class="l-cmp"></i>组件</span>
+      <span><i class="l-mot"></i>动效</span>
+      <span><i class="l-tok"></i>刻度</span>
+    </div>
+    <div class="compose mono">
+      <b>一句话示例 · 可直接改写</b>
+      用 <span class="k-lay">editorial 版式</span>做一个案例长页，首屏走 <span class="k-lay">split hero</span>（左 45% 文案、右 55% 全高图），中段把证据图收进 <span class="k-lay">bento grid</span>，滚动时主视觉 <span class="k-lay">sticky</span> 钉住；<br>
+      卡片用 <span class="k-cmp">card</span>，浮层只用 <span class="k-cmp">drawer</span>，不要自造弹窗；空数据时给 <span class="k-cmp">empty state</span>；<br>
+      交互只做两种：卡片 <span class="k-mot">elevation lift</span>，内容入场 <span class="k-mot">stagger</span> 0.06s，其余不加；<br>
+      间距全部取 <span class="k-tok">4 的倍数</span>，圆角只用 <span class="k-tok">2px 与 999px</span> 两档，阴影只给 <span class="k-tok">第 2 档</span>。
+    </div>
+  </section>
+
+  <footer>
+    <div><strong style="color:var(--ink);font-weight:500">三册怎么配合</strong><br>第一册给「怎么动」，第二册给「为什么像真的」，这一册给「往哪儿放」。写提示词时从后往前：先说版式，再说组件，最后加动效——顺序反了，AI 会先做特效再硬塞进一个通用栅格。</div>
+    <div><strong style="color:var(--ink);font-weight:500">一条提醒</strong><br>这些名字都是行业里已有的叫法（来自设计系统与组件库的通行命名），不是我造的。之所以用它们，是因为模型见过成千上万次，零解释就能对上；自造的词每换一个会话就得重讲一遍。</div>
+  </footer>
+
+</div>
+
+<script>
+/* ========== 版式骨架 ========== */
+var PLATES = [
+ {zh:'满幅首屏', en:'Full-bleed Hero', d:'一张主视觉铺满首屏，标题压在图上。有强素材才用，没有好图就别硬上。',
+  say:'提示词：首屏用 full-bleed hero，16:9 主视觉铺满视口，标题压在左下三分之一，副文案一行。',
+  wf:[[0,0,100,100,'img'],[6,44,52,16,'txt'],[6,64,20,7,'bar']]},
+
+ {zh:'左右分屏', en:'Split Hero', d:'左文案右图，各占一半。建立主次最快的一种，也最容易做得像模板——差别在比例和留白。',
+  say:'提示词：首屏用 split hero，左 45% 文案加按钮，右 55% 全高图，中间不加分隔线。',
+  wf:[[0,0,45,100,'txt'],[46,0,54,100,'img'],[4,76,22,7,'bar']]},
+
+ {zh:'便当格', en:'Bento Grid', d:'大小不一的卡片拼成一整块，主次靠面积而不是靠排版。信息多但不想排成列表时用它。',
+  say:'提示词：主区用 bento grid，12 栏网格，6×2 主卡一张、3×2 副卡两张、6×1 横条一张。',
+  wf:[[0,0,57,56,'card'],[59,0,41,26,'card'],[59,29,41,27,'card'],[0,59,100,41,'card']]},
+
+ {zh:'杂志分栏', en:'Editorial', d:'主栏长文加边栏图注，行长受控。适合要靠阅读建立信任的长内容，不适合产品页。',
+  say:'提示词：用 editorial 版式，主栏 62ch 宽，右侧 260px 边栏放图注，正文 18px/1.9。',
+  wf:[[0,0,60,100,'txt'],[63,0,37,52,'img'],[63,56,37,20,'txt'],[63,80,37,16,'txt']]},
+
+ {zh:'交替长条', en:'Zigzag Feature', d:'一条文案一条图左右交替，逐条讲功能。每屏只讲一件事，读起来有节奏。',
+  say:'提示词：功能段用 zigzag，三段，文案与图左右交替，段间距 96px，每段只讲一个功能。',
+  wf:[[0,0,46,29,'txt'],[49,0,51,29,'img'],[0,33,51,29,'img'],[54,33,46,29,'txt'],[0,66,46,29,'txt'],[49,66,51,29,'img']]},
+
+ {zh:'滚动钉住', en:'Sticky Scroll', d:'主视觉固定在视口里，文案随滚动逐段换。讲流程、讲对比时最有说服力。',
+  say:'提示词：主视觉 position:sticky 钉在视口中部，左侧文案分四段随滚动切换，滚到底部释放。',
+  wf:[[0,0,38,100,'txt'],[41,0,59,100,'img'],[41,44,59,2,'dash']]},
+
+ {zh:'跑马灯', en:'Marquee', d:'一行内容无限横向滚动。做氛围、放客户 logo 都行，但它是页面里最吵的元素，只放一条。',
+  say:'提示词：加一条 marquee，无限横向滚动，hover 暂停，两端用 mask-image 淡出。',
+  wf:[[0,36,21,28,'card'],[24,36,21,28,'card'],[48,36,21,28,'card'],[72,36,28,28,'card']]},
+
+ {zh:'瀑布流', en:'Masonry', d:'列宽相等、行高不等，图片按原始比例排。作品集和素材墙的标准解法。',
+  say:'提示词：作品集用 masonry，三列等宽不等高，图片按原始比例，列间距 24px。',
+  wf:[[0,0,31,44,'img'],[0,48,31,40,'img'],[34,0,31,28,'img'],[34,32,31,56,'img'],[68,0,31,38,'img'],[68,42,31,46,'img']]},
+
+ {zh:'仪表盘', en:'Dashboard', d:'顶栏、侧栏、主图表区。数据多时不要用卡片墙硬排，用这个骨架。',
+  say:'提示词：用 dashboard 版式，左 240px 固定导航、顶 56px 工具条、主区 12 栏图表栅格。',
+  wf:[[0,0,100,8,'nav'],[0,8,20,92,'card'],[22,11,78,42,'chart'],[22,56,37,18,'card'],[61,56,37,18,'card'],[22,78,76,18,'txt']]},
+
+ {zh:'案例长页', en:'Case Study', d:'背景、做法、结果三段，每段要有一条证据。没有证据的案例页只是一篇自我表扬。',
+  say:'提示词：用 case study 结构，背景→做法→结果三段，每段一条证据（数据或截图），结尾一行结论。',
+  wf:[[0,0,62,10,'txt'],[0,14,31,26,'img'],[34,14,31,26,'img'],[67,14,31,26,'img'],[0,44,100,8,'txt'],[0,55,47,37,'card'],[51,55,47,37,'card']]},
+
+ {zh:'三档定价', en:'Pricing', d:'三列等宽，中间那档加边框和底色。对比项必须上下对齐，否则比不出差别。',
+  say:'提示词：定价区用三档对照，三列等宽，中间一档加边框与底色强调，每列 5 条特性上下对齐。',
+  wf:[[2,12,29,80,'card'],[35,5,30,88,'card2'],[68,12,29,80,'card']]},
+
+ {zh:'时间轴', en:'Timeline', d:'轴加节点，讲演进与里程碑。节点必须等距，否则时间感是错的。',
+  say:'提示词：用纵向 timeline，左侧时间标签、中间轴线、右侧事件，节点等距，窄屏改横向。',
+  wf:[[13,0,1,100,'bar'],[13,8,5,5,'circle'],[13,44,5,5,'circle'],[13,78,5,5,'circle'],[2,8,8,4,'bar'],[2,44,8,4,'bar'],[2,78,8,4,'bar'],[21,6,66,10,'txt'],[21,42,66,10,'txt'],[21,76,66,10,'txt']]},
+
+ {zh:'等分画廊', en:'Gallery', d:'等分网格加统一裁切。规矩整齐，靠图片本身发力，别在格子上再做花样。',
+  say:'提示词：作品用等分画廊，三列两行等分，图片统一 4:3 裁切，hover 放大 1.05 并显示标题。',
+  wf:[[0,0,31,45,'img'],[34,0,31,45,'img'],[68,0,31,45,'img'],[0,50,31,45,'img'],[34,50,31,45,'img'],[68,50,31,45,'img']]},
+
+ {zh:'应用外壳', en:'App Shell', d:'左导航加主区，上面压一个命令面板。只要产品有"多个模块"，骨架就该是它。',
+  say:'提示词：用 app shell，左 220px 导航、主区可滚动、右上角 Cmd+K 唤起命令面板。',
+  wf:[[0,0,17,100,'card'],[19,0,81,9,'nav'],[19,12,81,44,'chart'],[19,60,38,38,'card'],[59,60,38,38,'card'],[40,26,44,26,'card2']]}
+];
+
+/* ========== 组件清单 ========== */
+var PARTS = [
+ {name:'容器与浮层', en:'CONTAINER', items:[
+   {zh:'卡片', en:'Card', d:'最基础的容器。一屏里不要超过两级卡片，否则层级读不出来。'},
+   {zh:'抽屉', en:'Drawer', d:'从侧边滑出的面板，装详情和筛选。比弹窗轻，不中断主流程。'},
+   {zh:'模态', en:'Modal', d:'必须打断当前任务的确认与选择。能用 drawer 就别用 modal。'},
+   {zh:'气泡', en:'Popover', d:'挂在某个元素旁边的小面板，点外部即关。不要用它装超过三项的内容。'},
+   {zh:'手风琴', en:'Accordion', d:'一项展开其余收起。超过 8 项就别折叠了，直接排开更快。'}
+ ]},
+ {name:'导航与切换', en:'NAVIGATION', items:[
+   {zh:'页签', en:'Tabs', d:'同一层级里的并列视图切换。超过 6 个页签改成下拉或侧栏。'},
+   {zh:'面包屑', en:'Breadcrumb', d:'告诉人现在在哪一层。深层页面必须有，浅层页面加了是噪音。'},
+   {zh:'分段控件', en:'Segmented Control', d:'二到四个互斥选项的快切，比下拉更快，比开关更明确。'},
+   {zh:'分页', en:'Pagination', d:'长列表的翻页。条目少于三页时，用"加载更多"更合适。'},
+   {zh:'命令面板', en:'Command Palette', d:'Cmd+K 唤起的全局搜索与操作入口。功能多的产品靠它省掉一半导航。'}
+ ]},
+ {name:'反馈与状态', en:'FEEDBACK', items:[
+   {zh:'轻提示', en:'Toast', d:'操作完成后的短暂告知。文案要说清结果，不要只说"操作成功"。'},
+   {zh:'提示泡', en:'Tooltip', d:'鼠标悬停时的补充说明。它不能承载必须被看见的信息，因为触屏没有悬停。'},
+   {zh:'空状态', en:'Empty State', d:'没有数据时的引导。要给"下一步做什么"，不是只画一个灰图标。'},
+   {zh:'骨架屏', en:'Skeleton', d:'加载中的占位，形状要贴近真实内容。转圈只说明在等，骨架说明在等什么。'}
+ ]},
+ {name:'数据与流程', en:'DATA', items:[
+   {zh:'数据表', en:'Table', d:'多字段对照。列宽必须显式给，否则中文会被压成一字一行。'},
+   {zh:'步骤条', en:'Stepper', d:'多步骤流程的进度。告诉人还剩几步，比告诉人"已完成 40%"有用。'}
+ ]}
+];
+
+/* ========== 间距刻度 ========== */
+var SPACING = [4,8,12,16,24,32,48,64,96];
+
+/* ========== 渲染 ========== */
+function wfHTML(blocks){
+  var WS = [86,92,78,88,74,90,66,44];
+  return blocks.map(function(b){
+    var x=b[0], y=b[1], w=b[2], h=b[3], k=b[4];
+    var inner = '';
+    if(k==='txt'){
+      var n = h>=45 ? 8 : (h>=30 ? 6 : (h>=14 ? 3 : 2));
+      for(var i=0;i<n;i++) inner += '<i style="width:'+WS[i]+'%"></i>';
+    }
+    else if(k==='card' || k==='card2') inner = '<s></s><i></i><i></i>';
+    else if(k==='chart') inner = '<u style="height:36%"></u><u style="height:58%"></u><u style="height:44%"></u><u style="height:72%"></u><u style="height:52%"></u><u style="height:88%"></u>';
+    return '<div class="b b-'+k+'" style="left:'+x+'%;top:'+y+'%;width:'+w+'%;height:'+h+'%">'+inner+'</div>';
+  }).join('');
+}
+
+(function(){
+  var host = document.getElementById('plates');
+  host.innerHTML = PLATES.map(function(p,i){
+    var no = 'PLATE ' + (i+1 < 10 ? '0' : '') + (i+1);
+    return '<article class="plate">'
+      + '<div class="frame"><span class="pn mono">'+no+'</span><div class="wf">'+wfHTML(p.wf)+'</div></div>'
+      + '<div class="pinfo">'
+      +   '<h3>'+p.zh+'</h3>'
+      +   '<p class="en mono">'+p.en+'</p>'
+      +   '<p>'+p.d+'</p>'
+      +   '<div class="say">'+p.say+'</div>'
+      + '</div>'
+      + '</article>';
+  }).join('');
+})();
+
+(function(){
+  var host = document.getElementById('bom');
+  var html = '';
+  PARTS.forEach(function(g){
+    html += '<div class="group"><h3>'+g.name+'</h3><span class="len mono">'+g.en+'</span></div>';
+    g.items.forEach(function(it){
+      html += '<div class="part"><h4>'+it.zh+'<span class="en mono">'+it.en+'</span></h4><p>'+it.d+'</p></div>';
+    });
+  });
+  host.innerHTML = html;
+})();
+
+(function(){
+  var host = document.getElementById('sp');
+  host.innerHTML = SPACING.map(function(v){
+    return '<div><span class="v mono">'+v+'</span><span class="s" style="width:'+(v*1.15)+'px"></span></div>';
+  }).join('');
+})();
+</script>
+</body>
+</html>
+

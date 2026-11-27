@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 300" width="1000" height="300">
+<rect width="1000" height="300" fill="#EFF0EC"/>
+<path d="M66 232 C 128 84, 232 84, 294 232" stroke="#B23A2A" stroke-width="14" fill="none"/><circle cx="170" cy="128" r="12" fill="#15181A"/>
+<text x="340" y="152" font-family="'IBM Plex Mono','Consolas',ui-monospace,monospace" font-size="42" letter-spacing="2.2" fill="#15181A">motion-vocab</text>
+<text x="340" y="196" font-family="'Noto Serif SC','Songti SC','SimSun',serif" font-size="22" fill="#7A8183">动效词汇台 · 拆解 · 命名 · 可复制提示词</text>
+</svg>

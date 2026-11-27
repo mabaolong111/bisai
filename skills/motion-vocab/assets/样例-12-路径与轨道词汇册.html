@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>路径与轨道词汇册 · VOL 12</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' fill='%23EFF0EC'/%3E%3Cpath d='M12 78 C 30 22, 70 22, 88 78' stroke='%23B23A2A' stroke-width='7' fill='none'/%3E%3Ccircle cx='50' cy='43' r='6' fill='%2315181A'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="https://miaoda.feishu.cn/fonts/css2?family=Noto+Serif+SC:wght@500;700;900&family=Noto+Sans+SC:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --paper:#EFF0EC; --paper2:#E7E9E3; --paper3:#DDE0D8;
+  --ink:#15181A; --ink2:#464C4E; --ink3:#7A8183;
+  --line:#C7CBC6; --line2:#A9AFAA;
+  --red:#B23A2A; --red2:#CE7264;
+  --serif:"Noto Serif SC","Songti SC","SimSun",serif;
+  --sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",monospace;
+}
+*{box-sizing:border-box}
+body{margin:0;color:var(--ink);font-family:var(--sans);line-height:1.7;
+  background-color:var(--paper);
+  background-image:repeating-linear-gradient(to right,rgba(21,24,26,.05) 0 1px,transparent 1px 76px);
+  -webkit-font-smoothing:antialiased}
+.wrap{max-width:1120px;margin:0 auto;padding:0 44px 90px}
+
+/* ---------- 页眉 ---------- */
+.brand{display:flex;justify-content:space-between;align-items:flex-end;gap:20px;
+  padding:26px 0 9px;border-bottom:1px solid var(--line2);
+  font:9px/1.5 var(--mono);letter-spacing:.14em;color:var(--ink3)}
+.brand span:first-child{color:var(--ink)}
+
+/* ---------- 标题区 ---------- */
+.kicker{margin:50px 0 16px;font:10px/1 var(--mono);letter-spacing:.22em;color:var(--red)}
+h1{margin:0 0 24px;font-family:var(--serif);font-weight:900;
+  font-size:clamp(30px,4.5vw,53px);line-height:1.2;letter-spacing:-.01em}
+h1 em{font-style:normal;color:var(--red);white-space:nowrap;
+  box-shadow:inset 0 -3px 0 var(--red2)}
+.lede{margin:0 0 34px;max-width:37em;font:15px/2.05 var(--serif);color:var(--ink2)}
+.lede b{font-weight:600;color:var(--ink)}
+
+/* ---------- 节目单 ---------- */
+.cuesheet{border:1px solid var(--line2);background:var(--paper2)}
+.ch{display:flex;justify-content:space-between;padding:9px 14px;border-bottom:1px solid var(--line);
+  font:9px/1.4 var(--mono);letter-spacing:.14em;color:var(--ink3)}
+.ch em{font-style:normal;color:var(--ink)}
+.cg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr))}
+.cell{padding:14px 14px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);min-width:0}
+.cell:nth-child(5n){border-right:0}
+.cell:nth-last-child(-n+5){border-bottom:0}
+.cell .n{font:9px/1 var(--mono);color:var(--red);letter-spacing:.1em;margin-bottom:8px}
+.cell .t{font-size:13px;font-weight:700;line-height:1.45;margin-bottom:5px}
+.cell .e{font:9px/1.4 var(--mono);letter-spacing:.06em;color:var(--ink3);word-break:break-word}
+
+/* ---------- 章节 ---------- */
+.sec{margin-top:84px;padding-top:28px;border-top:1px solid var(--line)}
+.sh{display:flex;justify-content:space-between;align-items:flex-start;gap:20px}
+.sn{font:10px/1.4 var(--mono);letter-spacing:.16em;color:var(--ink3)}
+.sn b{color:var(--red);font-weight:500}
+.pb{position:relative;width:184px;height:11px;border-top:1px solid var(--line2);flex:0 0 auto}
+.pb .dot{position:absolute;top:-3px;left:calc(var(--p) * 100%);width:5px;height:5px;background:var(--red);
+  transform:translateX(-3px)}
+h2{margin:12px 0 16px;font-family:var(--serif);font-weight:700;
+  font-size:clamp(23px,2.9vw,33px);line-height:1.32;letter-spacing:-.005em}
+.p{margin:0;max-width:39em;font:14px/2.05 var(--sans);color:var(--ink2)}
+.p b{color:var(--ink);font-weight:600}
+.p em{font-style:normal;font-family:var(--mono);font-size:12.5px;color:var(--ink);background:rgba(178,58,42,.07);
+  padding:1px 4px;letter-spacing:0}
+
+/* ---------- 三列词条 ---------- */
+.tr{display:grid;grid-template-columns:180px minmax(0,1fr) 128px;gap:22px;padding:18px 0;
+  border-bottom:1px solid var(--line)}
+.tr .k{font-size:15px;font-weight:700;line-height:1.5}
+.tr .e{display:block;margin-top:3px;font:9px/1.4 var(--mono);letter-spacing:.09em;color:var(--ink3)}
+.tr .d{font:13.5px/1.95 var(--sans);color:var(--ink2)}
+.tr .d b{color:var(--ink);font-weight:600}
+.tr .mt{font:9px/1.7 var(--mono);color:var(--ink3);text-align:right;letter-spacing:.04em;word-break:break-word}
+
+/* ---------- 提示条 ---------- */
+.note{margin:26px 0;padding:13px 0 13px 16px;border-left:2px solid var(--red);
+  font:13px/1.95 var(--sans);color:var(--ink2)}
+.note b{color:var(--ink);font-weight:600}
+.note em{font-style:normal;font-family:var(--mono);font-size:12px;color:var(--ink)}
+
+/* ---------- 演示台 ---------- */
+.bench{margin:26px 0 0;border:1px solid var(--line2);background:var(--paper2)}
+.bh{display:flex;justify-content:space-between;gap:16px;padding:9px 12px;border-bottom:1px solid var(--line);
+  font:9px/1.45 var(--mono);letter-spacing:.09em;color:var(--ink3)}
+.bh .dot{display:inline-block;width:5px;height:5px;background:var(--red);margin-right:6px;vertical-align:1px}
+.bh .rt{color:var(--red);text-align:right}
+.plot{position:relative;background:var(--paper);border-bottom:1px solid var(--line);overflow:hidden}
+.plot svg{display:block;width:100%;height:auto}
+.ctl{display:flex;flex-wrap:wrap;gap:16px;align-items:center;padding:12px;border-bottom:1px solid var(--line)}
+.ctl .kn{display:flex;align-items:center;gap:8px;font:9px/1 var(--mono);letter-spacing:.08em;color:var(--ink3)}
+.ctl .kn b{font:500 11px/1 var(--mono);color:var(--ink);min-width:42px;text-align:right}
+.btn{border:1px solid var(--ink);background:transparent;color:var(--ink);
+  padding:5px 10px;font:10px/1.3 var(--mono);letter-spacing:.06em;cursor:pointer;border-radius:0}
+.btn[aria-pressed="true"]{background:var(--ink);color:var(--paper)}
+.btn:hover{background:var(--ink);color:var(--paper)}
+input[type=range]{-webkit-appearance:none;appearance:none;width:132px;height:14px;background:transparent;cursor:pointer}
+input[type=range]::-webkit-slider-runnable-track{height:1px;background:var(--line2)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:9px;height:9px;margin-top:-4px;
+  background:var(--ink);border:0;border-radius:0}
+input[type=range]:focus-visible{outline:2px solid var(--red);outline-offset:3px}
+.ro{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px 22px;padding:12px}
+.ro .r{font:9px/1.4 var(--mono);color:var(--ink3);letter-spacing:.05em;min-width:0}
+.ro .r b{display:block;margin-top:4px;font:500 15px/1.2 var(--mono);color:var(--ink);letter-spacing:0}
+.ro .r i{display:block;position:relative;height:2px;margin-top:6px;background:var(--line)}
+.ro .r i u{position:absolute;left:0;top:0;height:2px;width:0;background:var(--red)}
+.lbl{position:absolute;font:9px/1.3 var(--mono);letter-spacing:.05em;color:var(--ink3);pointer-events:none}
+
+/* ---------- 表格 ---------- */
+.tblwrap{margin-top:24px;overflow-x:auto}
+table{width:100%;border-collapse:collapse;table-layout:fixed;font-size:12.5px}
+th,td{text-align:left;padding:9px 10px;border-bottom:1px solid var(--line);vertical-align:top;line-height:1.75}
+th{font:9px/1.4 var(--mono);letter-spacing:.1em;color:var(--ink3);border-bottom:1px solid var(--line2);font-weight:400}
+td.v{font-family:var(--mono);font-size:11.5px;color:var(--ink);white-space:nowrap}
+td.v b{color:var(--red);font-weight:500}
+td.d{color:var(--ink2)}
+td.src{font:9.5px/1.6 var(--mono);color:var(--ink3)}
+tr.tfoot td{border-bottom:0;padding-top:11px;font:9.5px/1.7 var(--mono);color:var(--ink3)}
+
+/* ---------- 词条页 ---------- */
+.words{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 44px;margin-top:22px}
+.word{padding:15px 0 16px;border-bottom:1px solid var(--line);min-width:0}
+.word .h{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.word .h b{font-size:14.5px;font-weight:700}
+.word .h em{font:9px/1.3 var(--mono);letter-spacing:.08em;color:var(--red);font-style:normal;text-align:right}
+.word .d{margin-top:5px;font:12.5px/1.85 var(--sans);color:var(--ink2)}
+.word .x{margin-top:6px;font:9.5px/1.5 var(--mono);color:var(--ink3);letter-spacing:.03em}
+
+/* ---------- 五槽位 ---------- */
+.slot{display:grid;grid-template-columns:30px 138px minmax(0,1fr) 112px;gap:8px 18px;
+  padding:14px 0;border-bottom:1px solid var(--line);align-items:start}
+.slot .n{font:9px/1.4 var(--mono);color:var(--red);padding-top:3px}
+.slot .t{font-size:13.5px;font-weight:700;line-height:1.5}
+.slot .d{font:12.5px/1.9 var(--sans);color:var(--ink2)}
+.slot .d em{font-style:normal;font-family:var(--mono);font-size:11.5px;color:var(--ink)}
+.slot .x{font:9px/1.6 var(--mono);color:var(--ink3);text-align:right;word-break:break-word}
+
+/* ---------- 示例 ---------- */
+.exwrap{margin:26px 0 0;border:1px solid var(--line2);background:var(--paper2)}
+.exh{display:flex;justify-content:space-between;align-items:center;padding:9px 12px;border-bottom:1px solid var(--line)}
+.exh span{font:9px/1.4 var(--mono);letter-spacing:.1em;color:var(--ink3)}
+.exbody{padding:8px 14px 14px;background:var(--paper)}
+.exbody li{list-style:none;position:relative;padding:10px 0 10px 30px;border-bottom:1px dotted var(--line);
+  font:13px/1.85 var(--sans);color:var(--ink2)}
+.exbody li:last-child{border-bottom:0}
+.exbody li b{color:var(--ink);font-weight:600}
+.exbody li:nth-child(n)::before{counter-increment:ex;content:counter(ex);position:absolute;left:0;top:11px;
+  font:9px/1 var(--mono);color:var(--red)}
+.exbody{counter-reset:ex}
+
+/* ---------- 边界 ---------- */
+.edg{padding:14px 0;border-bottom:1px solid var(--line)}
+.edg .no{font:9px/1.4 var(--mono);letter-spacing:.1em;color:var(--ink3);margin-bottom:5px}
+.edg .no b{color:var(--red)}
+.edg .t{font-size:13.5px;font-weight:700;margin-bottom:4px}
+.edg .d{font:12.5px/1.9 var(--sans);color:var(--ink2)}
+
+/* ---------- 页脚 ---------- */
+.chain{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px 24px;margin-top:76px;
+  padding-top:20px;border-top:1px solid var(--line2)}
+.chain .c{min-width:0}
+.chain .c .v{font:9px/1.4 var(--mono);letter-spacing:.12em;color:var(--ink3)}
+.chain .c .t{font-size:12.5px;line-height:1.5;margin-top:3px}
+.chain .c .d{font:9.5px/1.6 var(--mono);color:var(--ink3);margin-top:2px}
+.chain .now .v{color:var(--red)}
+.fnote{margin-top:26px;font:9.5px/1.85 var(--mono);color:var(--ink3);letter-spacing:.02em}
+
+@media (max-width:900px){
+  .wrap{padding:0 22px 70px}
+  .cg{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .cell:nth-child(5n){border-right:1px solid var(--line)}
+  .cell:nth-child(2n){border-right:0}
+  .cell:nth-last-child(-n+5){border-bottom:1px solid var(--line)}
+  .cell:last-child{border-bottom:0}
+  .tr{grid-template-columns:1fr;gap:7px}
+  .tr .mt{text-align:left;display:flex;gap:14px}
+  .tr .mt b{display:inline}
+  .ro{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .words{grid-template-columns:1fr;gap:0}
+  .slot{grid-template-columns:24px minmax(0,1fr);gap:5px 12px}
+  .slot .t{grid-column:2}
+  .slot .d{grid-column:2}
+  .slot .x{grid-column:2;text-align:left}
+  .chain{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .tblwrap{overflow-x:hidden}
+  table{table-layout:fixed;font-size:11.5px}
+  th,td{padding:7px 6px}
+  td.v{white-space:normal;word-break:break-word;font-size:10.5px}
+  td.d{font-size:11.5px;line-height:1.7}
+  td.src{word-break:break-all}
+  h1{font-size:clamp(26px,7.2vw,38px)}
+  h2{font-size:clamp(21px,6vw,27px)}
+  input[type=range]{width:104px}
+  .pb{width:110px}
+}
+@media (prefers-reduced-motion:reduce){
+  .bench .plot *{transition:none!important}
+}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+<div class="brand">
+  <span>ANTE · 前端动效词汇册 · VOL 12</span>
+  <span>一条路径 · 4 个能拖的演示 · 12 个词</span>
+</div>
+
+<p class="kicker">路径 ／ PATH ／ ORBIT</p>
+<h1>让一个点沿一条线走，<br>先得把这条线<em>量成一串数</em>。</h1>
+<p class="lede">前十一册说的都是「怎么变」——缓动是查表、弹簧是解方程、群体是规则。这一册换了个问题：<b>往哪走</b>。不是从 A 到 B 的一条直线，而是一条你自己画的曲线；画完还不算，得把它量出长度、算出切线，那个点才能匀速地、朝着正确的方向走过去。</p>
+
+<div class="cuesheet">
+  <div class="ch"><span><em>CUE SHEET</em> · 本册十节</span><span>01 → 12</span></div>
+  <div class="cg">
+    <div class="cell"><div class="n">01</div><div class="t">两个贝塞尔</div><div class="e">时间轴 / 坐标轴</div></div>
+    <div class="cell"><div class="n">02</div><div class="t">四个点一条线</div><div class="e">P0 P1 P2 P3</div></div>
+    <div class="cell"><div class="n">03</div><div class="t">三种跑法</div><div class="e">getPointAtLength / offset-path / 库</div></div>
+    <div class="cell"><div class="n">04</div><div class="t">匀速只有一种写法</div><div class="e">arc-length</div></div>
+    <div class="cell"><div class="n">05</div><div class="t">朝向</div><div class="e">tangent / auto-orient</div></div>
+    <div class="cell"><div class="n">06</div><div class="t">脉冲与拖尾</div><div class="e">seed 错峰</div></div>
+    <div class="cell"><div class="n">07</div><div class="t">闭合与循环</div><div class="e">接缝 / 周期</div></div>
+    <div class="cell"><div class="n">08</div><div class="t">十二个词</div><div class="e">一页速查</div></div>
+    <div class="cell"><div class="n">09</div><div class="t">五槽位</div><div class="e">提示词 · 8 段示例</div></div>
+    <div class="cell"><div class="n">10</div><div class="t">四条边界</div><div class="e">什么时候别用</div></div>
+  </div>
+</div>
+
+<!-- ================= 01 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>01</b> / TWO BEZIERS</div>
+    <div class="pb" style="--p:.05"><span class="dot"></span></div>
+  </div>
+  <h2>两个贝塞尔，压在两条不同的轴上</h2>
+  <p class="p">同一个名字，在 CSS 里指的是两样东西。分不清，你写的提示词就会把 AI 带到错误的轴上：让它做一条曲线，它给你一个缓动；让它改缓动，它去改路径。</p>
+
+  <div class="tr">
+    <div><div class="k">计时贝塞尔</div><span class="e">TIMING BEZIER</span></div>
+    <div class="d">就是 <em>cubic-bezier(x1,y1,x2,y2)</em>。四个数是<b>两个控制点</b>，起点被钉死在 (0,0)、终点钉死在 (1,1)。它只压一根轴：<b>时间</b>——把「过了多久」换算成「走了多少」。因为要当函数用，横轴被限制在 0–1，不许倒退。</div>
+    <div class="mt">轴：时间<br>点数：2 个控制点</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">几何贝塞尔</div><span class="e">GEOMETRIC BEZIER</span></div>
+    <div class="d">就是 SVG 里的 <em>M … C x1 y1 x2 y2 x y</em>。四个点是<b>空间坐标</b>，起点终点随便放，横轴也不受限。它压的是<b>坐标</b>——给你一个数，还你一个点。曲线本身、圆角、图标轮廓、光点跑道，都是它。</div>
+    <div class="mt">轴：坐标<br>点数：2 控制 + 2 端点</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">一处分岔</div><span class="e">WHERE THEY SPLIT</span></div>
+    <div class="d">两者的式子是同一个（三次多项式），区别只在<b>把什么当自变量</b>：计时贝塞尔喂时间、出进度；几何贝塞尔喂一个比例、出一个坐标。<b>所以别拿同一个词去要两样东西</b>——说「要一条贝塞尔曲线」，AI 可能给你缓动，也可能给你路径。</div>
+    <div class="mt">同源<br>不同轴</div>
+  </div>
+
+  <p class="note"><b>一句话分清：</b>问「快了还是慢了」，那是计时贝塞尔；问「它在哪儿」，那是几何贝塞尔。<b>一条路径要跑得好看，两个都得给</b>——路径决定它走哪，速度决定它怎么走，别指望一个 <em>cubic-bezier</em> 把两件事一起办了。</p>
+</section>
+
+<!-- ================= 02 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>02</b> / FOUR POINTS</div>
+    <div class="pb" style="--p:.15"><span class="dot"></span></div>
+  </div>
+  <h2>四个点，一条线，长度得自己量</h2>
+  <p class="p">画一条曲线很容易，让它跑得对不容易。所有麻烦都从这一句开始：<b>贝塞尔的「进度」不是「长度」</b>。你给 0.5，它给的是参数上的中点，不是走了一半的距离。</p>
+
+  <div class="tr">
+    <div><div class="k">起点与终点</div><span class="e">ENDPOINTS · P0 / P3</span></div>
+    <div class="d">曲线<b>一定</b>经过这两个点，控制点<b>一定不</b>经过。这是判断「看错图」最快的办法：一条线如果穿过了控制点，它画的就不是这条曲线。</div>
+    <div class="mt">一定能到<br>设计稿的把手</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">控制点</div><span class="e">CONTROL POINT · P1 / P2</span></div>
+    <div class="d">只负责「拉」。拉得越远弯得越狠，两点等高就是对称的拱。<b>它不改曲线的终点，只改怎么弯过去</b>——所以调手感时动的是它，不是端点。</div>
+    <div class="mt">2 个（三次）<br>1 个（二次）</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">二次贝塞尔</div><span class="e">QUADRATIC · Q</span></div>
+    <div class="d">三个点：起、一个控制点、终。做圆角、图标弧、简单的转场弧够用；但只有一只把手，做不出「先鼓后收」的 S 形。</div>
+    <div class="mt">Q x1 y1 x y</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">路径长度</div><span class="e">ARC LENGTH · L</span></div>
+    <div class="d">它不等于弦长。这条拱比两端直线多出 12%。后面所有「匀速」「走到 40%」都必须建立在 L 上，<b>不能建立在 u 上</b>——两者不是一回事。</div>
+    <div class="mt">长度 ≠ 弦长<br>L &gt; 直线</div>
+  </div>
+
+  <div class="bench" id="pa">
+    <div class="bh"><span><span class="dot"></span>BEZIER · 四个点，一条线</span><span class="rt">拖两个控制点，看等 u 的点怎么挤</span></div>
+    <div class="plot">
+      <svg id="svgA" viewBox="0 0 1000 300" role="img" aria-label="三次贝塞尔曲线与等参数采样点">
+        <line id="chordA" x1="60" y1="240" x2="940" y2="240" stroke="#A9AFAA" stroke-width="1" stroke-dasharray="6 5"/>
+        <line id="armA1" x1="60" y1="240" x2="353" y2="80" stroke="#7A8183" stroke-width=".7"/>
+        <line id="armA2" x1="940" y1="240" x2="647" y2="80" stroke="#7A8183" stroke-width=".7"/>
+        <path id="curA" d="" fill="none" stroke="#B23A2A" stroke-width="1.8"/>
+        <g id="ptsA"></g>
+        <circle id="cA1" cx="353" cy="80" r="4.5" fill="#15181A"/>
+        <circle id="cA2" cx="647" cy="80" r="4.5" fill="#15181A"/>
+        <circle cx="60" cy="240" r="3.5" fill="#7A8183"/>
+        <circle cx="940" cy="240" r="3.5" fill="#7A8183"/>
+      </svg>
+      <span class="lbl" id="lbA0" style="left:12px;top:224px">P0</span>
+      <span class="lbl" id="lbA3" style="right:10px;top:224px">P3</span>
+      <span class="lbl" id="lbA1" style="left:0;top:0">P1</span>
+      <span class="lbl" id="lbA2" style="left:0;top:0">P2</span>
+    </div>
+    <div class="ctl">
+      <div class="kn">P1 高 <b id="vA1">160</b><input type="range" id="ra1" min="0" max="210" value="160" aria-label="控制点 P1 高度"></div>
+      <div class="kn">P2 高 <b id="vA2">160</b><input type="range" id="ra2" min="0" max="210" value="160" aria-label="控制点 P2 高度"></div>
+      <button class="btn" id="raFlat" type="button">拉平</button>
+      <span style="font:9px/1.5 var(--mono);color:var(--ink3);letter-spacing:.04em">灰点 = 把 u 平均切成 12 份取到的位置</span>
+    </div>
+    <div class="ro">
+      <div class="r">路径长度 L<b id="aL">—</b><i><u id="fL"></u></i></div>
+      <div class="r">弦长<b id="aC">—</b><i><u id="fC"></u></i></div>
+      <div class="r">相邻点最大 ÷ 最小<b id="aG">—</b><i><u id="fG"></u></i></div>
+      <div class="r">L ÷ 弦长<b id="aR">—</b><i><u id="fR"></u></i></div>
+    </div>
+  </div>
+
+  <p class="note"><b>最容易看错的一点：</b>那 12 个灰点是「u 平均切」的结果，不是「距离平均切」，所以必然一疏一密：密的那段 u 走得慢，疏的那段走得快。<b>把手怎么摆、拱做多高，都会改疏密的幅度和方向</b>——下面那条换了个形状，疏密就掉了个头。</p>
+</section>
+
+<!-- ================= 03 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>03</b> / THREE WAYS</div>
+    <div class="pb" style="--p:.25"><span class="dot"></span></div>
+  </div>
+  <h2>三种跑法，拿到的东西不一样</h2>
+  <p class="p">同一个「让点沿线走」，前端有三条路。它们都能让东西动起来，但<b>你手里握住的数据不同</b>：有的能给出精确坐标、有的连坐标都不给你，只知道「进度到哪了」。选错，后面全是补丁。</p>
+
+  <div class="tblwrap">
+    <table>
+      <colgroup><col style="width:16%"><col style="width:31%"><col style="width:26%"><col style="width:27%"></colgroup>
+      <thead><tr><th>手段</th><th>一行写法</th><th>你能拿到</th><th>代价</th></tr></thead>
+      <tbody>
+        <tr>
+          <td class="v">SVG 取点</td>
+          <td class="v">el.getPointAtLength(s)</td>
+          <td class="d">精确的坐标；切线要自己取前后两点差分。想画拖尾、想沿线发粒子、想算碰撞，都从这儿出发。</td>
+          <td class="d">每帧在主线程算，几十个点就开始吃帧；路径一改，长度缓存要重算。</td>
+        </tr>
+        <tr>
+          <td class="v">CSS 偏移</td>
+          <td class="v">offset-path:path(…)<br>offset-distance:40%</td>
+          <td class="d">位置 + 朝向（<em>offset-rotate:auto</em>）。一行 CSS，浏览器丢给合成器，最省。</td>
+          <td class="d">拿不到当前坐标，中途要发射什么东西就得另算；路径也不能随手改了再动画。</td>
+        </tr>
+        <tr>
+          <td class="v">anime v4</td>
+          <td class="v">createMotionPath(path)</td>
+          <td class="d">返回 translateX / translateY / rotate 三条曲线，直接当 tween 属性用。</td>
+          <td class="d">多一个库；rotate 是前后两点差分算的 atan2，转向快但不解析。</td>
+        </tr>
+        <tr>
+          <td class="v">GSAP</td>
+          <td class="v">motionPath:{path, autoRotate:true}</td>
+          <td class="d">位置、旋转、缓动、start / end 截取一段路径，全都现成。</td>
+          <td class="d">大约 30KB 起；站在 Canvas 上还得自己换算坐标系。</td>
+        </tr>
+        <tr class="tfoot"><td colspan="4">四条路用的是同一条 SVG 路径当跑道；差别只在「谁在算」。能引一行就不抄仓库——先问清楚要坐标还是要朝向。</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <p class="p" style="margin-top:24px">最省事的一句：<em>只是让一个点沿线跑、还要能自动转向，就用 offset-path</em>。要拖尾、要沿线发粒子、要读完坐标再做判断，才上 getPointAtLength。库是用来省时间的，不是用来替代理解的。</p>
+
+  <p class="note"><b>它们有一个共同点，也是最容易被忽略的一点：</b>「进度」全都是<b>弧长百分比</b>，不是贝塞尔参数。这正是「跑得匀不匀」的唯一开关，单开一节讲它。</p>
+</section>
+
+<!-- ================= 04 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>04</b> / ARC LENGTH</div>
+    <div class="pb" style="--p:.35"><span class="dot"></span></div>
+  </div>
+  <h2>匀速只有一种写法，其余都是错觉</h2>
+  <p class="p">让 <em>u</em> 从 0 线性走到 1，点看着会忽快忽慢。这不是错觉：贝塞尔是参数方程，<b>u 每进一小步，实际走过的长度由曲率决定</b>。这条 S 跑道两端是弯、中段是直，于是<b>起步和收尾慢、中段快</b>——实测 0.60×–1.21×，同一个 u 步长，最慢处只走到最快处的一半。想让点匀速，只能把「u」换成「已走长度 ÷ 总长」。</p>
+
+  <div class="bench" id="spB12">
+    <div class="bh"><span><span class="dot"></span>UNIFORM · 同一条跑道，两种取点</span><span class="rt" id="bPh">同周期 2.8s</span></div>
+    <div class="plot">
+      <svg id="svgB" viewBox="0 0 1000 300" role="img" aria-label="按参数取点与按弧长取点的速度对比">
+        <path id="curB" d="M60 250 C 240 30 760 30 940 250" fill="none" stroke="#C7CBC6" stroke-width="1.6"/>
+        <g id="tickB"></g>
+        <circle id="dotBu" r="5.5" fill="#B23A2A"/>
+        <circle id="dotBs" r="5.5" fill="#15181A"/>
+      </svg>
+      <span class="lbl" id="lbBu" style="left:0;top:0">u</span>
+      <span class="lbl" id="lbBs" style="left:0;top:0">s</span>
+    </div>
+    <div class="ctl">
+      <button class="btn" id="bRun" type="button">重跑一圈</button>
+      <span style="font:9px/1.5 var(--mono);color:var(--ink3);letter-spacing:.04em">红点按参数 u 走 · 黑点按弧长 s 走 · 灰点是 10 等分的弧长刻度</span>
+    </div>
+    <div class="ro">
+      <div class="r">按 u 的速度<b id="bVu">—</b><i><u id="fVu"></u></i></div>
+      <div class="r">按 s 的速度<b id="bVs">—</b><i><u id="fVs"></u></i></div>
+      <div class="r">此刻相位差<b id="bPd">—</b><i><u id="fPd"></u></i></div>
+      <div class="r">弧长 L<b id="bLe">—</b><i><u id="fLe"></u></i></div>
+    </div>
+  </div>
+
+  <p class="note"><b>拖尾是最先暴露问题的地方：</b>按 u 排放，弯处挤成一坨、直处拉得很开，看着像「加速冲过去」；按 s 排放，间距才均匀，才像一条尾巴。<b>CSS 的 offset-distance 天生按弧长</b>，所以它反而比你手写贝塞尔更匀——代价是你拿不到当前 u。</p>
+
+  <p class="p">再补一句常被混掉的：<b>匀速 ≠ 线性</b>。匀速是「长度随时间是直线」，线性是「进度随时间是直线」。你完全可以在弧长上再套一层缓动（先慢后快），那还是沿路径跑，只是不匀速——两层要分开调，别一个按钮全改。</p>
+</section>
+
+<!-- ================= 05 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>05</b> / TANGENT</div>
+    <div class="pb" style="--p:.45"><span class="dot"></span></div>
+  </div>
+  <h2>朝向要么算出来，要么就一直错</h2>
+  <p class="p">一个方块沿线跑却不转向，看着不像在轨道上跑，像被一台固定摄像机拍着平移——弯的地方尤其假。朝向就是<b>切线角</b>：沿路径取这个点前后一丁点两个位置，相减，<em>atan2(dy, dx)</em>。库里都这么干，快，但在尖角处会跳一下。</p>
+
+  <div class="tr">
+    <div><div class="k">切线角</div><span class="e">TANGENT ANGLE</span></div>
+    <div class="d">不用背公式，只记一件事：<b>切线是「往哪走」，不是「在哪」</b>。取 s−ε 与 s+ε 两点求 atan2；ε 越小越准、也越容易被浮点数咬，经验上取总长的 0.5% 就稳。</div>
+    <div class="mt">atan2(dy, dx)<br>单位：度</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">自动朝向</div><span class="e">AUTO-ORIENT</span></div>
+    <div class="d">CSS 的 <em>offset-rotate:auto</em>、GSAP 的 <em>autoRotate:true</em>，开了就不用自己算。想要「永远竖着」就写 <em>auto 90deg</em>，省得在代码里补角度。</div>
+    <div class="mt">offset-rotate<br>auto / auto 90deg</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">尖角会跳</div><span class="e">SEAM JUMP</span></div>
+    <div class="d">两段路径相接，位置接上了、切线不一定接上。角度突变，方块会「啪」地扭一下。<b>解法只有两个</b>：把拐点做成圆角，或对角度做插值（每帧 lerp 0.1–0.2）。</div>
+    <div class="mt">跳变 &gt; 20°<br>就会被看见</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">对齐原点</div><span class="e">ALIGN ORIGIN</span></div>
+    <div class="d">方块的中心要对到线上，不是左上角。<b>偏移一个半径，转弯时就会明显甩出去</b>——这是「明明对齐了却看着飘」的常见原因。</div>
+    <div class="mt">alignOrigin<br>[0.5, 0.5]</div>
+  </div>
+
+  <div class="bench" id="spC12">
+    <div class="bh"><span><span class="dot"></span>TANGENT · 不转 / 切线 / 插值</span><span class="rt" id="cAng">0.0°</span></div>
+    <div class="plot">
+      <svg id="svgC" viewBox="0 0 1000 300" role="img" aria-label="方块沿 S 型路径运动并旋转">
+        <path id="curC" d="M60 250 C 200 250 250 20 400 90 L 600 90 C 660 20 800 250 940 250" fill="none" stroke="#C7CBC6" stroke-width="1.6"/>
+        <line id="tanC" x1="0" y1="0" x2="0" y2="0" stroke="#B23A2A" stroke-width="1" stroke-dasharray="4 3" opacity=".7"/>
+        <g id="blkC">
+          <rect x="-13" y="-13" width="26" height="26" fill="none" stroke="#15181A" stroke-width="1.4"/>
+          <line x1="0" y1="0" x2="23" y2="0" stroke="#B23A2A" stroke-width="1.4"/>
+          <rect x="-2.5" y="-2.5" width="5" height="5" fill="#B23A2A"/>
+        </g>
+      </svg>
+    </div>
+    <div class="ctl">
+      <button class="btn" id="cNo" aria-pressed="false" type="button">不转</button>
+      <button class="btn" id="cTan" aria-pressed="true" type="button">切线</button>
+      <button class="btn" id="cLerp" aria-pressed="false" type="button">插值</button>
+      <span style="font:9px/1.5 var(--mono);color:var(--ink3);letter-spacing:.04em">方块里那根红线是它的朝向，虚线是路径切线</span>
+    </div>
+    <div class="ro">
+      <div class="r">当前角度<b id="cA">—</b><i><u id="fA"></u></i></div>
+      <div class="r">单帧最大跳变<b id="cJ">—</b><i><u id="fJ"></u></i></div>
+      <div class="r">一圈进度<b id="cP">—</b><i><u id="fP"></u></i></div>
+      <div class="r">当前模式<b id="cM">切线</b><i><u id="fM"></u></i></div>
+    </div>
+  </div>
+
+  <p class="note"><b>写提示词时的差别：</b>只说「沿曲线运动」，AI 有八成不给你转向；说「<em>auto-orient / offset-rotate:auto</em>，物体中心对齐路径」，它才知道你要的是「贴着轨道跑」，不是「路过一条线」。<b>转向是独立的一项，不是路径的附属品。</b></p>
+</section>
+
+
+<!-- ================= 06 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>06</b> / PULSE &amp; TRAIL</div>
+    <div class="pb" style="--p:.55"><span class="dot"></span></div>
+  </div>
+  <h2>脉冲和拖尾，靠错峰活着</h2>
+  <p class="p">一条线上跑一个光点，读起来是「加载中」；三条线上各跑两个、<b>相位彼此错开</b>，才像「系统正在运转」。这类效果真正只有一个参数：<b>相位差</b>。错了，全场同步，一眼假。</p>
+
+  <div class="tr">
+    <div><div class="k">脉冲</div><span class="e">PULSE</span></div>
+    <div class="d">一个短促的点或一小段亮线沿路径跑，到端点淡出。用 <em>sin(u·π)</em> 让两头淡——不然它会在起点凭空出现、在终点凭空消失，像一张贴图。</div>
+    <div class="mt">u = (t·speed + seed) % 1</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">seed 错峰</div><span class="e">SEED OFFSET</span></div>
+    <div class="d">每条线、每个脉冲加不同的起始偏移。<b>同一个 seed 用两次，那两个点会永远重叠</b>——看着像只有一个点在闪。</div>
+    <div class="mt">每条边不同 seed<br>不要复用</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">拖尾</div><span class="e">TRAIL</span></div>
+    <div class="d">不是一条线，是最近 N 帧位置的数组。间距要按<b>弧长</b>取（上一节的 s），按 u 取就会在弯处糊成一团。</div>
+    <div class="mt">N 帧历史<br>按 s 等距</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">端点淡出</div><span class="e">EDGE FADE</span></div>
+    <div class="d">透明度跟着位置走就够，不用再叠曲线。<b>淡出要短</b>：整条路的 8%–12%，长了像还没加载完。</div>
+    <div class="mt">sin(u·π)<br>0 → 1 → 0</div>
+  </div>
+
+  <div class="bench" id="spD12">
+    <div class="bh"><span><span class="dot"></span>PULSE · 三条线，六个脉冲</span><span class="rt" id="dSpr">错峰</span></div>
+    <div class="plot">
+      <svg id="svgD" viewBox="0 0 1000 300" role="img" aria-label="三条路径上的脉冲点">
+        <path d="M70 70 C 250 26 470 26 500 62 C 530 98 750 100 930 62" fill="none" stroke="#C7CBC6" stroke-width="1.2"/>
+        <path d="M70 160 C 250 116 470 116 500 152 C 530 188 750 190 930 152" fill="none" stroke="#C7CBC6" stroke-width="1.2"/>
+        <path d="M70 250 C 250 206 470 206 500 242 C 530 278 750 280 930 242" fill="none" stroke="#C7CBC6" stroke-width="1.2"/>
+        <g id="pulsesD"></g>
+      </svg>
+    </div>
+    <div class="ctl">
+      <button class="btn" id="dSpread" aria-pressed="true" type="button">错峰</button>
+      <button class="btn" id="dSync" aria-pressed="false" type="button">同相位</button>
+      <div class="kn">速度 <b id="vDsp">1.00</b><input type="range" id="rdSp" min="40" max="260" value="100" aria-label="脉冲速度"></div>
+    </div>
+    <div class="ro">
+      <div class="r">相位跨度<b id="dPh">—</b><i><u id="fPh"></u></i></div>
+      <div class="r">同屏可见<b id="dN">—</b><i><u id="fN"></u></i></div>
+      <div class="r">单圈时长<b id="dT">—</b><i><u id="fT"></u></i></div>
+      <div class="r">端点淡出<b id="dF">8%</b><i><u id="fF"></u></i></div>
+    </div>
+  </div>
+
+  <p class="note"><b>为什么「同相位」一眼假：</b>六个点会在同一帧齐刷刷亮起、齐刷刷消失，读起来是一个开关，不是六条线在工作。<b>真实系统里没有两件事同时发生</b>——这一条比任何缓动都更像真的。</p>
+</section>
+
+
+<!-- ================= 07 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>07</b> / CLOSED LOOP</div>
+    <div class="pb" style="--p:.65"><span class="dot"></span></div>
+  </div>
+  <h2>接缝是最容易露馅的一格</h2>
+  <p class="p">把路径首尾接上就成了循环。麻烦在接缝：<b>位置接上了，切线不一定接上</b>。两端切线角不一样，光点跑到那儿会「顿」一下，像换了一个东西在跑。</p>
+
+  <div class="plot" style="border-bottom:1px solid var(--line)">
+    <svg viewBox="0 0 1000 210" role="img" aria-label="闭合路径接缝处的切线不连续">
+      <path d="M80 170 C 260 170 300 60 500 60" fill="none" stroke="#15181A" stroke-width="1.6"/>
+      <path d="M500 60 C 720 60 760 170 940 170" fill="none" stroke="#15181A" stroke-width="1.6" opacity=".3"/>
+      <line x1="420" y1="60" x2="580" y2="60" stroke="#B23A2A" stroke-width="1" stroke-dasharray="5 4"/>
+      <line x1="500" y1="14" x2="500" y2="106" stroke="#B23A2A" stroke-width="1" stroke-dasharray="5 4"/>
+      <circle cx="500" cy="60" r="4" fill="#B23A2A"/>
+      <text x="510" y="40" fill="#B23A2A" font-size="11" font-family="IBM Plex Mono, monospace">90°，被看见</text>
+      <text x="86" y="196" fill="#7A8183" font-size="10" font-family="IBM Plex Mono, monospace">前一段终点切线：水平</text>
+      <text x="700" y="196" fill="#7A8183" font-size="10" font-family="IBM Plex Mono, monospace">后一段起点切线：竖直</text>
+      <text x="430" y="126" fill="#7A8183" font-size="10" font-family="IBM Plex Mono, monospace">接点：位置连续，切线不连续</text>
+    </svg>
+  </div>
+
+  <div class="tr">
+    <div><div class="k">Z 收口</div><span class="e">CLOSE PATH</span></div>
+    <div class="d">SVG 里写 <em>Z</em> 会从当前点补一条<b>直线</b>回起点。所以想要曲线闭合，最后一段的终点必须正好落在起点上，否则白得一根直线。</div>
+    <div class="mt">Z = 直线<br>不是弧</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">切线连续</div><span class="e">C1 CONTINUITY</span></div>
+    <div class="d">两段相接处，共用那个控制点必须<b>和接点共线</b>，角度才不会突变。做环形轨道时最省的做法，是把控制点按 3 的倍数摆一圈。</div>
+    <div class="mt">共线 = 平滑<br>不共线 = 折角</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">周期对齐</div><span class="e">PERIOD SYNC</span></div>
+    <div class="d">一圈时长要能被脉冲个数整除，否则回到起点会出现「跳格」。3 个脉冲、一圈 2.4s，相位步长就是 0.8s——不是随手写 0.7。</div>
+    <div class="mt">T / n = 相位步长</div>
+  </div>
+  <div class="tr">
+    <div><div class="k">时间取模</div><span class="e">MODULO, NOT RESTART</span></div>
+    <div class="d">循环不要用「每圈重启动画」，那会把相位每圈清零，中途改速度就错位。<b>对时间取模</b>，改速度也接着跑。</div>
+    <div class="mt">(t % T) / T</div>
+  </div>
+
+  <p class="note"><b>还有一个更隐蔽的：</b>闭合路径的起点在弧长表里是同一个位置，但你可能两端各取了一次点，接缝处就重复一帧——表现出来是<b>光点在起点闪一下</b>。解决：循环区间写 <em>[0, L)</em>，不含 L。</p>
+</section>
+
+
+<!-- ================= 08 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>08</b> / THE WORDS</div>
+    <div class="pb" style="--p:.75"><span class="dot"></span></div>
+  </div>
+  <h2>一页速查：十二个词</h2>
+  <p class="p">前六个是「东西是什么」，后六个是「怎么让它对」。每个词下面一行刻度——只报名字不给数，跟没说一样。</p>
+
+  <div class="words">
+    <div class="word"><div class="h"><b>路径</b><em>path</em></div><div class="d">一条有长度的线。可以是 SVG 的 <em>d</em>，可以是 CSS 的 <em>path()</em>。描它、量它、沿它跑，三件事分开做。</div><div class="x">d="M60 250 C…"</div></div>
+    <div class="word"><div class="h"><b>三次贝塞尔</b><em>cubic bezier</em></div><div class="d">四个点：起、控1、控2、终。控制点只拉不经过，所以「把手」的位置决定弯，不决定终点。</div><div class="x">4 点 · 2 个把手</div></div>
+    <div class="word"><div class="h"><b>控制点</b><em>control point</em></div><div class="d">调手感时动的就是它。两个把手等高 → 对称拱；一高一低 → 先鼓后收。</div><div class="x">P1 / P2 · 不在线上</div></div>
+    <div class="word"><div class="h"><b>弧长</b><em>arc length</em></div><div class="d">沿曲线量出来的实际长度，永远 ≥ 弦长。拱得越狠，差得越多。</div><div class="x">L &gt; 弦长 · 本例 +12%</div></div>
+    <div class="word"><div class="h"><b>弧长参数化</b><em>arc-length param.</em></div><div class="d">用 s/L 代替 u。这是「匀速」唯一的前提，也是拖尾间距均匀的前提。</div><div class="x">s ∈ [0, L)</div></div>
+    <div class="word"><div class="h"><b>切线</b><em>tangent</em></div><div class="d">往哪走。两点差分求 atan2，比解析导数好写，尖角处会跳。</div><div class="x">ε ≈ 0.5% L</div></div>
+    <div class="word"><div class="h"><b>自动朝向</b><em>auto-orient</em></div><div class="d">沿路径自动转向。CSS 一行，GSAP 一个布尔；要「永远竖着」加 90deg。</div><div class="x">offset-rotate: auto</div></div>
+    <div class="word"><div class="h"><b>沿路径运动</b><em>motion path</em></div><div class="d">统称：让点、图、箭头沿着一条已量好的曲线移动。路径 + 速度 + 朝向，三件套。</div><div class="x">path + speed + orient</div></div>
+    <div class="word"><div class="h"><b>偏移距离</b><em>offset-distance</em></div><div class="d">CSS 里的进度，按弧长百分比算——所以它天生匀速，也天生拿不到 u。</div><div class="x">0% – 100%</div></div>
+    <div class="word"><div class="h"><b>脉冲</b><em>pulse</em></div><div class="d">短促的点沿路径跑。两头用 sin 淡，不给就会凭空出现。</div><div class="x">sin(u·π) · 淡 8–12%</div></div>
+    <div class="word"><div class="h"><b>拖尾</b><em>trail</em></div><div class="d">最近 N 帧的位置数组。按弧长排才匀，按 u 排会在弯处糊成一坨。</div><div class="x">N = 8–16 帧</div></div>
+    <div class="word"><div class="h"><b>闭合路径</b><em>closed path</em></div><div class="d">首尾接上。Z 只补直线；要让接缝平滑，两端控制点必须共线。</div><div class="x">Z · 切线连续</div></div>
+  </div>
+</section>
+
+<!-- ================= 09 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>09</b> / THE PROMPT</div>
+    <div class="pb" style="--p:.85"><span class="dot"></span></div>
+  </div>
+  <h2>五槽位：这一次第二槽要写「按弧长还是按参数」</h2>
+  <p class="p">说「沿曲线动」等于没说——AI 会给你一条路径，再配一个它顺手的缓动，速度从头到尾是它猜的。<b>把取点方式写进第二槽</b>，这条曲线才归你管。</p>
+
+  <div class="slot">
+    <div class="n">1</div>
+    <div class="t">对象与路径</div>
+    <div class="d">谁在动、沿哪条线。把 <em>d</em> 的四个点说出来，或者说出「起点、终点、两个控制点的方向」。只说「一条弧线」，它给你一条随手画的。</div>
+    <div class="x">3 条连线<br>各 2 个 6px 点</div>
+  </div>
+  <div class="slot">
+    <div class="n">2</div>
+    <div class="t">取点方式</div>
+    <div class="d">这一槽是本册的关键：写 <em>按弧长 s</em> 还是 <em>按参数 u</em>，或者直接点名 <em>getPointAtLength / offset-path</em>。不写，速度就是它猜的。</div>
+    <div class="x">getPointAtLength<br>s = (t·speed+seed)%L</div>
+  </div>
+  <div class="slot">
+    <div class="n">3</div>
+    <div class="t">速度</div>
+    <div class="d">匀速、某个缓动名、还是物理。匀速就写「线性，不进缓动」；别让 AI 一边沿路径跑一边又套 <em>cubic-bezier</em>，那两件事会互相抵消。</div>
+    <div class="x">一圈 2.4s · 匀速</div>
+  </div>
+  <div class="slot">
+    <div class="n">4</div>
+    <div class="t">朝向</div>
+    <div class="d">不转、贴切线、还是插值。<em>auto-orient</em> 一句话能省掉一堆代码；圆点可以不转，箭头不转就废了。</div>
+    <div class="x">auto-orient<br>或「不旋转」</div>
+  </div>
+  <div class="slot">
+    <div class="n">5</div>
+    <div class="t">验收</div>
+    <div class="d">这一槽给数字：相位跨度、端点亮起数量、单帧跳变上限、reduced-motion 停在哪。有了数字，你才有权说「不对」。</div>
+    <div class="x">相位 ≥ 60%<br>跳变 &lt; 20°</div>
+  </div>
+
+  <div class="exwrap">
+    <div class="exh"><span>可直接复制 · 只改对象与数字即可</span><button class="btn" id="copyEx" type="button">复制</button></div>
+    <ul class="exbody" id="exBody">
+      <li><b>做一个「数据在三条连线上流动」的提示动效。</b>三条三点贝塞尔连线，两端是模块边框，线略微外鼓。</li>
+      <li><b>对象与路径：</b>每条线上 2 个 6px 圆点，沿路径跑；线宽 1px，颜色跟模块同色系。</li>
+      <li><b>取点方式：</b>用 getPointAtLength，s = (t·speed + seed) % L，按弧长取点，不要按贝塞尔参数 u。</li>
+      <li><b>速度：</b>一圈 2.4s 匀速，线性推进，不叠缓动；speed 给一个 0.8–1.6 的可调参数。</li>
+      <li><b>朝向：</b>圆点不旋转；如果把圆点换成箭头，要 auto-orient 贴切线并让中心对齐路径。</li>
+      <li><b>淡出：</b>首尾各 10% 用 sin(u·π) 淡入淡出，不要硬切、不要用透明度曲线再拖一段。</li>
+      <li><b>错峰：</b>6 个点 6 个 seed，相位跨度 ≥ 60%，任意时刻不允许两点重叠；不要同相位。</li>
+      <li><b>验收：</b>改速度后相位不乱；reduced-motion 时静态停在 50% 位置、六个点均匀分布；单帧角度跳变 &lt; 20°。</li>
+    </ul>
+  </div>
+
+  <p class="note"><b>这一册的第二槽为什么不是「时长」：</b>沿路径跑的时长由「路径长度 ÷ 速度」决定，你写死的每一秒都会被路径长度出卖。<b>给速度，别给时长</b>——这跟第十一册给 ζ、不给时长是同一条道理。</p>
+</section>
+
+<!-- ================= 10 ================= -->
+<section class="sec">
+  <div class="sh">
+    <div class="sn"><b>10</b> / THE EDGES</div>
+    <div class="pb" style="--p:.95"><span class="dot"></span></div>
+  </div>
+  <h2>四条边界，都是踩过的</h2>
+
+  <div class="edg">
+    <div class="no"><b>ED 01</b></div>
+    <div class="t">别让正文沿路径跑</div>
+    <div class="d">textPath 只适合徽章、环形标语、一两行的印章。正文跟着曲线拐，读到第三行就得歪脖子。<b>字要读，就别让它拐弯。</b></div>
+  </div>
+  <div class="edg">
+    <div class="no"><b>ED 02</b></div>
+    <div class="t">路径动画不是物理</div>
+    <div class="d">沿路径跑的东西不受重力、摩擦、碰撞影响；它只是按时刻表到达坐标。要「掉下来弹两下再停」，那是第十一册的物理世界，不是这一条线。</div>
+  </div>
+  <div class="edg">
+    <div class="no"><b>ED 03</b></div>
+    <div class="t">路径越长、越贵</div>
+    <div class="d">每帧 <b>getPointAtLength</b> 都在主线程上查表，20 个追随点就能吃到帧。要几十上百个点，先预采样成数组，或者搬去 canvas 一次画完。</div>
+  </div>
+  <div class="edg">
+    <div class="no"><b>ED 04</b></div>
+    <div class="t">一个页面只留一处「巡线」</div>
+    <div class="d">沿着线跑的光点是氛围，不承载信息。它在两处出现是「系统在运转」，在十处出现是「屏幕在抽搐」。<b>把它留给那一条你最想让人看的线。</b></div>
+  </div>
+</section>
+
+<!-- ================= FOOT ================= -->
+<div class="chain">
+  <div class="c"><div class="v">VOL 01–02</div><div class="t">动效 · 纵深</div><div class="d">什么值得动 / 为什么不显浅</div></div>
+  <div class="c"><div class="v">VOL 03–04</div><div class="t">版式 · 风格</div><div class="d">看得出名 / 属于哪一流</div></div>
+  <div class="c"><div class="v">VOL 05–07</div><div class="t">画布 · 质感 · 滚动</div><div class="d">内容是关系 / 动效时时间轴</div></div>
+  <div class="c now"><div class="v">VOL 08 → 12</div><div class="t">结构 · 群体 · 编排 · 弹性 · 路径</div><div class="d">扣住 · 跟随 · 谁先谁后 · 软不软 · 沿哪条线</div></div>
+</div>
+
+<p class="fnote">数字出处：贝塞尔四个点与弧长关系按本页现算（SVG 的 getTotalLength / getPointAtLength，viewBox 单位，非像素）；anime v4 的 createMotionPath 见本地仓库 工具库\仓库\anime-master\dist\bundles\anime.umd.js:10358，其 rotate 由 progress±1 两点 atan2 求得（10340–10342）；GSAP 的 motionPath 默认 start 0 / end 1，采样 resolution 12（curviness 0 时 20），见 gsap\src\MotionPathPlugin.js。CSS 的 offset-path / offset-distance / offset-rotate 按弧长百分比。本页四个演示都是手写取点，没有引外部库。</p>
+
+
+
+</div>
+
+<script>
+(function(){
+  var D = document, NS = 'http://www.w3.org/2000/svg', PI = Math.PI;
+  var RED = '#B23A2A', INK = '#15181A', GREY = '#7A8183';
+  var byId = function(i){ return D.getElementById(i); };
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var clamp = function(v,a,b){ return v<a?a:(v>b?b:v); };
+
+  function dist(a,b){ var dx=b[0]-a[0], dy=b[1]-a[1]; return Math.sqrt(dx*dx+dy*dy); }
+  function bez(p,u){
+    var t=1-u, a=t*t*t, b=3*t*t*u, c=3*t*u*u, d=u*u*u;
+    return [a*p[0]+b*p[2]+c*p[4]+d*p[6], a*p[1]+b*p[3]+c*p[5]+d*p[7]];
+  }
+  function pathD(p){
+    return 'M'+p[0]+' '+p[1]+' C '+p[2]+' '+p[3]+' '+p[4]+' '+p[5]+' '+p[6]+' '+p[7];
+  }
+  function lut(p,n){
+    var a=[], d=0, i, prev=null, pt;
+    for(i=0;i<=n;i++){
+      pt=bez(p,i/n);
+      if(prev) d+=dist(pt,prev);
+      a.push({u:i/n, d:d});
+      prev=pt;
+    }
+    return {a:a, L:d, p:p, n:n};
+  }
+  function atLen(o,s){
+    var a=o.a, lo=0, hi=a.length-1, mid, i, s0, s1, f;
+    s = clamp(s,0,o.L);
+    while(lo<hi){ mid=(lo+hi)>>1; if(a[mid].d < s) lo=mid+1; else hi=mid; }
+    i = lo<1?1:lo;
+    s0=a[i-1]; s1=a[i];
+    f = (s1.d-s0.d)>0 ? (s-s0.d)/(s1.d-s0.d) : 0;
+    return bez(o.p, s0.u+(s1.u-s0.u)*f);
+  }
+  function dAtU(o,u){
+    var x=u*o.n, i=clamp(Math.floor(x),0,o.n-1), f=x-i;
+    var s0=o.a[i], s1=o.a[i+1];
+    return s0.d+(s1.d-s0.d)*f;
+  }
+  function bar(el,v){ if(el) el.style.width=(clamp(v,0,1)*100).toFixed(1)+'%'; }
+
+  /* ---------- A：四个点 ---------- */
+  var svgA = byId('svgA');
+  if(svgA){
+    var curA=byId('curA'), gA=byId('ptsA'), ra1=byId('ra1'), ra2=byId('ra2');
+    var vA1=byId('vA1'), vA2=byId('vA2'), ptsA=[], i;
+    for(i=0;i<12;i++){
+      var rr=D.createElementNS(NS,'rect');
+      rr.setAttribute('width','4.4'); rr.setAttribute('height','4.4'); rr.setAttribute('fill',GREY);
+      gA.appendChild(rr); ptsA.push(rr);
+    }
+    var scA=function(){ return svgA.getBoundingClientRect().width/1000; };
+    function lbl(el,x,y){ var s=scA(); el.style.left=(x*s-4)+'px'; el.style.top=(y*s-13)+'px'; }
+    function drawA(){
+      var h1=+ra1.value, h2=+ra2.value;
+      vA1.textContent=h1; vA2.textContent=h2;
+      var y1=240-h1*0.9, y2=240-h2*0.9;
+      var p=[60,240, 353,y1, 647,y2, 940,240];
+      curA.setAttribute('d', pathD(p));
+      byId('armA1').setAttribute('y2',y1.toFixed(1));
+      byId('armA2').setAttribute('y2',y2.toFixed(1));
+      byId('cA1').setAttribute('cy',y1.toFixed(1));
+      byId('cA2').setAttribute('cy',y2.toFixed(1));
+      lbl(byId('lbA1'),353,y1); lbl(byId('lbA2'),647,y2);
+      var dmin=1e9, dmax=0, prev=null, q, dd, k;
+      for(k=0;k<12;k++){
+        q=bez(p,k/11);
+        ptsA[k].setAttribute('x',(q[0]-2.2).toFixed(1));
+        ptsA[k].setAttribute('y',(q[1]-2.2).toFixed(1));
+        if(prev){ dd=dist(prev,q); if(dd<dmin)dmin=dd; if(dd>dmax)dmax=dd; }
+        prev=q;
+      }
+      var L=curA.getTotalLength(), ratio=(dmin>0?dmax/dmin:1);
+      byId('aL').textContent=Math.round(L);
+      byId('aC').textContent='880';
+      byId('aG').textContent=ratio.toFixed(2)+'×';
+      byId('aR').textContent=(L/880).toFixed(2)+'×';
+      bar(byId('fL'),L/1600); bar(byId('fC'),880/1600);
+      bar(byId('fG'),(ratio-1)/3); bar(byId('fR'),(L/880-1)/0.45);
+    }
+    ra1.addEventListener('input',drawA); ra2.addEventListener('input',drawA);
+    byId('raFlat').addEventListener('click',function(){ ra1.value=0; ra2.value=0; drawA(); });
+    drawA();
+    window.addEventListener('resize',function(){ drawA(); });
+  }
+
+  /* ---------- B：参数 vs 弧长 ---------- */
+  var svgB = byId('svgB');
+  if(svgB){
+    var pB=[60,250, 240,250, 760,60, 940,60];
+    byId('curB').setAttribute('d', pathD(pB));
+    var oB=lut(pB,800), i2, q2;
+    for(i2=1;i2<10;i2++){
+      q2=atLen(oB,oB.L*i2/10);
+      var tk=D.createElementNS(NS,'circle');
+      tk.setAttribute('cx',q2[0].toFixed(1)); tk.setAttribute('cy',q2[1].toFixed(1));
+      tk.setAttribute('r','2.2'); tk.setAttribute('fill','#A9AFAA');
+      byId('tickB').appendChild(tk);
+    }
+    var e1=1/800, vmin=9e9, vmax=0, rt, a1, a2;
+    for(i2=0;i2<=800;i2++){
+      var uu=i2/800;
+      a1=bez(pB,Math.max(0,uu-e1)); a2=bez(pB,Math.min(1,uu+e1));
+      rt=dist(a1,a2)/(Math.min(1,uu+e1)-Math.max(0,uu-e1))/oB.L;
+      if(rt<vmin) vmin=rt; if(rt>vmax) vmax=rt;
+    }
+    byId('bPh').textContent='u 速度范围 '+vmin.toFixed(2)+'× – '+vmax.toFixed(2)+'×';
+    byId('bLe').textContent=Math.round(oB.L);
+    bar(byId('fLe'), oB.L/1600);
+    var T=2800, t0=performance.now(), dotU=byId('dotBu'), dotS=byId('dotBs');
+    var lbU=byId('lbBu'), lbS=byId('lbBs'), sB=function(){ return svgB.getBoundingClientRect().width/1000; };
+    function frameB(now){
+      var u=(((now-t0)%T)+T)%T/T;
+      var qu=bez(pB,u), qs=atLen(oB,oB.L*u);
+      dotU.setAttribute('cx',qu[0].toFixed(1)); dotU.setAttribute('cy',qu[1].toFixed(1));
+      dotS.setAttribute('cx',qs[0].toFixed(1)); dotS.setAttribute('cy',qs[1].toFixed(1));
+      var s=sB();
+      lbU.style.left=(qu[0]*s-13)+'px'; lbU.style.top=(qu[1]*s-16)+'px';
+      lbS.style.left=(qs[0]*s+7)+'px';  lbS.style.top=(qs[1]*s-16)+'px';
+      a1=bez(pB,Math.max(0,u-e1)); a2=bez(pB,Math.min(1,u+e1));
+      var rv=dist(a1,a2)/(Math.min(1,u+e1)-Math.max(0,u-e1))/oB.L;
+      byId('bVu').textContent=rv.toFixed(2)+'×'; bar(byId('fVu'),rv/2.2);
+      byId('bVs').textContent='1.00×'; bar(byId('fVs'),0.45);
+      var pd=(dAtU(oB,u)-oB.L*u)/oB.L*100;
+      byId('bPd').textContent=(pd>=0?'+':'')+pd.toFixed(1)+'%';
+      bar(byId('fPd'),Math.abs(pd)/45);
+      if(!reduced) requestAnimationFrame(frameB);
+    }
+    byId('bRun').addEventListener('click',function(){ t0=performance.now(); });
+    if(reduced){
+      var hu=0.5, qu0=bez(pB,hu), qs0=atLen(oB,oB.L*hu);
+      dotU.setAttribute('cx',qu0[0]); dotU.setAttribute('cy',qu0[1]);
+      dotS.setAttribute('cx',qs0[0]); dotS.setAttribute('cy',qs0[1]);
+      byId('bVu').textContent='—'; byId('bVs').textContent='1.00×'; byId('bPd').textContent='—';
+    } else requestAnimationFrame(frameB);
+  }
+
+  /* ---------- C：切线 ---------- */
+  var svgC = byId('svgC');
+  if(svgC){
+    var pth=byId('curC'), LC=pth.getTotalLength(), blk=byId('blkC'), tanL=byId('tanC');
+    var mode='tan', deg=0, smooth=0, last=null, maxJump=0, tC=performance.now(), TC=3400;
+    var atS=function(s){ return pth.getPointAtLength(clamp(s,0,LC)); };
+    function angAt(s){
+      var e=Math.max(2, LC*0.006);
+      var a=atS(s-e), b=atS(s+e);
+      return Math.atan2(b.y-a.y, b.x-a.x)*180/PI;
+    }
+    function frameC(now){
+      var u=(((now-tC)%TC)+TC)%TC/TC, s=u*LC, q=atS(s), tg=angAt(s);
+      if(mode==='none'){ deg=0; }
+      else if(mode==='tan'){ deg=tg; }
+      else {
+        if(last===null) smooth=tg;
+        var d=((tg-smooth+540)%360)-180;
+        smooth+=d*0.17; deg=smooth;
+      }
+      if(last!==null){
+        var j=Math.abs(((deg-last+540)%360)-180);
+        if(j>maxJump) maxJump=j;
+      }
+      last=deg;
+      blk.setAttribute('transform','translate('+q.x.toFixed(1)+','+q.y.toFixed(1)+') rotate('+deg.toFixed(2)+')');
+      var rad=tg*PI/180;
+      tanL.setAttribute('x1',q.x.toFixed(1)); tanL.setAttribute('y1',q.y.toFixed(1));
+      tanL.setAttribute('x2',(q.x+Math.cos(rad)*52).toFixed(1));
+      tanL.setAttribute('y2',(q.y+Math.sin(rad)*52).toFixed(1));
+      byId('cA').textContent=deg.toFixed(1)+'°';
+      byId('cAng').textContent=deg.toFixed(1)+'°';
+      byId('cJ').textContent=maxJump.toFixed(1)+'°';
+      byId('cP').textContent=(u*100).toFixed(0)+'%';
+      bar(byId('fA'),(deg+180)/360);
+      bar(byId('fJ'),maxJump/25);
+      bar(byId('fP'),u);
+      bar(byId('fM'),mode==='none'?0.06:(mode==='tan'?0.5:0.95));
+      if(!reduced) requestAnimationFrame(frameC);
+    }
+    function setMode(m,btn){
+      mode=m; last=null; maxJump=0; smooth=null;
+      byId('cM').textContent=(m==='none'?'不转':(m==='tan'?'切线':'插值'));
+      ['cNo','cTan','cLerp'].forEach(function(id){
+        byId(id).setAttribute('aria-pressed', id===btn?'true':'false');
+      });
+      if(m==='lerp') smooth=null;
+    }
+    byId('cNo').addEventListener('click',function(){ setMode('none','cNo'); });
+    byId('cTan').addEventListener('click',function(){ setMode('tan','cTan'); });
+    byId('cLerp').addEventListener('click',function(){ setMode('lerp','cLerp'); });
+    if(reduced){
+      var qm=atS(LC*0.5);
+      blk.setAttribute('transform','translate('+qm.x+','+qm.y+') rotate(0)');
+      byId('cA').textContent='0.0°'; byId('cM').textContent='不转（reduced）';
+    } else requestAnimationFrame(frameC);
+  }
+
+  /* ---------- D：脉冲 ---------- */
+  var svgD = byId('svgD');
+  if(svgD){
+    var lanes=[].slice.call(svgD.querySelectorAll('path'));
+    var LL=lanes.map(function(el){ return el.getTotalLength(); });
+    var gD=byId('pulsesD'), dotsD=[], i3;
+    var seedS=[0,.36,.18,.54,.72,.9], seedSame=[.5,.5,.5,.5,.5,.5];
+    var spread=true, speed=1, TD=2600, tD=performance.now();
+    for(i3=0;i3<6;i3++){
+      var c=D.createElementNS(NS,'circle');
+      c.setAttribute('r','3'); c.setAttribute('fill',RED);
+      gD.appendChild(c);
+      dotsD.push({el:c, lane:Math.floor(i3/2), seed:seedS[i3]});
+    }
+    function frameD(now){
+      var ph=(((now-tD)%TD)+TD)%TD/TD;
+      var vis=0;
+      dotsD.forEach(function(o){
+        var u=((ph*speed+o.seed)%1+1)%1;
+        var s=u*LL[o.lane];
+        var q=lanes[o.lane].getPointAtLength(s);
+        var fade=Math.sin(u*PI);
+        o.el.setAttribute('cx',q.x.toFixed(1));
+        o.el.setAttribute('cy',q.y.toFixed(1));
+        o.el.setAttribute('r',(2.2+3.6*fade).toFixed(2));
+        o.el.setAttribute('opacity',(0.12+0.88*fade).toFixed(2));
+        if(fade>0.12) vis++;
+      });
+      byId('dN').textContent=vis;
+      byId('dPh').textContent=(spread?'83%':'0%');
+      byId('dT').textContent=(TD/speed/1000).toFixed(2)+'s';
+      bar(byId('fPh'),spread?0.83:0);
+      bar(byId('fN'),vis/6);
+      bar(byId('fT'),clamp((TD/speed/1000)/4,0,1));
+      bar(byId('fF'),0.08);
+      if(!reduced) requestAnimationFrame(frameD);
+    }
+    byId('dSpread').addEventListener('click',function(){
+      spread=true; dotsD.forEach(function(o,j){ o.seed=seedS[j]; });
+      byId('dSpr').textContent='错峰';
+      byId('dSpread').setAttribute('aria-pressed','true');
+      byId('dSync').setAttribute('aria-pressed','false');
+    });
+    byId('dSync').addEventListener('click',function(){
+      spread=false; dotsD.forEach(function(o,j){ o.seed=seedSame[j]; });
+      byId('dSpr').textContent='同相位';
+      byId('dSync').setAttribute('aria-pressed','true');
+      byId('dSpread').setAttribute('aria-pressed','false');
+    });
+    byId('rdSp').addEventListener('input',function(){
+      speed=(+this.value)/100;
+      byId('vDsp').textContent=speed.toFixed(2);
+    });
+    byId('dF').textContent='8%';
+    if(reduced){
+      var qd=lanes[0].getPointAtLength(LL[0]*0.5);
+      dotsD.forEach(function(o){ o.el.setAttribute('cx',qd.x); o.el.setAttribute('cy',qd.y); });
+      byId('dPh').textContent='—'; byId('dN').textContent='—'; byId('dT').textContent='—';
+    } else requestAnimationFrame(frameD);
+  }
+
+  /* ---------- 复制 ---------- */
+  var cpEx=byId('copyEx'), exBody=byId('exBody');
+  if(cpEx && exBody){
+    cpEx.addEventListener('click',function(){
+      var txt=exBody.innerText.trim();
+      var ok=function(){ cpEx.textContent='已复制'; setTimeout(function(){ cpEx.textContent='复制'; },1500); };
+      var fb=function(){
+        var ta=D.createElement('textarea'); ta.value=txt;
+        ta.style.position='fixed'; ta.style.opacity='0'; D.body.appendChild(ta); ta.select();
+        try{ D.execCommand('copy'); ok(); }catch(e){ cpEx.textContent='复制失败'; }
+        D.body.removeChild(ta);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(ok).catch(fb);
+      } else fb();
+    });
+  }
+})();
+</script>
+</body>
+</html>
