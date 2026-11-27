@@ -1,0 +1,114 @@
+{
+  "description": "2026-11-26 删除演示长者工单前的记录备份",
+  "residentId": "resident-demo-1",
+  "cases": [
+    {
+      "id": "bb1371e6-0452-4105-8fcd-4bda742ec30c",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "status": "待社区审核",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T08:16:06.639Z"
+        }
+      ],
+      "date": "2026-11-25",
+      "slot": "09:00",
+      "resource": "上门照护站",
+      "elderId": "resident-demo-1",
+      "name": "演示长者",
+      "byAccount": "",
+      "resourceId": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "resourceName": "上门照护站",
+      "createdAt": "2026-11-24T08:16:06.639Z",
+      "updatedAt": "2026-11-24T08:16:06.639Z",
+      "reportHistory": [],
+      "resourceAvailable": true
+    },
+    {
+      "id": "3462b6eb-cf35-4fc5-9351-67097e929c65",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "status": "已确认",
+      "note": "w'w'w",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T08:16:03.739Z"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-25T15:41:32.298Z",
+          "note": "",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "role": "community"
+        }
+      ],
+      "date": "2026-11-25",
+      "slot": "14:00",
+      "resource": "上门照护站",
+      "elderId": "resident-demo-1",
+      "name": "演示长者",
+      "byAccount": "",
+      "resourceId": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "resourceName": "上门照护站",
+      "createdAt": "2026-11-24T08:16:03.739Z",
+      "updatedAt": "2026-11-25T15:41:32.298Z",
+      "reportHistory": [],
+      "resourceAvailable": true
+    },
+    {
+      "id": "c1aa3c95-2174-4174-b17b-986b30a9f5e7",
+      "type": "home",
+      "option": "助餐配送",
+      "by": "elder",
+      "status": "已确认",
+      "note": "演示",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T06:40:32.466Z"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-25T09:25:40.123Z",
+          "note": "",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "role": "community"
+        }
+      ],
+      "date": "2099-12-01",
+      "slot": "09:00",
+      "resource": "长者食堂",
+      "elderId": "resident-demo-1",
+      "name": "演示长者",
+      "byAccount": "",
+      "resourceId": "defc1b8c-8c11-4ee7-b9df-94bb01a98eb8",
+      "resourceName": "长者食堂",
+      "createdAt": "2026-11-24T06:40:32.466Z",
+      "updatedAt": "2026-11-25T09:25:40.123Z",
+      "reportHistory": [],
+      "resourceAvailable": true
+    }
+  ],
+  "auditLog": [
+    {
+      "id": "96b5071d-996a-4b0b-808a-b557485c546c",
+      "action": "review",
+      "targetId": "3462b6eb-cf35-4fc5-9351-67097e929c65",
+      "by": "12345678",
+      "at": "2026-11-25T15:41:32.298Z",
+      "detail": {
+        "status": "已确认",
+        "note": "",
+        "elderId": "resident-demo-1"
+      }
+    }
+  ]
+}

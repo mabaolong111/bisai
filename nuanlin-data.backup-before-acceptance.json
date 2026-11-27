@@ -1,0 +1,132 @@
+{
+  "profile": {
+    "age": 82,
+    "district": "示例社区",
+    "local": true,
+    "living": "与家人同住",
+    "mobility": "失能",
+    "chronic": false,
+    "needs": [
+      "上门维修"
+    ]
+  },
+  "family": {
+    "view": true,
+    "proxy": true,
+    "health": true,
+    "phone": ""
+  },
+  "hotline": "",
+  "cases": [
+    {
+      "id": "bb1371e6-0452-4105-8fcd-4bda742ec30c",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "status": "待社区审核",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T08:16:06.639Z"
+        }
+      ],
+      "date": "2026-11-25",
+      "slot": "09:00",
+      "resource": "上门照护站"
+    },
+    {
+      "id": "3462b6eb-cf35-4fc5-9351-67097e929c65",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "status": "待社区审核",
+      "note": "w'w'w",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T08:16:03.739Z"
+        }
+      ],
+      "date": "2026-11-25",
+      "slot": "14:00",
+      "resource": "上门照护站"
+    },
+    {
+      "id": "c1aa3c95-2174-4174-b17b-986b30a9f5e7",
+      "type": "home",
+      "option": "助餐配送",
+      "by": "elder",
+      "status": "待社区审核",
+      "note": "演示",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T06:40:32.466Z"
+        }
+      ],
+      "date": "2099-12-01",
+      "slot": "09:00",
+      "resource": "长者食堂"
+    }
+  ],
+  "visits": [],
+  "resolved": [],
+  "deadlines": {
+    "annual": "2026-12-01",
+    "subsidy": "2026-12-24",
+    "checkup": "2026-11-25"
+  },
+  "resources": [
+    {
+      "id": "defc1b8c-8c11-4ee7-b9df-94bb01a98eb8",
+      "name": "长者食堂",
+      "kind": "助餐配送",
+      "x": 0.8,
+      "y": 0.2,
+      "fee": 12,
+      "enabled": true,
+      "phone": ""
+    },
+    {
+      "id": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "name": "上门照护站",
+      "kind": "陪护照料",
+      "x": -0.6,
+      "y": 0.8,
+      "fee": 39,
+      "enabled": true,
+      "phone": ""
+    },
+    {
+      "id": "3633c5f3-39ac-4836-99e2-3fe32835a74d",
+      "name": "日间照料中心",
+      "kind": "日间照料",
+      "x": 1.3,
+      "y": -0.5,
+      "fee": 0,
+      "enabled": true,
+      "phone": ""
+    },
+    {
+      "id": "c1443c37-acce-49ee-878b-beda6050fbaf",
+      "name": "助浴服务站",
+      "kind": "上门助浴",
+      "x": -1.7,
+      "y": -0.6,
+      "fee": 29,
+      "enabled": true,
+      "phone": ""
+    },
+    {
+      "id": "b5e8e8dc-8627-4f85-9b65-52d83797c852",
+      "name": "便民服务点",
+      "kind": "上门维修",
+      "x": 2.6,
+      "y": 1,
+      "fee": 20,
+      "enabled": true,
+      "phone": ""
+    }
+  ]
+}

@@ -1,0 +1,1252 @@
+{
+  "schemaVersion": 2,
+  "residents": [
+    {
+      "id": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶",
+      "birthDate": "1944-05-20",
+      "birthDateEstimated": false,
+      "profile": {
+        "age": 82,
+        "district": "测试一社区",
+        "local": true,
+        "living": "独居",
+        "mobility": "失能",
+        "chronic": true,
+        "needs": [
+          "助餐配送",
+          "陪护照料",
+          "上门维修",
+          "日间照料"
+        ]
+      },
+      "family": {
+        "view": false,
+        "proxy": false,
+        "health": false,
+        "phone": "13800000000"
+      },
+      "familyHistory": [
+        {
+          "id": "f58ae26d-c1af-413b-bd47-4e0bff3f90e8",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "at": "2026-11-27T05:37:46.090Z",
+          "view": false,
+          "proxy": false,
+          "health": false,
+          "permissions": {
+            "view": false,
+            "proxy": false,
+            "health": false
+          },
+          "status": "待长者重新授权",
+          "note": "旧版家属权限已重置，待长者重新授权",
+          "pending": true
+        },
+        {
+          "id": "4aa4d4b9-3630-4ed9-8912-8ca60b268006",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "at": "2026-11-27T05:37:46.196Z",
+          "view": true,
+          "proxy": true,
+          "health": false,
+          "permissions": {
+            "view": true,
+            "proxy": true,
+            "health": false
+          }
+        },
+        {
+          "id": "545778d4-cbcf-49fa-af6d-0de411d4880f",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "at": "2026-11-27T05:37:46.247Z",
+          "view": true,
+          "proxy": true,
+          "health": true,
+          "permissions": {
+            "view": true,
+            "proxy": true,
+            "health": true
+          }
+        },
+        {
+          "id": "2f3cb221-e26c-4816-9138-40379443a2f0",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "at": "2026-11-27T05:37:46.253Z",
+          "view": false,
+          "proxy": true,
+          "health": false,
+          "permissions": {
+            "view": false,
+            "proxy": true,
+            "health": false
+          }
+        },
+        {
+          "id": "722072f9-8f22-4a5a-b3c9-f8c1548036e3",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "at": "2026-11-27T05:37:46.256Z",
+          "view": false,
+          "proxy": false,
+          "health": false,
+          "permissions": {
+            "view": false,
+            "proxy": false,
+            "health": false
+          }
+        }
+      ],
+      "deadlines": {
+        "annual": "2026-11-25",
+        "subsidy": "2026-12-27",
+        "checkup": "2026-12-04",
+        "welfare": {
+          "测试福利": "2026-11-28"
+        }
+      },
+      "createdAt": "2026-11-27T05:37:46.017Z",
+      "updatedAt": "2026-11-27T07:17:25.955Z"
+    },
+    {
+      "id": "ed9a948e-9120-4b40-bec6-0931cb615ebd",
+      "name": "李爷爷",
+      "birthDate": "1939-03-15",
+      "birthDateEstimated": false,
+      "profile": {
+        "age": 87,
+        "district": "测试二社区",
+        "local": false,
+        "living": "与家人同住",
+        "mobility": "自理",
+        "chronic": false,
+        "needs": [
+          "上门维修"
+        ]
+      },
+      "family": {
+        "view": false,
+        "proxy": false,
+        "health": false,
+        "phone": ""
+      },
+      "familyHistory": [],
+      "deadlines": {
+        "annual": "2027-01-26",
+        "subsidy": "2027-02-25",
+        "checkup": "2027-03-27",
+        "welfare": {}
+      },
+      "createdAt": "2026-11-27T05:37:46.020Z",
+      "updatedAt": "2026-11-27T05:37:46.020Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+      "username": "community_test",
+      "role": "community",
+      "salt": "7a4e1c4db9609673707800b81651727a",
+      "hash": "c60f1b51b8860ac96852da11b47a0bc884f8b87722b8b40b48b020bdc8d0b27fd8e0735f20190fda63e1217554737839c5c47c65b280e2d0ad32956db49af0e3"
+    },
+    {
+      "id": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "username": "elder_a_test",
+      "role": "elder",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "salt": "d04cbf42f2a2a5d9eb2ea02e1eed1db6",
+      "hash": "e49a5385f3ae5a1258b6c702aa114e6836699990e1c6eee1cf446c1a2773c24dc9e3b27d0dd4f9dbe5dcbf63e416741de42ee2b0b906e50169f0610fbbc7d040"
+    },
+    {
+      "id": "65eb4596-09ed-49b2-96f6-56cd8b424bba",
+      "username": "elder_b_test",
+      "role": "elder",
+      "elderId": "ed9a948e-9120-4b40-bec6-0931cb615ebd",
+      "salt": "471a55a1a68dddaf451f017e0d74521a",
+      "hash": "654162a5b70a2e5d02d01d3b49115ebb1f8beffc71fbf02e4cd3f0c12219a4136616dbfed7c48a42c46c487c0824490f3c628f25e36e6e5f76606708ddffa749"
+    },
+    {
+      "id": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+      "username": "family_a_test",
+      "role": "family",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "salt": "2bc7f7ee7bd523cf0ce01c3c92a0736b",
+      "hash": "1b009fef7d484e5bc2c73aaf0036e4639d6ba759107b181687bdd8d73a6b75151613b44fc02fbf68ee01ac31243eb9cf4bb63fa6bdc0bf1ddea7805005c11960"
+    }
+  ],
+  "resources": [
+    {
+      "id": "4c49f80e-d7fa-48bd-b950-e8c12e3517dd",
+      "name": "社区居家保洁示例点",
+      "kind": "居家保洁",
+      "x": -0.9,
+      "y": -1.2,
+      "fee": 25,
+      "enabled": false,
+      "phone": "",
+      "category": "居家保洁",
+      "projects": [
+        "居家保洁"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": "2026-11-27T05:37:46.270Z"
+    },
+    {
+      "id": "45999bba-8431-4e83-bd23-0f404c702e89",
+      "name": "社区理发修脚示例点",
+      "kind": "理发修脚",
+      "x": 1.1,
+      "y": 1.2,
+      "fee": 18,
+      "enabled": true,
+      "phone": "",
+      "category": "理发修脚",
+      "projects": [
+        "理发修脚"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "2f16d4c3-517a-411d-8639-d3684e11f0f8",
+      "name": "测试主照护站",
+      "kind": "陪护照料",
+      "category": "上门照护",
+      "projects": [
+        "陪护照料"
+      ],
+      "x": 0.8,
+      "y": 0.7,
+      "fee": 35,
+      "enabled": false,
+      "capacity": 4,
+      "phone": "010-12345677",
+      "address": "虚构照护路 1 号",
+      "createdAt": "2026-11-27T05:37:46.186Z",
+      "updatedAt": "2026-11-27T05:37:46.232Z",
+      "coordinatesDemo": true
+    },
+    {
+      "id": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+      "name": "测试备用照护站",
+      "kind": "陪护照料",
+      "category": "上门照护",
+      "projects": [
+        "陪护照料"
+      ],
+      "x": 1,
+      "y": 1,
+      "fee": 30,
+      "enabled": true,
+      "capacity": 4,
+      "phone": "010-12345678",
+      "address": "虚构照护路 2 号",
+      "createdAt": "2026-11-27T05:37:46.188Z",
+      "updatedAt": "2026-11-27T05:37:46.188Z",
+      "coordinatesDemo": true
+    },
+    {
+      "id": "454fcc34-0c8f-4602-9acb-f4a9a1bbd70f",
+      "name": "测试社区卫生服务站",
+      "kind": "免费老年体检",
+      "category": "义诊",
+      "projects": [
+        "免费老年体检",
+        "普惠老年体检",
+        "慢病专项体检",
+        "慢病随访体检"
+      ],
+      "x": 0.4,
+      "y": 0.5,
+      "fee": 0,
+      "enabled": true,
+      "capacity": 1,
+      "phone": "010-12345679",
+      "address": "虚构健康路 3 号",
+      "createdAt": "2026-11-27T05:37:46.190Z",
+      "updatedAt": "2026-11-27T05:37:46.190Z",
+      "coordinatesDemo": true
+    },
+    {
+      "id": "edc942ce-41ee-4ee8-accd-33056b3c6cdb",
+      "name": "测试养老机构",
+      "kind": "日间照料",
+      "category": "养老机构",
+      "projects": [
+        "日间照料"
+      ],
+      "x": 2,
+      "y": 1,
+      "fee": 80,
+      "enabled": true,
+      "capacity": 3,
+      "phone": "010-12345670",
+      "address": "虚构养老路 4 号",
+      "createdAt": "2026-11-27T05:37:46.192Z",
+      "updatedAt": "2026-11-27T05:37:46.192Z",
+      "coordinatesDemo": true
+    },
+    {
+      "id": "04e820db-1351-46b4-a90e-3329b7fe024b",
+      "name": "测试适老化改造点",
+      "kind": "上门维修",
+      "category": "适老化改造",
+      "projects": [
+        "上门维修"
+      ],
+      "x": 1.5,
+      "y": 1,
+      "fee": 50,
+      "enabled": true,
+      "capacity": 2,
+      "phone": "010-12345671",
+      "address": "虚构改造路 5 号",
+      "createdAt": "2026-11-27T05:37:46.194Z",
+      "updatedAt": "2026-11-27T05:37:46.194Z",
+      "coordinatesDemo": true
+    }
+  ],
+  "cases": [
+    {
+      "id": "2e89f166-9e91-4088-99da-d221b3e58913",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "浏览器验收称呼",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "status": "待社区审核",
+      "note": "浏览器表单实际提交",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T07:17:24.058Z",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "role": "elder"
+        }
+      ],
+      "createdAt": "2026-11-27T07:17:24.058Z",
+      "updatedAt": "2026-11-27T07:17:24.058Z",
+      "date": "2026-11-30",
+      "slot": "09:00",
+      "resourceId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+      "resourceName": "测试备用照护站",
+      "resource": "测试备用照护站",
+      "resourceAvailable": true
+    },
+    {
+      "id": "4c0aeab6-c7fd-4784-b774-87e8c5e97332",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶旧工单",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "status": "已完成",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.266Z",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "role": "elder"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-27T05:37:46.268Z",
+          "note": "",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "补录服务结果",
+          "at": "2026-11-27T05:37:46.497Z",
+          "note": "旧版已办结工单补录完成说明",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.266Z",
+      "updatedAt": "2026-11-27T05:37:46.497Z",
+      "date": "2026-11-29",
+      "slot": "14:00",
+      "resourceId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+      "resourceName": "测试备用照护站",
+      "resource": "测试备用照护站",
+      "resourceAvailable": true,
+      "reportHistory": [],
+      "serviceResult": {
+        "note": "旧版已办结工单补录完成说明",
+        "at": "2026-11-27T05:37:46.497Z",
+        "by": "community_test",
+        "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+        "source": "社区手工录入（演示）"
+      }
+    },
+    {
+      "id": "2a8ec05d-9e1e-4f17-bc5d-54420e7eeef4",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶超时测试",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "status": "已确认",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.262Z",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "role": "elder"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-27T05:37:46.264Z",
+          "note": "",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.262Z",
+      "updatedAt": "2026-11-27T05:37:46.264Z",
+      "date": "2026-11-26",
+      "slot": "09:00",
+      "resourceId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+      "resourceName": "测试备用照护站",
+      "resource": "测试备用照护站",
+      "resourceAvailable": true,
+      "reportHistory": []
+    },
+    {
+      "id": "c2ab07ac-0764-49d9-b5ee-754189563e7e",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶改派测试",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "status": "已完成",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.229Z",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "role": "elder"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-27T05:37:46.231Z",
+          "note": "",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-27T05:37:46.236Z",
+          "note": "预约资源由 测试主照护站 改派至 测试备用照护站",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community",
+          "action": "reassign",
+          "previousResourceId": "2f16d4c3-517a-411d-8639-d3684e11f0f8",
+          "previousResourceName": "测试主照护站",
+          "resourceId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+          "resourceName": "测试备用照护站"
+        },
+        {
+          "status": "已完成",
+          "at": "2026-11-27T05:37:46.238Z",
+          "note": "改派后服务完成",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.229Z",
+      "updatedAt": "2026-11-27T05:37:46.238Z",
+      "date": "2026-11-28",
+      "slot": "10:30",
+      "resourceId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+      "resourceName": "测试备用照护站",
+      "resource": "测试备用照护站",
+      "resourceAvailable": true,
+      "serviceResult": {
+        "note": "改派后服务完成",
+        "at": "2026-11-27T05:37:46.238Z",
+        "by": "community_test",
+        "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+        "source": "社区手工录入（演示）"
+      },
+      "reportHistory": []
+    },
+    {
+      "id": "e82fbcea-95f1-446a-a5b5-214603fbc381",
+      "elderId": "ed9a948e-9120-4b40-bec6-0931cb615ebd",
+      "name": "李爷爷",
+      "type": "annual",
+      "option": "社区人工核验",
+      "by": "elder",
+      "byAccount": "65eb4596-09ed-49b2-96f6-56cd8b424bba",
+      "status": "已退回",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.216Z",
+          "by": "elder_b_test",
+          "byAccount": "65eb4596-09ed-49b2-96f6-56cd8b424bba",
+          "role": "elder"
+        },
+        {
+          "status": "已退回",
+          "at": "2026-11-27T05:37:46.219Z",
+          "note": "请补充清晰户籍材料",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.216Z",
+      "updatedAt": "2026-11-27T05:37:46.219Z",
+      "resourceId": "",
+      "resourceName": "",
+      "resource": "",
+      "reportHistory": []
+    },
+    {
+      "id": "939abeb5-1c8b-4b0e-bd2e-9ca24bdffed3",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶体检代办",
+      "type": "checkup",
+      "option": "免费老年体检",
+      "by": "family",
+      "byAccount": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+      "status": "已完成",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.204Z",
+          "by": "family_a_test",
+          "byAccount": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+          "role": "family"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-27T05:37:46.240Z",
+          "note": "",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "已完成",
+          "at": "2026-11-27T05:37:46.242Z",
+          "note": "",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.204Z",
+      "updatedAt": "2026-11-27T05:37:46.244Z",
+      "date": "2026-11-28",
+      "slot": "09:00",
+      "resourceId": "454fcc34-0c8f-4602-9acb-f4a9a1bbd70f",
+      "resourceName": "测试社区卫生服务站",
+      "resource": "测试社区卫生服务站",
+      "resourceAvailable": true,
+      "project": "免费老年体检",
+      "advice": "已按所选项目和低峰名额提供预约建议；年龄、慢病和既往体检建议需在相应授权范围内显示。具体准备事项以社区卫生机构告知为准。",
+      "reportHistory": [
+        {
+          "report": "演示摘要：血压记录已提供，请按卫生机构原报告复诊，本文字不构成诊断",
+          "source": "社区手工录入（演示）",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "at": "2026-11-27T05:37:46.244Z"
+        }
+      ],
+      "report": "演示摘要：血压记录已提供，请按卫生机构原报告复诊，本文字不构成诊断",
+      "reportSource": "社区手工录入（演示）",
+      "reportBy": "community_test",
+      "reportByAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+      "reportAt": "2026-11-27T05:37:46.244Z"
+    },
+    {
+      "id": "5d619292-5f90-4abf-9e57-9d1ed97a7044",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶家属代办",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "family",
+      "byAccount": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+      "status": "已完成",
+      "note": "需要提前电话",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.202Z",
+          "by": "family_a_test",
+          "byAccount": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+          "role": "family"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-27T05:37:46.222Z",
+          "note": "已安排照护人员",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "已完成",
+          "at": "2026-11-27T05:37:46.225Z",
+          "note": "已完成陪护照料，长者状态平稳",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.202Z",
+      "updatedAt": "2026-11-27T05:37:46.227Z",
+      "date": "2026-11-28",
+      "slot": "09:00",
+      "resourceId": "2f16d4c3-517a-411d-8639-d3684e11f0f8",
+      "resourceName": "测试主照护站",
+      "resource": "测试主照护站",
+      "resourceAvailable": false,
+      "serviceResult": {
+        "note": "已完成陪护照料，长者状态平稳",
+        "at": "2026-11-27T05:37:46.225Z",
+        "by": "community_test",
+        "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+        "source": "社区手工录入（演示）"
+      },
+      "rating": 5,
+      "ratingBy": "family_a_test",
+      "ratingByAccount": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+      "ratedAt": "2026-11-27T05:37:46.227Z",
+      "reportHistory": []
+    },
+    {
+      "id": "7d5e94cb-fce0-4299-b28b-f682033ded47",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶补贴称呼",
+      "type": "subsidy",
+      "option": "首次申请",
+      "by": "elder",
+      "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "status": "发放完成",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.200Z",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "role": "elder"
+        },
+        {
+          "status": "审核通过",
+          "at": "2026-11-27T05:37:46.209Z",
+          "note": "批量材料核验通过",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "补贴发放中",
+          "at": "2026-11-27T05:37:46.213Z",
+          "note": "进入本地演示发放流程",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "发放完成",
+          "at": "2026-11-27T05:37:46.215Z",
+          "note": "本地演示办结，非真实支付",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.200Z",
+      "updatedAt": "2026-11-27T05:37:46.215Z",
+      "eligibility": {
+        "type": "subsidy",
+        "passed": true,
+        "demo": true,
+        "demonstration": true,
+        "rule": "local-demo-v2",
+        "minAge": 80,
+        "localRequired": true,
+        "age": 82,
+        "birthDate": "1944-05-20",
+        "birthDateEstimated": false,
+        "local": true,
+        "basis": [
+          "按档案出生日期计算年龄：82 岁",
+          "档案户籍：本地户籍",
+          "补贴规则：年满 80 岁，须为本地户籍（local-demo-v2）"
+        ],
+        "checks": [
+          {
+            "key": "age",
+            "passed": true,
+            "text": "年龄须年满 80 岁"
+          },
+          {
+            "key": "local",
+            "passed": true,
+            "text": "须为本地户籍"
+          }
+        ],
+        "notice": "仅为本地演示规则初审，不构成真实资格审核结果"
+      },
+      "resourceId": "",
+      "resourceName": "",
+      "resource": "",
+      "reportHistory": []
+    },
+    {
+      "id": "ca11525d-cc43-45e0-8b68-b506349025aa",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "name": "张奶奶本人称呼",
+      "type": "annual",
+      "option": "社区人工核验",
+      "by": "elder",
+      "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "status": "已完成",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-27T05:37:46.198Z",
+          "by": "elder_a_test",
+          "byAccount": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+          "role": "elder"
+        },
+        {
+          "status": "审核通过",
+          "at": "2026-11-27T05:37:46.209Z",
+          "note": "批量材料核验通过",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        },
+        {
+          "status": "已完成",
+          "at": "2026-11-27T05:37:46.211Z",
+          "note": "社区人工核验完成",
+          "by": "community_test",
+          "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-27T05:37:46.198Z",
+      "updatedAt": "2026-11-27T05:37:46.211Z",
+      "resourceId": "",
+      "resourceName": "",
+      "resource": "",
+      "reportHistory": []
+    }
+  ],
+  "visits": [
+    {
+      "id": "b94e3f9b-a512-4885-85c2-1ae5925f7b52",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "type": "关怀",
+      "by": "community_test",
+      "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+      "at": "2026-11-27T05:37:46.251Z",
+      "date": "2026-11-27",
+      "note": "电话关怀并确认居家安全",
+      "createdAt": "2026-11-27T05:37:46.251Z",
+      "updatedAt": "2026-11-27T05:37:46.251Z"
+    }
+  ],
+  "resolved": [
+    {
+      "id": "2a8ec05d-9e1e-4f17-bc5d-54420e7eeef4",
+      "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "caseId": "2a8ec05d-9e1e-4f17-bc5d-54420e7eeef4",
+      "by": "community_test",
+      "byAccount": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+      "at": "2026-11-27T05:37:46.493Z",
+      "note": "已电话核查并重新约定服务时间"
+    }
+  ],
+  "auditLog": [
+    {
+      "id": "4ed5cf51-faea-4088-b3a2-5e7b435c6b22",
+      "action": "account",
+      "targetId": "8c28f533-27bb-4dc9-b3bd-cfbca5054392",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:45.990Z",
+      "detail": {
+        "role": "community"
+      }
+    },
+    {
+      "id": "fb390545-f47d-441d-a5da-03da43161e79",
+      "action": "resident",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.017Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "profile",
+          "deadlines"
+        ]
+      }
+    },
+    {
+      "id": "4b754376-631c-4b49-940c-709f67145d7a",
+      "action": "resident",
+      "targetId": "ed9a948e-9120-4b40-bec6-0931cb615ebd",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.020Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "profile",
+          "deadlines"
+        ]
+      }
+    },
+    {
+      "id": "abf5b6b6-70d6-4a7d-ae92-5810b7f9c28e",
+      "action": "account",
+      "targetId": "9659ec92-049f-468c-bd7d-3115285f9e6e",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.043Z",
+      "detail": {
+        "role": "elder",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "b16ffad9-4199-4dba-af89-7927ca4f7b74",
+      "action": "account",
+      "targetId": "65eb4596-09ed-49b2-96f6-56cd8b424bba",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.067Z",
+      "detail": {
+        "role": "elder",
+        "elderId": "ed9a948e-9120-4b40-bec6-0931cb615ebd"
+      }
+    },
+    {
+      "id": "751e3d87-3d5c-42f0-8375-9e2f1326d973",
+      "action": "account",
+      "targetId": "3b83d7c5-f671-4583-bdf0-216efbbdd6ad",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.090Z",
+      "detail": {
+        "role": "family",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "8c65e52a-9ff7-45d2-9b46-ac97b3a453ef",
+      "action": "profile",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "elder_a_test",
+      "at": "2026-11-27T05:37:46.181Z",
+      "detail": {
+        "fields": [
+          "profile"
+        ]
+      }
+    },
+    {
+      "id": "8be99658-d81f-46da-94f8-c3a187bdb67c",
+      "action": "resource",
+      "targetId": "2f16d4c3-517a-411d-8639-d3684e11f0f8",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.187Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "name",
+          "kind",
+          "category",
+          "projects",
+          "x",
+          "y",
+          "fee",
+          "capacity",
+          "phone",
+          "address",
+          "enabled"
+        ],
+        "enabled": true
+      }
+    },
+    {
+      "id": "1239f0be-f9df-460c-9e79-3b8d333143f6",
+      "action": "resource",
+      "targetId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.188Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "name",
+          "kind",
+          "category",
+          "projects",
+          "x",
+          "y",
+          "fee",
+          "capacity",
+          "phone",
+          "address",
+          "enabled"
+        ],
+        "enabled": true
+      }
+    },
+    {
+      "id": "8f6de726-c866-4946-bf75-84ad88fc5409",
+      "action": "resource",
+      "targetId": "454fcc34-0c8f-4602-9acb-f4a9a1bbd70f",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.190Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "name",
+          "kind",
+          "category",
+          "projects",
+          "x",
+          "y",
+          "fee",
+          "capacity",
+          "phone",
+          "address",
+          "enabled"
+        ],
+        "enabled": true
+      }
+    },
+    {
+      "id": "b82c9b7d-46e7-4783-bee6-b1751a2801be",
+      "action": "resource",
+      "targetId": "edc942ce-41ee-4ee8-accd-33056b3c6cdb",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.192Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "name",
+          "kind",
+          "category",
+          "projects",
+          "x",
+          "y",
+          "fee",
+          "capacity",
+          "phone",
+          "address",
+          "enabled"
+        ],
+        "enabled": true
+      }
+    },
+    {
+      "id": "93e1a720-f879-4ac1-bba2-8d72763c26c6",
+      "action": "resource",
+      "targetId": "04e820db-1351-46b4-a90e-3329b7fe024b",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.194Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "name",
+          "kind",
+          "category",
+          "projects",
+          "x",
+          "y",
+          "fee",
+          "capacity",
+          "phone",
+          "address",
+          "enabled"
+        ],
+        "enabled": true
+      }
+    },
+    {
+      "id": "f14dcdf9-843a-4e59-8e3b-d43a93a827a6",
+      "action": "review",
+      "targetId": "ca11525d-cc43-45e0-8b68-b506349025aa",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.209Z",
+      "detail": {
+        "status": "审核通过",
+        "note": "批量材料核验通过",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "ef57cca4-41b3-4906-8bab-6cc189271181",
+      "action": "review",
+      "targetId": "7d5e94cb-fce0-4299-b28b-f682033ded47",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.209Z",
+      "detail": {
+        "status": "审核通过",
+        "note": "批量材料核验通过",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "8baff861-39af-468c-879b-1b289f8e8c57",
+      "action": "deadline",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.211Z",
+      "detail": {
+        "caseId": "ca11525d-cc43-45e0-8b68-b506349025aa",
+        "type": "annual"
+      }
+    },
+    {
+      "id": "abbd3113-f64f-4a14-92aa-7b1e76c816a9",
+      "action": "review",
+      "targetId": "ca11525d-cc43-45e0-8b68-b506349025aa",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.211Z",
+      "detail": {
+        "status": "已完成",
+        "note": "社区人工核验完成",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "105a399b-b13c-4446-958a-5372dfd4e0a6",
+      "action": "review",
+      "targetId": "7d5e94cb-fce0-4299-b28b-f682033ded47",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.213Z",
+      "detail": {
+        "status": "补贴发放中",
+        "note": "进入本地演示发放流程",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "2505055b-b500-4cc4-b865-201feb25b1a7",
+      "action": "deadline",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.215Z",
+      "detail": {
+        "caseId": "7d5e94cb-fce0-4299-b28b-f682033ded47",
+        "type": "subsidy"
+      }
+    },
+    {
+      "id": "c2d659a7-0da6-485e-b899-70d51cf59043",
+      "action": "review",
+      "targetId": "7d5e94cb-fce0-4299-b28b-f682033ded47",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.215Z",
+      "detail": {
+        "status": "发放完成",
+        "note": "本地演示办结，非真实支付",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "64595a3b-5a1c-4190-92b8-ddcee73d4ce5",
+      "action": "reject",
+      "targetId": "e82fbcea-95f1-446a-a5b5-214603fbc381",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.219Z",
+      "detail": {
+        "status": "已退回",
+        "note": "请补充清晰户籍材料",
+        "elderId": "ed9a948e-9120-4b40-bec6-0931cb615ebd"
+      }
+    },
+    {
+      "id": "56a66881-56c0-461a-9263-562ea16d9d4d",
+      "action": "review",
+      "targetId": "5d619292-5f90-4abf-9e57-9d1ed97a7044",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.222Z",
+      "detail": {
+        "status": "已确认",
+        "note": "已安排照护人员",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "7a5a0638-2a68-4205-be69-1c2d70080b9a",
+      "action": "review",
+      "targetId": "c2ab07ac-0764-49d9-b5ee-754189563e7e",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.231Z",
+      "detail": {
+        "status": "已确认",
+        "note": "",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "de3fa138-0c7e-492b-aeb1-f9dbf90117e2",
+      "action": "resource",
+      "targetId": "2f16d4c3-517a-411d-8639-d3684e11f0f8",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.233Z",
+      "detail": {
+        "operation": "update-or-toggle",
+        "fields": [
+          "enabled"
+        ],
+        "enabled": false
+      }
+    },
+    {
+      "id": "633519d2-d4da-466a-802b-a58cfe28ad4e",
+      "action": "reassign",
+      "targetId": "c2ab07ac-0764-49d9-b5ee-754189563e7e",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.236Z",
+      "detail": {
+        "previousResourceId": "2f16d4c3-517a-411d-8639-d3684e11f0f8",
+        "resourceId": "c413bf3e-9693-40d7-8afa-9d19217e84d4",
+        "status": "已确认"
+      }
+    },
+    {
+      "id": "c65afe5a-25d6-469c-8648-461913a509ee",
+      "action": "review",
+      "targetId": "939abeb5-1c8b-4b0e-bd2e-9ca24bdffed3",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.240Z",
+      "detail": {
+        "status": "已确认",
+        "note": "",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "c31435d1-0040-4465-9076-764d8ca503cc",
+      "action": "deadline",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.242Z",
+      "detail": {
+        "caseId": "939abeb5-1c8b-4b0e-bd2e-9ca24bdffed3",
+        "type": "checkup"
+      }
+    },
+    {
+      "id": "bbb38fad-aee6-4e12-bcba-f7727dce5493",
+      "action": "review",
+      "targetId": "939abeb5-1c8b-4b0e-bd2e-9ca24bdffed3",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.242Z",
+      "detail": {
+        "status": "已完成",
+        "note": "",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "871b9b88-4c29-42d1-b7a8-37f27899c752",
+      "action": "settings",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.259Z",
+      "detail": {
+        "fields": [
+          "annual",
+          "subsidy",
+          "checkup",
+          "welfare"
+        ],
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "aa088003-3157-4dde-b6ba-dea4a16ae03e",
+      "action": "review",
+      "targetId": "2a8ec05d-9e1e-4f17-bc5d-54420e7eeef4",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.264Z",
+      "detail": {
+        "status": "已确认",
+        "note": "",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "bcf2906d-6526-4090-b530-b8df523730fe",
+      "action": "review",
+      "targetId": "4c0aeab6-c7fd-4784-b774-87e8c5e97332",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.268Z",
+      "detail": {
+        "status": "已确认",
+        "note": "",
+        "elderId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5"
+      }
+    },
+    {
+      "id": "ded6ac94-77e2-4c1f-8f04-4b666f70a35d",
+      "action": "resource",
+      "targetId": "4c49f80e-d7fa-48bd-b950-e8c12e3517dd",
+      "by": "community_test",
+      "at": "2026-11-27T05:37:46.270Z",
+      "detail": {
+        "operation": "update-or-toggle",
+        "fields": [
+          "enabled"
+        ],
+        "enabled": false
+      }
+    },
+    {
+      "id": "8036bd1e-528b-4de2-8b91-5d8f8f83376a",
+      "action": "profile",
+      "targetId": "ac0c7507-e8ef-44e9-8db4-ac2c754454a5",
+      "by": "elder_a_test",
+      "at": "2026-11-27T07:17:25.955Z",
+      "detail": {
+        "fields": [
+          "profile"
+        ]
+      }
+    }
+  ],
+  "hotline": ""
+}

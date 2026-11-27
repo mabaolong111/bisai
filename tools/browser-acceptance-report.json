@@ -1,0 +1,110 @@
+{
+  "success": true,
+  "generatedAt": "2026-11-27T07:17:29.037Z",
+  "servicePort": 57455,
+  "results": [
+    {
+      "name": "电脑尺寸登录页及 yanglao.html 静态路由",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "老人六入口单列布局、最小文字、行距、对比度、整区热区及内容优先级",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "老人端三档字号、主题、本地保存及图片单次 3D 入场和静态降级",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "居家主要表单、资源时段弹窗和浏览器实际提交称呼留痕",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "虚构大图在浏览器内实际压缩为 JPEG、限制尺寸并满足上传上限",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "语音文字指令识别、关键内容复述、歧义确认、政策查询及不自动提交",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "朗读、暂停、继续、重播、语速控件及语音识别降级路径调用",
+      "status": "通过",
+      "detail": "{\"speech\":{\"supported\":true,\"voices\":[\"Microsoft Huihui - Chinese (Simplified, PRC):zh-CN\",\"Microsoft Kangkang - Chinese (Simplified, PRC):zh-CN\",\"Microsoft Yaoyao - Chinese (Simplified, PRC):zh-CN\",\"Microsoft 晓晓 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN\",\"Microsoft 云希 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN\",\"Microsoft 云健 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN\",\"Microsoft 晓伊 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN\",\"Microsoft 云扬 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN\",\"Microsoft 云夏 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN\",\"Microsoft 晓北 Online (Natural) - Chinese (Northeastern Mandarin, Simplified):zh-CN-liaoning\",\"Microsoft 晓妮 Online (Natural) - Chinese (Zhongyuan Mandarin Shaanxi, Simplified):zh-CN-shaanxi\",\"Microsoft 曉曼 Online (Natural) - Chinese (Cantonese, Traditional):zh-HK\",\"Microsoft 雲龍 Online (Natural) - Chinese (Cantonese, Traditional):zh-HK\",\"Microsoft 曉佳 Online (Natural) - Chinese (Cantonese, Traditional):zh-HK\",\"Microsoft 曉臻 Online (Natural) - Chinese (Taiwanese Mandarin, Traditional):zh-TW\",\"Microsoft 雲哲 Online (Natural) - Chinese (Taiwanese Mandarin, Traditional):zh-TW\",\"Microsoft 曉雨 Online (Natural) - Chinese (Taiwanese Mandarin, Traditional):zh-TW\"],\"utteranceCreated\":true,\"speakingOrPending\":true},\"recognition\":{\"supported\":true,\"text\":\"麦克风权限被拒绝或不可用。请使用文字指令、业务按钮和手工表单，功能不受影响。\",\"button\":\"开始语音识别\"}}"
+    },
+    {
+      "name": "画像刷新、下架资源隔离及资源整卡点击",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "390px 手机单列、必要文字与热区达标、弹窗及超大字号无横向溢出",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "家属布局恢复、社区紧凑字号、无语音入口及资源预览隐藏距离和位置图",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "手机登录页、三端入口及退出后的角色样式清理",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "浏览器运行无未捕获脚本异常，正式数据未修改",
+      "status": "通过",
+      "detail": ""
+    }
+  ],
+  "voice": {
+    "speech": {
+      "supported": true,
+      "voices": [
+        "Microsoft Huihui - Chinese (Simplified, PRC):zh-CN",
+        "Microsoft Kangkang - Chinese (Simplified, PRC):zh-CN",
+        "Microsoft Yaoyao - Chinese (Simplified, PRC):zh-CN",
+        "Microsoft 晓晓 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN",
+        "Microsoft 云希 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN",
+        "Microsoft 云健 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN",
+        "Microsoft 晓伊 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN",
+        "Microsoft 云扬 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN",
+        "Microsoft 云夏 Online (Natural) - Chinese (Mandarin, Simplified):zh-CN",
+        "Microsoft 晓北 Online (Natural) - Chinese (Northeastern Mandarin, Simplified):zh-CN-liaoning",
+        "Microsoft 晓妮 Online (Natural) - Chinese (Zhongyuan Mandarin Shaanxi, Simplified):zh-CN-shaanxi",
+        "Microsoft 曉曼 Online (Natural) - Chinese (Cantonese, Traditional):zh-HK",
+        "Microsoft 雲龍 Online (Natural) - Chinese (Cantonese, Traditional):zh-HK",
+        "Microsoft 曉佳 Online (Natural) - Chinese (Cantonese, Traditional):zh-HK",
+        "Microsoft 曉臻 Online (Natural) - Chinese (Taiwanese Mandarin, Traditional):zh-TW",
+        "Microsoft 雲哲 Online (Natural) - Chinese (Taiwanese Mandarin, Traditional):zh-TW",
+        "Microsoft 曉雨 Online (Natural) - Chinese (Taiwanese Mandarin, Traditional):zh-TW"
+      ],
+      "utteranceCreated": true,
+      "speakingOrPending": true
+    },
+    "recognition": {
+      "supported": true,
+      "text": "麦克风权限被拒绝或不可用。请使用文字指令、业务按钮和手工表单，功能不受影响。",
+      "button": "开始语音识别"
+    }
+  },
+  "limitations": [
+    "无头浏览器只验证 Web Speech API 调用与界面反馈，未验证扬声器实际听感。",
+    "未取得真实麦克风语音转写结果；方言模型与方言纠错未实现，仍按普通话常用说法和文字指令验收。",
+    "截图使用 Edge 无头模式，内置浏览器另用于打开正式地址。"
+  ],
+  "screenshots": [
+    "C:\\Users\\Q\\Desktop\\比赛\\创新\\tools\\browser-desktop-form.png",
+    "C:\\Users\\Q\\Desktop\\比赛\\创新\\tools\\browser-mobile-home.png",
+    "C:\\Users\\Q\\Desktop\\比赛\\创新\\tools\\browser-mobile-form.png",
+    "C:\\Users\\Q\\Desktop\\比赛\\创新\\tools\\browser-community.png",
+    "C:\\Users\\Q\\Desktop\\比赛\\创新\\tools\\browser-mobile-login.png"
+  ]
+}

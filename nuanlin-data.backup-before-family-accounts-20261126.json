@@ -1,0 +1,294 @@
+{
+  "hotline": "123456",
+  "cases": [
+    {
+      "id": "bb1371e6-0452-4105-8fcd-4bda742ec30c",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "status": "待社区审核",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T08:16:06.639Z"
+        }
+      ],
+      "date": "2026-11-25",
+      "slot": "09:00",
+      "resource": "上门照护站",
+      "elderId": "resident-demo-1",
+      "name": "演示长者",
+      "byAccount": "",
+      "resourceId": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "resourceName": "上门照护站",
+      "createdAt": "2026-11-24T08:16:06.639Z",
+      "updatedAt": "2026-11-24T08:16:06.639Z",
+      "reportHistory": [],
+      "resourceAvailable": true
+    },
+    {
+      "id": "3462b6eb-cf35-4fc5-9351-67097e929c65",
+      "type": "home",
+      "option": "陪护照料",
+      "by": "elder",
+      "status": "已确认",
+      "note": "w'w'w",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T08:16:03.739Z"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-25T15:41:32.298Z",
+          "note": "",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "role": "community"
+        }
+      ],
+      "date": "2026-11-25",
+      "slot": "14:00",
+      "resource": "上门照护站",
+      "elderId": "resident-demo-1",
+      "name": "演示长者",
+      "byAccount": "",
+      "resourceId": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "resourceName": "上门照护站",
+      "createdAt": "2026-11-24T08:16:03.739Z",
+      "updatedAt": "2026-11-25T15:41:32.298Z",
+      "reportHistory": [],
+      "resourceAvailable": true
+    },
+    {
+      "id": "c1aa3c95-2174-4174-b17b-986b30a9f5e7",
+      "type": "home",
+      "option": "助餐配送",
+      "by": "elder",
+      "status": "已确认",
+      "note": "演示",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-24T06:40:32.466Z"
+        },
+        {
+          "status": "已确认",
+          "at": "2026-11-25T09:25:40.123Z",
+          "note": "",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "role": "community"
+        }
+      ],
+      "date": "2099-12-01",
+      "slot": "09:00",
+      "resource": "长者食堂",
+      "elderId": "resident-demo-1",
+      "name": "演示长者",
+      "byAccount": "",
+      "resourceId": "defc1b8c-8c11-4ee7-b9df-94bb01a98eb8",
+      "resourceName": "长者食堂",
+      "createdAt": "2026-11-24T06:40:32.466Z",
+      "updatedAt": "2026-11-25T09:25:40.123Z",
+      "reportHistory": [],
+      "resourceAvailable": true
+    }
+  ],
+  "visits": [],
+  "resolved": [],
+  "resources": [
+    {
+      "id": "defc1b8c-8c11-4ee7-b9df-94bb01a98eb8",
+      "name": "长者食堂",
+      "kind": "助餐配送",
+      "x": 0.8,
+      "y": 0.2,
+      "fee": 12,
+      "enabled": true,
+      "phone": "",
+      "category": "助餐配送",
+      "projects": [
+        "助餐配送"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "name": "上门照护站",
+      "kind": "陪护照料",
+      "x": -0.6,
+      "y": 0.8,
+      "fee": 39,
+      "enabled": true,
+      "phone": "",
+      "category": "陪护照料",
+      "projects": [
+        "陪护照料"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "3633c5f3-39ac-4836-99e2-3fe32835a74d",
+      "name": "日间照料中心",
+      "kind": "日间照料",
+      "x": 1.3,
+      "y": -0.5,
+      "fee": 0,
+      "enabled": true,
+      "phone": "",
+      "category": "日间照料",
+      "projects": [
+        "日间照料"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "c1443c37-acce-49ee-878b-beda6050fbaf",
+      "name": "助浴服务站",
+      "kind": "上门助浴",
+      "x": -1.7,
+      "y": -0.6,
+      "fee": 29,
+      "enabled": true,
+      "phone": "",
+      "category": "上门助浴",
+      "projects": [
+        "上门助浴"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "b5e8e8dc-8627-4f85-9b65-52d83797c852",
+      "name": "便民服务点",
+      "kind": "上门维修",
+      "x": 2.6,
+      "y": 1,
+      "fee": 20,
+      "enabled": true,
+      "phone": "",
+      "category": "上门维修",
+      "projects": [
+        "上门维修"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "0bf90ba8-311c-4a2a-a8dd-5fc0c06f1d1c",
+      "name": "社区居家保洁示例点",
+      "kind": "居家保洁",
+      "x": -0.9,
+      "y": -1.2,
+      "fee": 25,
+      "enabled": true,
+      "phone": "",
+      "category": "居家保洁",
+      "projects": [
+        "居家保洁"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "3cc20dee-5390-410d-a8b5-dd874950d08e",
+      "name": "社区理发修脚示例点",
+      "kind": "理发修脚",
+      "x": 1.1,
+      "y": 1.2,
+      "fee": 18,
+      "enabled": true,
+      "phone": "",
+      "category": "理发修脚",
+      "projects": [
+        "理发修脚"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    }
+  ],
+  "schemaVersion": 2,
+  "residents": [
+    {
+      "id": "resident-demo-1",
+      "name": "演示长者",
+      "profile": {
+        "age": 82,
+        "district": "示例社区",
+        "local": true,
+        "living": "与家人同住",
+        "mobility": "失能",
+        "chronic": false,
+        "needs": [
+          "上门维修"
+        ]
+      },
+      "family": {
+        "view": true,
+        "proxy": true,
+        "health": true,
+        "phone": ""
+      },
+      "deadlines": {
+        "annual": "2026-12-01",
+        "subsidy": "2026-12-24",
+        "checkup": "2026-11-25",
+        "welfare": {}
+      },
+      "birthDate": "1944-11-25",
+      "birthDateEstimated": true,
+      "familyHistory": [],
+      "createdAt": "",
+      "updatedAt": "2026-11-25T09:26:03.769Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "c020a973-0939-4951-9309-821935c5c665",
+      "username": "12345678",
+      "role": "community",
+      "salt": "04ca9df1e22ef2263434ad4cc2ed8b54",
+      "hash": "a4b73e3e4c46f5a836e83cc02cec7e6cd4276d10cc75538b26627b7c89f8bb3edb7b58cc3862e513899844a851afce76005693fb80ecbed0ea8e85936ce61b3f"
+    }
+  ],
+  "auditLog": [
+    {
+      "id": "96b5071d-996a-4b0b-808a-b557485c546c",
+      "action": "review",
+      "targetId": "3462b6eb-cf35-4fc5-9351-67097e929c65",
+      "by": "12345678",
+      "at": "2026-11-25T15:41:32.298Z",
+      "detail": {
+        "status": "已确认",
+        "note": "",
+        "elderId": "resident-demo-1"
+      }
+    }
+  ]
+}

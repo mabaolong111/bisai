@@ -1,0 +1,11 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "nuanlin-preview",
+      "runtimeExecutable": "node",
+      "runtimeArgs": ["tools/preview-serve.js"],
+      "port": 8802
+    }
+  ]
+}

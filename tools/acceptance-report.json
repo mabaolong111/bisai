@@ -1,0 +1,95 @@
+{
+  "success": true,
+  "generatedAt": "2026-11-27T07:17:33.094Z",
+  "temporaryPort": 60869,
+  "isolatedDataFile": "C:\\Users\\Q\\Desktop\\比赛\\创新\\tools\\acceptance-isolated-data.json",
+  "productionBackup": "C:\\Users\\Q\\Desktop\\比赛\\创新\\nuanlin-data.backup-20261125-final.json",
+  "productionSha256": "82aafaf9ce5322627ea990b1cefac85acdfe3ae654735cc3161570e48e111789",
+  "results": [
+    {
+      "name": "隔离启动、网页初始化和社区独立账号登录",
+      "status": "通过",
+      "detail": "临时端口 56021"
+    },
+    {
+      "name": "两位长者、独立账号、角色端口校验及旧家属权限重置",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "长者画像和整行服务需求保存、刷新保留及跨档案资料隔离",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "食堂、日照、养老机构、上门照护、义诊和适老化改造资源维护",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "四类业务提交、称呼随工单保存、补贴初审及家属授权代办",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "体检独立资源余量、容量、重复预约和过期时段拦截",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "单笔与批量审核留痕、四类状态和按人员更新期限",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "退回原因、补正历史、跨工单隔离和社区权限服务端校验",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "无照片办结、完成说明强制留痕及本人代办服务评价",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "资源下架同步推荐与预约、受影响工单改派及办结限制",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "体检办结、报告手工来源、通俗摘要、个体化建议及健康单独授权",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "仅代办权跟踪本人提交工单、探访分权及撤权即时生效",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "个人期限互不影响、30/7/1 天与逾期提醒、去重及实际统计",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "重启后业务恢复、服务需求保留、下架不复活及超时预警唯一生成",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "预警核查处置、禁止重复核销、旧工单补录及再次重启恢复",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "旧版单档案数据迁移及业务归属保留",
+      "status": "通过",
+      "detail": ""
+    },
+    {
+      "name": "正式 nuanlin-data.json 未被隔离验收修改",
+      "status": "通过",
+      "detail": "SHA-256 前后一致"
+    }
+  ]
+}

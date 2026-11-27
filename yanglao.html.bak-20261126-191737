@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0d5b50">
+  <title>暖邻 · 便民养老智能服务平台</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <a class="skip-link" id="skip-link" href="#access-screen">跳到主要内容</a>
+  <div class="display-controls global-display-controls" aria-label="显示设置">
+    <div class="control-group" aria-label="字号">
+      <button class="accessibility-control" data-action="font" data-scale="1" aria-pressed="true">标准</button>
+      <button class="accessibility-control" data-action="font" data-scale="1.2" aria-pressed="false">大号</button>
+      <button class="accessibility-control" data-action="font" data-scale="1.4" aria-pressed="false">超大</button>
+    </div>
+    <div class="control-group" aria-label="配色">
+      <button class="accessibility-control" data-action="theme" data-theme-value="normal" aria-pressed="true">标准配色</button>
+      <button class="accessibility-control" data-action="theme" data-theme-value="night" aria-pressed="false">夜间</button>
+      <button class="accessibility-control" data-action="theme" data-theme-value="contrast" aria-pressed="false">高对比度</button>
+    </div>
+    <button class="accessibility-control" data-action="reset-display">一键重置</button>
+  </div>
+  <main id="access-screen" class="access-screen">
+    <div class="brand-mark" aria-hidden="true">暖</div>
+    <h1>暖邻 · 本地试用</h1>
+    <p id="access-hint">请使用社区开通的账号登录。</p>
+    <p class="notice">本页面需要通过本机服务打开。直接双击 HTML 的文件协议无法登录或保存数据。</p>
+    <section id="portal-picker" class="portal-picker" aria-label="选择登录端">
+      <button type="button" class="portal-card active" data-action="select-portal" data-portal="elder" aria-pressed="true">
+        <strong>老人端</strong><span>本人办理认证、补贴、居家服务和体检，查看进度与提醒。</span>
+      </button>
+      <button type="button" class="portal-card" data-action="select-portal" data-portal="family" aria-pressed="false">
+        <strong>家属端</strong><span>在长者授权范围内代办、查看进度、提交材料和评价本人代办服务。</span>
+      </button>
+      <button type="button" class="portal-card" data-action="select-portal" data-portal="community" aria-pressed="false">
+        <strong>社区端</strong><span>审核工单、管理长者档案与账号、维护资源和处理预警。</span>
+      </button>
+    </section>
+    <form id="login-form">
+      <h2 id="login-title">老人端登录</h2>
+      <p id="portal-hint" aria-live="polite">请使用老人本人账号；将校验账号是否属于老人端。</p>
+      <input type="hidden" name="portal" value="elder">
+      <label>账号<input name="username" autocomplete="username" required maxlength="32"></label>
+      <label>密码<input name="password" type="password" autocomplete="current-password" required maxlength="128"></label>
+      <button class="primary-button" id="login-submit" type="submit">登录老人端</button>
+    </form>
+    <form id="setup-form" hidden>
+      <h2>初始化并创建社区账号</h2>
+      <p class="notice">初始化仅创建一个社区端账号，不会创建老人或家属账号。</p>
+      <label>启动终端中的初始化码<input name="code" required autocomplete="off"></label>
+      <label>社区账号<input name="username" autocomplete="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_\-]{3,32}"></label>
+      <label>设置密码<input name="password" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label>
+      <button class="primary-button" type="submit">初始化网页并创建社区账号</button>
+    </form>
+  </main>
+  <div class="app-shell" hidden>
+    <div class="demo-banner">业务数据保存在本机；浏览器语音识别等外部能力以状态说明为准</div>
+    <header class="topbar">
+      <div class="brand-lockup">
+        <div class="brand-mark" aria-hidden="true">暖</div>
+        <div><div class="brand-name">暖邻</div><div class="brand-subtitle">便民养老智能服务平台</div></div>
+      </div>
+      <button class="secondary-button logout-button" type="button" data-action="logout" aria-label="退出当前账号并返回登录页">退出账号</button>
+    </header>
+    <main id="main-content">
+      <section class="hero-section" aria-labelledby="greeting">
+        <div class="hero-copy">
+          <div class="eyebrow">社区智慧养老 · 今天也有人惦记您</div>
+          <h1 id="greeting">您好</h1>
+          <p id="hero-description">办事、预约和提醒都在这里。</p>
+          <div class="hero-actions">
+            <button class="primary-button" data-action="speak-page">朗读本页摘要</button>
+            <button class="secondary-button" data-action="home">返回首页</button>
+            <button class="secondary-button" data-action="change-password">账号安全</button>
+
+          </div>
+          <div class="speech-controls" aria-label="语音播报控制">
+            <button data-action="speech-pause">暂停</button>
+            <button data-action="speech-resume">继续</button>
+            <button data-action="speech-replay">重播</button>
+            <label>语速<select id="speech-rate"><option value="0.7">慢速</option><option value="0.9">标准</option><option value="1.15">快速</option></select></label>
+          </div>
+        </div>
+        <div class="hero-illustration" aria-hidden="true"><div class="sun-disc"></div><div class="hill hill-one"></div><div class="hill hill-two"></div><div class="house-card"><div class="house-roof"></div><div class="house-body"><span></span><span></span><i></i></div></div></div>
+      </section>
+      <section class="role-strip" aria-label="当前账号">
+        <div class="role-intro"><span class="role-label">当前账号</span><strong id="role-name"></strong></div>
+        <div class="location-pill" id="location-pill"></div>
+      </section>
+      <div class="dashboard-grid">
+        <div class="main-column">
+          <section id="service-home" aria-label="业务入口"></section>
+          <div id="workspace"></div>
+          <section class="resource-section" aria-labelledby="resource-heading">
+            <div class="section-heading">
+              <div><span class="section-kicker" id="resource-kicker">为您推荐</span><h2 id="resource-heading">最推荐的 3 条养老资源</h2></div>
+              <button class="text-button" data-action="toggle-directory" aria-expanded="false">查看完整目录</button>
+            </div>
+            <p id="resource-logic" class="resource-logic"></p>
+            <div class="recommendation-list" id="recommendation-list"></div>
+            <div class="resource-map" id="resource-map" aria-label="养老资源示意坐标，不用于导航"></div>
+            <div class="resource-directory" id="resource-directory" hidden></div>
+          </section>
+        </div>
+        <aside class="side-column">
+          <section class="panel reminder-panel" id="reminders-section" aria-labelledby="reminder-heading">
+            <div class="panel-heading"><div><span class="section-kicker">重要提醒</span><h2 id="reminder-heading">期限与服务同步</h2></div><span class="notification-count" id="reminder-count">0</span></div>
+            <div class="reminder-list" id="reminder-list"></div>
+            <button class="panel-footer-button" data-action="show-reminders" aria-expanded="false">查看全部提醒</button>
+          </section>
+          <section class="panel family-panel" id="family-panel"></section>
+          <section class="panel voice-panel" aria-labelledby="voice-heading">
+            <span class="section-kicker">语音助手</span>
+            <h2 id="voice-heading">说出您想办的事</h2>
+            <p>可以说“明天下午三点三十分陪护照料”或“查查办理进度”。</p>
+            <button class="primary-button listen-button" id="listen-button" data-action="listen">开始语音识别</button>
+            <form id="voice-text-form" class="voice-text-form">
+              <label>也可以输入语音指令文字<input id="voice-text" autocomplete="off" placeholder="例如：明天下午三点三十分陪护照料"></label>
+              <button class="secondary-button" type="submit">解析并填写</button>
+            </form>
+            <p class="voice-note">仅支持普通话常用说法，不提供方言模型纠错。识别后必须核对并明确确认，语音不会直接提交申请。浏览器语音识别可能使用浏览器厂商或其语音服务处理音频；业务数据保存在本机，外部能力以状态说明为准。</p>
+            <div id="voice-result" class="voice-result" role="status" aria-live="polite"></div>
+          </section>
+        </aside>
+      </div>
+    </main>
+    <footer class="footer"><span>暖邻 · 便民养老</span><span id="footer-service">服务时间由社区配置</span></footer>
+    <button class="floating-help" data-action="help">社区求助</button>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite" aria-atomic="true"></div>
+  <div class="modal-backdrop" id="modal-backdrop" aria-hidden="true">
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+      <button class="modal-close" data-action="close-modal" aria-label="关闭对话框">×</button>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+  <script src="app.js"></script>
+</body>
+</html>

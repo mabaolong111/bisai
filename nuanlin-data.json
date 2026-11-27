@@ -1,0 +1,556 @@
+{
+  "hotline": "123456",
+  "cases": [
+    {
+      "id": "0345a5d5-d1e1-4095-9c8c-c188609ce44a",
+      "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c",
+      "name": "王阿姨",
+      "type": "annual",
+      "option": "社区人工核验",
+      "by": "elder",
+      "byAccount": "8b389c87-94e6-47bd-9dd9-05497224740a",
+      "status": "待社区审核",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-26T09:19:44.140Z",
+          "by": "elder_wang",
+          "byAccount": "8b389c87-94e6-47bd-9dd9-05497224740a",
+          "role": "elder"
+        }
+      ],
+      "createdAt": "2026-11-26T09:19:44.140Z",
+      "updatedAt": "2026-11-26T09:19:44.140Z"
+    },
+    {
+      "id": "970a6577-6019-4d50-b16c-8c42b929ad6b",
+      "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c",
+      "name": "王阿姨",
+      "type": "annual",
+      "option": "社区人工核验",
+      "by": "elder",
+      "byAccount": "8b389c87-94e6-47bd-9dd9-05497224740a",
+      "status": "已退回",
+      "note": "",
+      "history": [
+        {
+          "status": "待社区审核",
+          "at": "2026-11-26T04:39:40.172Z",
+          "by": "elder_wang",
+          "byAccount": "8b389c87-94e6-47bd-9dd9-05497224740a",
+          "role": "elder"
+        },
+        {
+          "status": "已退回",
+          "at": "2026-11-26T09:18:25.340Z",
+          "note": "无xxxx",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "role": "community"
+        }
+      ],
+      "createdAt": "2026-11-26T04:39:40.172Z",
+      "updatedAt": "2026-11-26T09:18:25.340Z",
+      "resourceId": "",
+      "resourceName": "",
+      "resource": "",
+      "reportHistory": []
+    }
+  ],
+  "visits": [],
+  "resolved": [],
+  "resources": [
+    {
+      "id": "defc1b8c-8c11-4ee7-b9df-94bb01a98eb8",
+      "name": "长者食堂",
+      "kind": "助餐配送",
+      "x": 0.8,
+      "y": 0.2,
+      "fee": 12,
+      "enabled": true,
+      "phone": "",
+      "category": "助餐配送",
+      "projects": [
+        "助餐配送"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "5deb5007-8ea4-45d7-941f-b18f74604e46",
+      "name": "上门照护站",
+      "kind": "陪护照料",
+      "x": -0.6,
+      "y": 0.8,
+      "fee": 39,
+      "enabled": true,
+      "phone": "",
+      "category": "陪护照料",
+      "projects": [
+        "陪护照料"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "3633c5f3-39ac-4836-99e2-3fe32835a74d",
+      "name": "日间照料中心",
+      "kind": "日间照料",
+      "x": 1.3,
+      "y": -0.5,
+      "fee": 0,
+      "enabled": true,
+      "phone": "",
+      "category": "日间照料",
+      "projects": [
+        "日间照料"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "c1443c37-acce-49ee-878b-beda6050fbaf",
+      "name": "助浴服务站",
+      "kind": "上门助浴",
+      "x": -1.7,
+      "y": -0.6,
+      "fee": 29,
+      "enabled": true,
+      "phone": "",
+      "category": "上门助浴",
+      "projects": [
+        "上门助浴"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "b5e8e8dc-8627-4f85-9b65-52d83797c852",
+      "name": "便民服务点",
+      "kind": "上门维修",
+      "x": 2.6,
+      "y": 1,
+      "fee": 20,
+      "enabled": true,
+      "phone": "",
+      "category": "上门维修",
+      "projects": [
+        "上门维修"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "0bf90ba8-311c-4a2a-a8dd-5fc0c06f1d1c",
+      "name": "社区居家保洁示例点",
+      "kind": "居家保洁",
+      "x": -0.9,
+      "y": -1.2,
+      "fee": 25,
+      "enabled": true,
+      "phone": "",
+      "category": "居家保洁",
+      "projects": [
+        "居家保洁"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    },
+    {
+      "id": "3cc20dee-5390-410d-a8b5-dd874950d08e",
+      "name": "社区理发修脚示例点",
+      "kind": "理发修脚",
+      "x": 1.1,
+      "y": 1.2,
+      "fee": 18,
+      "enabled": true,
+      "phone": "",
+      "category": "理发修脚",
+      "projects": [
+        "理发修脚"
+      ],
+      "address": "",
+      "capacity": 4,
+      "coordinatesDemo": true,
+      "createdAt": "",
+      "updatedAt": ""
+    }
+  ],
+  "schemaVersion": 2,
+  "residents": [
+    {
+      "id": "resident-demo-1",
+      "name": "演示长者",
+      "profile": {
+        "age": 82,
+        "district": "示例社区",
+        "local": true,
+        "living": "与家人同住",
+        "mobility": "失能",
+        "chronic": false,
+        "needs": [
+          "上门维修"
+        ]
+      },
+      "family": {
+        "view": true,
+        "proxy": true,
+        "health": true,
+        "phone": ""
+      },
+      "deadlines": {
+        "annual": "2026-12-01",
+        "subsidy": "2026-12-24",
+        "checkup": "2026-11-25",
+        "welfare": {}
+      },
+      "birthDate": "1944-11-25",
+      "birthDateEstimated": true,
+      "familyHistory": [],
+      "createdAt": "",
+      "updatedAt": "2026-11-25T09:26:03.769Z"
+    },
+    {
+      "id": "a5f58d80-7c74-43aa-a5bb-35570ff1203c",
+      "name": "王阿姨",
+      "birthDate": "1956-11-26",
+      "birthDateEstimated": true,
+      "profile": {
+        "age": 70,
+        "district": "示例社区",
+        "local": true,
+        "living": "与家人同住",
+        "mobility": "自理",
+        "chronic": false,
+        "needs": []
+      },
+      "family": {
+        "view": false,
+        "proxy": false,
+        "health": false,
+        "phone": ""
+      },
+      "familyHistory": [
+        {
+          "id": "a1f7457e-48f0-4bda-b9f8-fa7a967e561b",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "at": "2026-11-26T04:27:38.364Z",
+          "view": false,
+          "proxy": false,
+          "health": false,
+          "permissions": {
+            "view": false,
+            "proxy": false,
+            "health": false
+          },
+          "status": "待长者重新授权",
+          "note": "旧版家属权限已重置，待长者重新授权",
+          "pending": true
+        }
+      ],
+      "deadlines": {
+        "annual": "",
+        "subsidy": "",
+        "checkup": "",
+        "welfare": {}
+      },
+      "createdAt": "2026-11-26T04:27:38.310Z",
+      "updatedAt": "2026-11-26T04:27:38.364Z"
+    },
+    {
+      "id": "d5a7ccfe-6073-43f3-8869-3c74b4b524f3",
+      "name": "李叔叔",
+      "birthDate": "1956-11-26",
+      "birthDateEstimated": true,
+      "profile": {
+        "age": 70,
+        "district": "示例社区",
+        "local": true,
+        "living": "与家人同住",
+        "mobility": "自理",
+        "chronic": false,
+        "needs": []
+      },
+      "family": {
+        "view": false,
+        "proxy": false,
+        "health": false,
+        "phone": ""
+      },
+      "familyHistory": [
+        {
+          "id": "1d0a86fe-3f7a-48e9-a24f-7d7ed4bdf204",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "at": "2026-11-26T04:27:38.418Z",
+          "view": false,
+          "proxy": false,
+          "health": false,
+          "permissions": {
+            "view": false,
+            "proxy": false,
+            "health": false
+          },
+          "status": "待长者重新授权",
+          "note": "旧版家属权限已重置，待长者重新授权",
+          "pending": true
+        }
+      ],
+      "deadlines": {
+        "annual": "",
+        "subsidy": "",
+        "checkup": "",
+        "welfare": {}
+      },
+      "createdAt": "2026-11-26T04:27:38.368Z",
+      "updatedAt": "2026-11-26T04:27:38.418Z"
+    },
+    {
+      "id": "4838c06f-7be1-4277-a072-ef124e650b8b",
+      "name": "孙阿姨",
+      "birthDate": "1956-11-26",
+      "birthDateEstimated": true,
+      "profile": {
+        "age": 70,
+        "district": "示例社区",
+        "local": true,
+        "living": "与家人同住",
+        "mobility": "自理",
+        "chronic": false,
+        "needs": []
+      },
+      "family": {
+        "view": false,
+        "proxy": false,
+        "health": false,
+        "phone": ""
+      },
+      "familyHistory": [
+        {
+          "id": "ef29ffb3-7e86-4a6b-83f6-91d6b2e0511a",
+          "by": "12345678",
+          "byAccount": "c020a973-0939-4951-9309-821935c5c665",
+          "at": "2026-11-26T04:27:38.470Z",
+          "view": false,
+          "proxy": false,
+          "health": false,
+          "permissions": {
+            "view": false,
+            "proxy": false,
+            "health": false
+          },
+          "status": "待长者重新授权",
+          "note": "旧版家属权限已重置，待长者重新授权",
+          "pending": true
+        }
+      ],
+      "deadlines": {
+        "annual": "",
+        "subsidy": "",
+        "checkup": "",
+        "welfare": {}
+      },
+      "createdAt": "2026-11-26T04:27:38.422Z",
+      "updatedAt": "2026-11-26T04:27:38.470Z"
+    }
+  ],
+  "accounts": [
+    {
+      "id": "c020a973-0939-4951-9309-821935c5c665",
+      "username": "12345678",
+      "role": "community",
+      "salt": "04ca9df1e22ef2263434ad4cc2ed8b54",
+      "hash": "a4b73e3e4c46f5a836e83cc02cec7e6cd4276d10cc75538b26627b7c89f8bb3edb7b58cc3862e513899844a851afce76005693fb80ecbed0ea8e85936ce61b3f"
+    },
+    {
+      "id": "8b389c87-94e6-47bd-9dd9-05497224740a",
+      "username": "elder_wang",
+      "role": "elder",
+      "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c",
+      "salt": "e3c0209f07bcdf66a341c643bdb345c6",
+      "hash": "79554d7bf4ab69dec2c091a1b3b7dd8166c56d84adbf6d482a9b3270f44bcd57906b777a595fd4d18b5f7fd146173888c348b502d401e0cbd74616a86e36463e"
+    },
+    {
+      "id": "7bb6960d-ad37-43f0-865f-446b943d7e63",
+      "username": "family_wang",
+      "role": "family",
+      "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c",
+      "salt": "d620d8b8e1f8b8ac2313e1813b7fb0d0",
+      "hash": "684b7cb6c40b7cfc1c11105fc7d298285d242097b6a491722f4b5e610a2720e52bdf2c9d89580085361488f9ad75c07d36dc7833fe360878b06bd3f25be3dbb7"
+    },
+    {
+      "id": "1e013968-1278-49db-baaa-ae669d2cb118",
+      "username": "elder_li",
+      "role": "elder",
+      "elderId": "d5a7ccfe-6073-43f3-8869-3c74b4b524f3",
+      "salt": "1a58877053c9b16f5ab28ed477144d40",
+      "hash": "60414b18b704daa352009ca33b2b428e97dc6096fc149c40dddd361e2218e19b8da920a76c3ca594778ae09fe15875e4caf2077024875d4fa623c2c84db391ff"
+    },
+    {
+      "id": "f7724063-6028-4948-b1a9-e0df3eb63f5b",
+      "username": "family_li",
+      "role": "family",
+      "elderId": "d5a7ccfe-6073-43f3-8869-3c74b4b524f3",
+      "salt": "23693edb7d32bb25610571ff8b6cfb24",
+      "hash": "b13b72e0ac66b7147aeb65fe147abb339218a9ab8837bed8de2bcacf9e23b335e02516b4b93e1da2a57a8b6e1d9c51f906c4a10059678d8fabcbc2c8e19b74a8"
+    },
+    {
+      "id": "c7ebd2f9-6eac-4122-a3c5-6a0276e9cd32",
+      "username": "elder_sun",
+      "role": "elder",
+      "elderId": "4838c06f-7be1-4277-a072-ef124e650b8b",
+      "salt": "64198f8efe2f7ee3dcc47b5dfe7ed4cb",
+      "hash": "c6b66335f4707217d0dea9e07bb036c0f12e5d6494dfadedebfd364143da5da8dea83486a6e5c9e2c252b27ab92d41c2b9470c10f7c8f05a247724be58c65391"
+    },
+    {
+      "id": "dcd47394-3d8f-43c7-b567-427af3765740",
+      "username": "family_sun",
+      "role": "family",
+      "elderId": "4838c06f-7be1-4277-a072-ef124e650b8b",
+      "salt": "c2f4c6bc3a7e933778d18353f6bfd986",
+      "hash": "40b4652ffa3e000a1a1c613be32e2f1509b0346f169fdab5975e6d951b978b386e07de403e6a13731903f221ad18a2bb3d597e139d4c32439dbc9010529ee016"
+    }
+  ],
+  "auditLog": [
+    {
+      "id": "b17c5edd-cf0f-42dd-a527-fd73ddec845e",
+      "action": "resident",
+      "targetId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.310Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "profile",
+          "deadlines"
+        ]
+      }
+    },
+    {
+      "id": "24e6fb46-cff8-4133-b25c-cfec64939db8",
+      "action": "account",
+      "targetId": "8b389c87-94e6-47bd-9dd9-05497224740a",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.337Z",
+      "detail": {
+        "role": "elder",
+        "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c"
+      }
+    },
+    {
+      "id": "785aacd3-ef56-4303-9b83-0189bece5f69",
+      "action": "account",
+      "targetId": "7bb6960d-ad37-43f0-865f-446b943d7e63",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.364Z",
+      "detail": {
+        "role": "family",
+        "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c"
+      }
+    },
+    {
+      "id": "a435b14b-53ae-4a7a-b1bb-687361ec84ee",
+      "action": "resident",
+      "targetId": "d5a7ccfe-6073-43f3-8869-3c74b4b524f3",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.368Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "profile",
+          "deadlines"
+        ]
+      }
+    },
+    {
+      "id": "27fa2b63-fbc6-43c6-9e95-5bb093222345",
+      "action": "account",
+      "targetId": "1e013968-1278-49db-baaa-ae669d2cb118",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.393Z",
+      "detail": {
+        "role": "elder",
+        "elderId": "d5a7ccfe-6073-43f3-8869-3c74b4b524f3"
+      }
+    },
+    {
+      "id": "5c4acbe4-ef41-4608-b53f-f9ca901741f9",
+      "action": "account",
+      "targetId": "f7724063-6028-4948-b1a9-e0df3eb63f5b",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.418Z",
+      "detail": {
+        "role": "family",
+        "elderId": "d5a7ccfe-6073-43f3-8869-3c74b4b524f3"
+      }
+    },
+    {
+      "id": "4a071b4f-081a-43e8-8191-460f586f8ee9",
+      "action": "resident",
+      "targetId": "4838c06f-7be1-4277-a072-ef124e650b8b",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.422Z",
+      "detail": {
+        "operation": "create",
+        "fields": [
+          "profile",
+          "deadlines"
+        ]
+      }
+    },
+    {
+      "id": "3a76f99c-6972-458d-a1a8-4aba586328a7",
+      "action": "account",
+      "targetId": "c7ebd2f9-6eac-4122-a3c5-6a0276e9cd32",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.447Z",
+      "detail": {
+        "role": "elder",
+        "elderId": "4838c06f-7be1-4277-a072-ef124e650b8b"
+      }
+    },
+    {
+      "id": "2b8962da-e1f0-4cde-b1a1-4cfbf7b05bf2",
+      "action": "account",
+      "targetId": "dcd47394-3d8f-43c7-b567-427af3765740",
+      "by": "12345678",
+      "at": "2026-11-26T04:27:38.470Z",
+      "detail": {
+        "role": "family",
+        "elderId": "4838c06f-7be1-4277-a072-ef124e650b8b"
+      }
+    },
+    {
+      "id": "fc214d41-afbd-4b17-8430-5e242db7c314",
+      "action": "reject",
+      "targetId": "970a6577-6019-4d50-b16c-8c42b929ad6b",
+      "by": "12345678",
+      "at": "2026-11-26T09:18:25.340Z",
+      "detail": {
+        "status": "已退回",
+        "note": "无xxxx",
+        "elderId": "a5f58d80-7c74-43aa-a5bb-35570ff1203c"
+      }
+    }
+  ]
+}
