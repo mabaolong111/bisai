@@ -44,6 +44,14 @@ node server.js
 
 未设置 `NUANLIN_DATA` 时使用项目根目录的 `nuanlin-data.json`。
 
+### 公网语音（音色“1”）
+
+公网服务器为 Ubuntu、2 核 CPU、约 1.8GB 内存、无 GPU，不能直接运行 Windows 版 VoiceStudio。当前通过反向 SSH 隧道把本机 VoiceStudio 的 `127.0.0.1:3900` 映射到服务器 `127.0.0.1:3900`：
+
+- 本机保持开机、VoiceStudio 运行，并运行 `py -3 tools/voice-tunnel.py`（或双击 `tools\start-voice-tunnel.cmd`）。
+- 服务器端 `/api/tts` 默认访问 `127.0.0.1:3900`，因此公网朗读使用音色“1”；隧道断开时自动回退浏览器语音。
+- 更新公网代码：`py -3 tools/deploy-server.py`（使用 `~/.ssh/nuanlin_tunnel` 密钥，自动备份到 `/srv/nuanlin-backup` 并重启服务）。
+
 ## 2. 账号初始化与授权
 
 - 数据里已有有效社区账号时，登录页直接提供老人端、家属端、社区端入口，不需要初始化码。
