@@ -24,7 +24,11 @@ function openPage(url) {
 
 async function isThisProject(port) {
   try {
-    // Compare public assets so an existing, different project is never mistaken for this one.
+    // A same-files project with an older backend must not be reused: compare build first.
+    const health = await fetch('http://127.0.0.1:' + port + '/api/health', { signal: AbortSignal.timeout(800) });
+    if (!health.ok) return false;
+    const info = await health.json();
+    if (!expectedBuild || info.build !== expectedBuild) return false;
     for (const file of ['yanglao.html', 'app.js']) {
       const response = await fetch('http://127.0.0.1:' + port + '/' + file, { signal: AbortSignal.timeout(800) });
       if (!response.ok || !Buffer.from(await response.arrayBuffer()).equals(fs.readFileSync(path.join(project, file)))) return false;

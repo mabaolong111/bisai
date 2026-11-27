@@ -64,6 +64,7 @@ async function startBrowser() {
   profile = fs.mkdtempSync(path.join(os.tmpdir(), 'nuanlin-edge-'));
   browser = spawn(edge, [
     '--headless=new', '--disable-gpu', '--no-first-run', '--no-default-browser-check',
+    '--autoplay-policy=no-user-gesture-required', '--mute-audio',
     '--window-size=1440,1000', `--remote-debugging-port=${debugPort}`,
     `--user-data-dir=${profile}`, 'about:blank'
   ], { stdio: 'ignore', windowsHide: true });
@@ -168,19 +169,22 @@ async function main() {
   const yanglaoPage = await fetch(`http://127.0.0.1:${servicePort}/yanglao.html`);
   assert.equal(yanglaoPage.status, 200);
   assert.match(yanglaoPage.headers.get('content-type') || '', /text\/html/);
-  assert.ok((await yanglaoPage.text()).includes('<title>暖邻 · 便民养老智能服务平台</title>'));
-  const elderPhoto = await fetch(`http://127.0.0.1:${servicePort}/assets/elder-community-home.jpg`);
-  assert.equal(elderPhoto.status, 200);
-  assert.match(elderPhoto.headers.get('content-type') || '', /image\/jpeg/);
-  assert.ok((await elderPhoto.arrayBuffer()).byteLength > 100000);
+  const yanglaoHtml = await yanglaoPage.text();
+  assert.ok(yanglaoHtml.includes('<title>暖邻 · 便民养老智能服务平台</title>'));
+  assert.equal(yanglaoHtml.includes('elder-photo'), false);
+  assert.equal(yanglaoHtml.includes('hero-promise'), false);
   await startBrowser();
   await navigate();
   assert.equal(await evaluate(`document.getElementById('login-form').hidden`), false);
   assert.ok(await evaluate(`parseFloat(getComputedStyle(document.body).fontSize) > 0`));
   assert.ok(await evaluate(`parseFloat(getComputedStyle(document.querySelector('#login-submit')).fontSize) > 0`));
-  pass('电脑尺寸登录页及 yanglao.html 静态路由');
+  const loginFont = await evaluate(`(() => { const base = parseFloat(getComputedStyle(document.documentElement).fontSize); document.querySelector('[data-scale="1.4"]').click(); const scaled = parseFloat(getComputedStyle(document.documentElement).fontSize); const button = parseFloat(getComputedStyle(document.getElementById('login-submit')).fontSize); document.querySelector('[data-action="reset-display"]').click(); return { base, scaled, button }; })()`);
+  assert.ok(Math.abs(loginFont.scaled - loginFont.base * 1.4) < .2);
+  assert.ok(loginFont.button > loginFont.base);
+  pass('电脑尺寸登录页、字号设置与 yanglao.html 静态路由');
 
   await login('elder_a_test', 'elder');
+  await screenshot('browser-desktop-home.png');
   const elderBaseFont = await evaluate(`parseFloat(getComputedStyle(document.documentElement).fontSize)`);
   const desktop = await evaluate(`(() => {
     const visible = el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length);
@@ -190,7 +194,7 @@ async function main() {
     const rgb = value => (value.match(/[0-9.]+/g) || []).slice(0, 3).map(Number);
     const luminance = value => { const c = rgb(value).map(v => { v /= 255; return v <= .04045 ? v / 12.92 : ((v + .055) / 1.055) ** 2.4; }); return c[0] * .2126 + c[1] * .7152 + c[2] * .0722; };
     const contrast = el => { const fg = luminance(getComputedStyle(el).color); let node = el; let bg = 1; let background = 'fallback-white'; while (node) { const value = getComputedStyle(node).backgroundColor; const parts = (value.match(/[0-9.]+/g) || []).map(Number); if (parts.length >= 3 && (value.startsWith('rgb(') || parts.length < 4 || parts[3] > 0)) { bg = luminance(value); background = value; break; } node = node.parentElement; } el.dataset.testContrast = getComputedStyle(el).color + ' on ' + background; return (Math.max(fg, bg) + .05) / (Math.min(fg, bg) + .05); };
-    const contrastSelectors = ['body', '.service-description', '.primary-button', '.secondary-button', '.reminder-item small', '.voice-note'];
+    const contrastSelectors = ['body', '.service-description', '.primary-button', '.secondary-button', '.reminder-item small', '.brand-subtitle'];
     return { width: innerWidth, overflow: document.documentElement.scrollWidth > innerWidth + 1, body: parseFloat(getComputedStyle(document.body).fontSize), bodyLeading: parseFloat(getComputedStyle(document.body).lineHeight) / parseFloat(getComputedStyle(document.body).fontSize), headingLeading: parseFloat(getComputedStyle(document.querySelector('#greeting')).lineHeight) / parseFloat(getComputedStyle(document.querySelector('#greeting')).fontSize), heading: parseFloat(getComputedStyle(document.querySelector('#greeting')).fontSize), primary: parseFloat(getComputedStyle(document.querySelector('.primary-button')).fontSize), services: document.querySelectorAll('.service-card').length, columns: getComputedStyle(document.querySelector('.service-grid')).gridTemplateColumns, tooSmall: targets.filter(x => x.width < 60 || x.height < 60), smallText: textNodes.filter(x => x.size < 16), order, decorationHidden: getComputedStyle(document.querySelector('.hero-illustration')).display === 'none' && getComputedStyle(document.querySelector('.resource-map')).display === 'none', homeIcon: getComputedStyle(document.querySelector('.service-card-blue .service-icon')).color, checkupIcon: getComputedStyle(document.querySelector('.service-card-purple .service-icon')).color, contrasts: contrastSelectors.map(selector => ({ selector, ratio: contrast(document.querySelector(selector)), raw: document.querySelector(selector).dataset.testContrast, colorParts: (getComputedStyle(document.querySelector(selector)).color.match(/[0-9.]+/g) || []) })) };
   })()`);
   assert.equal(desktop.width, 1440);
@@ -203,12 +207,24 @@ async function main() {
   assert.deepEqual(desktop.tooSmall, []);
   assert.deepEqual(desktop.smallText, []);
   assert.equal(desktop.decorationHidden, true);
-  assert.equal(desktop.homeIcon, 'rgb(11, 92, 80)');
-  assert.equal(desktop.checkupIcon, 'rgb(91, 97, 27)');
+  assert.equal(desktop.homeIcon, 'rgb(6, 105, 90)');
+  assert.equal(desktop.checkupIcon, 'rgb(93, 90, 14)');
   assert.ok(desktop.order.indexOf('service-home') < desktop.order.indexOf('reminders-section'));
-  assert.ok(desktop.order.indexOf('reminders-section') < desktop.order.indexOf('voice-panel'));
-  assert.ok(desktop.order.indexOf('voice-panel') < desktop.order.indexOf('workspace'));
+  assert.ok(desktop.order.indexOf('reminders-section') < desktop.order.indexOf('workspace'));
   assert.ok(desktop.contrasts.every(item => item.ratio >= 4.5), JSON.stringify(desktop.contrasts));
+  const desktopSettings = await evaluate(`(() => { const box = document.querySelector('.global-display-controls'); const buttons = [...box.querySelectorAll('.accessibility-control, [data-action="reset-display"]')]; return { overflow: box.scrollWidth > box.clientWidth + 1, boxWidth: Math.round(box.getBoundingClientRect().width), cols: getComputedStyle(box).gridTemplateColumns, detail: buttons.map(button => ({ t: button.textContent, w: Math.round(button.getBoundingClientRect().width), h: Math.round(button.getBoundingClientRect().height) })), clipped: buttons.filter(button => button.scrollWidth > button.clientWidth + 1).map(button => button.textContent), narrow: buttons.filter(button => button.getBoundingClientRect().width < 60 || button.getBoundingClientRect().height < 60).map(button => button.textContent) }; })()`);
+
+  assert.equal(desktopSettings.overflow, false);
+  assert.deepEqual(desktopSettings.clipped, []);
+  assert.deepEqual(desktopSettings.narrow, []);
+  const elderCardStyle = await evaluate(`(() => { const card = document.querySelector('.service-card'); const style = getComputedStyle(card); const greenIcon = getComputedStyle(document.querySelector('.service-card-green .service-icon')); return { columns: style.gridTemplateColumns.split(' ').length, arrow: getComputedStyle(card, '::after').content, icon: greenIcon.width, border: style.borderTopWidth, greenBg: greenIcon.backgroundColor, greenRadius: greenIcon.borderRadius, iconColors: [...document.querySelectorAll('.service-card .service-icon')].map(el => getComputedStyle(el).backgroundColor) }; })()`);
+  assert.equal(elderCardStyle.columns, 3);
+  assert.ok(elderCardStyle.arrow.includes('›'));
+  assert.equal(elderCardStyle.icon, '68px');
+  assert.equal(elderCardStyle.border, '2px');
+  assert.equal(elderCardStyle.greenBg, 'rgb(211, 233, 214)');
+  assert.equal(elderCardStyle.greenRadius, '50%');
+  assert.ok(new Set(elderCardStyle.iconColors).size >= 5);
   pass('老人六入口单列布局、最小文字、行距、对比度、整区热区及内容优先级');
 
   await evaluate(`document.querySelector('[data-scale="1.4"]').click(); document.querySelector('[data-theme-value="night"]').click(); true`);
@@ -224,21 +240,15 @@ async function main() {
   assert.ok(Math.abs(await evaluate(`parseFloat(getComputedStyle(document.documentElement).fontSize)`) - elderBaseFont) < .1);
   assert.equal(await evaluate(`document.body.dataset.theme`), 'normal');
   await sleep(650);
-  const photoMotion = await evaluate(`(() => { const scene = document.querySelector('.elder-photo-scene'); const frame = document.querySelector('.elder-photo-frame'); const image = frame.querySelector('img'); return { visible: scene.getBoundingClientRect().width > 0 && image.complete && image.naturalWidth === 1200, perspective: getComputedStyle(scene).perspective, transformStyle: getComputedStyle(frame).transformStyle, animationName: getComputedStyle(frame).animationName, duration: getComputedStyle(frame).animationDuration, iterations: getComputedStyle(frame).animationIterationCount, settled: frame.getAnimations().every(animation => animation.playState === 'finished') }; })()`);
-  assert.equal(photoMotion.visible, true);
-  assert.equal(photoMotion.perspective, '900px');
-  assert.equal(photoMotion.transformStyle, 'preserve-3d');
-  assert.equal(photoMotion.animationName, 'elder-photo-enter');
-  assert.equal(photoMotion.duration, '0.56s');
-  assert.equal(photoMotion.iterations, '1');
-  assert.equal(photoMotion.settled, true);
-  await send('Emulation.setEmulatedMedia', { features: [{ name: 'prefers-reduced-motion', value: 'reduce' }] }, sessionId);
-  const reducedMotion = await evaluate(`({ animation: getComputedStyle(document.querySelector('.elder-photo-frame')).animationName, transform: getComputedStyle(document.querySelector('.elder-photo-frame')).transform, imageTransform: getComputedStyle(document.querySelector('.elder-photo-frame img')).transform })`);
-  assert.equal(reducedMotion.animation, 'none');
-  assert.equal(reducedMotion.transform, 'none');
-  assert.equal(reducedMotion.imageTransform, 'none');
-  await send('Emulation.setEmulatedMedia', { features: [] }, sessionId);
-  pass('老人端三档字号、主题、本地保存及图片单次 3D 入场和静态降级');
+  const heroCheck = await evaluate(`(() => { const hero = document.querySelector('.hero-section'); return { photo: document.querySelector('.elder-photo-scene'), promise: document.querySelector('.hero-promise'), roleStrip: document.querySelector('.role-strip'), display: getComputedStyle(hero).display, borderLeft: parseFloat(getComputedStyle(hero).borderLeftWidth), brand: document.querySelector('.brand-subtitle').textContent }; })()`);
+  assert.equal(heroCheck.photo, null);
+  assert.equal(heroCheck.promise, null);
+  assert.equal(heroCheck.roleStrip, null);
+  assert.equal(heroCheck.display, 'block');
+  assert.ok(heroCheck.borderLeft >= 8);
+  assert.ok(heroCheck.brand.includes('长辈版'));
+  assert.ok(!heroCheck.brand.includes('便民养老智能服务平台'));
+  pass('老人端三档字号、主题、本地保存、无照片与无当前账号栏的简洁首屏');
 
   await evaluate(`document.querySelector('[data-type="home"]').click(); true`);
   await waitFor(`document.getElementById('modal-backdrop').classList.contains('open')`, '居家服务弹窗');
@@ -255,35 +265,23 @@ async function main() {
   assert.ok(compressed.width <= 1200 && compressed.height <= 1200);
   pass('虚构大图在浏览器内实际压缩为 JPEG、限制尺寸并满足上传上限');
 
-  const beforeVoice = await evaluate(`state.data.cases.length`);
-  await evaluate(`document.getElementById('voice-text').value = '明天下午三点三十分陪护照料，称呼我浏览器奶奶'; document.getElementById('voice-text-form').requestSubmit(); true`);
-  await waitFor(`document.getElementById('modal-backdrop').classList.contains('open')`, '语音文字指令打开表单');
-  await sleep(800);
-  if (!await evaluate(`document.getElementById('form-time').value`)) {
-    await evaluate(`(() => { const select = document.getElementById('form-resource'); const target = [...select.options].find(x => x.value && x.textContent.includes('测试备用照护站')); if (!target) throw new Error('语音表单没有可用陪护资源'); select.value = target.value; select.dispatchEvent(new Event('change', { bubbles: true })); })(); true`);
-  }
-  await waitFor(`document.getElementById('form-time').value === '15:30'`, '选择资源后保留语音识别时段');
-  const voiceDebug = await evaluate(`({ name: document.getElementById('form-name')?.value, slot: document.getElementById('form-time')?.value, date: document.getElementById('form-date')?.value, option: document.getElementById('form-option')?.value, result: document.getElementById('voice-result').textContent })`);
-  console.log('VOICE_DEBUG ' + JSON.stringify(voiceDebug));
-  assert.equal(voiceDebug.name, '浏览器奶奶');
-  assert.equal(voiceDebug.slot, '15:30');
-  assert.ok((await evaluate(`document.getElementById('voice-result').textContent`)).includes('必须由您核对'));
-  assert.equal(await evaluate(`state.data.cases.length`), beforeVoice);
-  await evaluate(`document.querySelector('#modal-backdrop [data-action="close-modal"]').click(); document.getElementById('voice-text').value = '明天下午陪护照料'; document.getElementById('voice-text-form').requestSubmit(); true`);
-  await waitFor(`document.getElementById('voice-result').textContent.includes('下午包含多个时段')`, '歧义时段提示');
-  assert.equal(await evaluate(`document.getElementById('form-time').value`), '');
-  await evaluate(`document.querySelector('#modal-backdrop [data-action="close-modal"]').click(); document.getElementById('voice-text').value = '查询高龄补贴政策'; document.getElementById('voice-text-form').requestSubmit(); true`);
-  await waitFor(`document.getElementById('voice-result').textContent.includes('高龄补贴本地演示初审依据')`, '政策查询与文字反馈');
-  pass('语音文字指令识别、关键内容复述、歧义确认、政策查询及不自动提交');
-
-  const speech = await evaluate(`(() => { const supported = 'speechSynthesis' in window && typeof SpeechSynthesisUtterance !== 'undefined'; if (!supported) return { supported: false }; document.querySelector('[data-action="speak-page"]').click(); const last = state.lastSpeech; document.querySelector('[data-action="speech-pause"]').click(); document.querySelector('[data-action="speech-resume"]').click(); document.querySelector('[data-action="speech-replay"]').click(); return { supported: true, voices: speechSynthesis.getVoices().filter(x => x.lang.toLowerCase().startsWith('zh')).map(x => x.name + ':' + x.lang), utteranceCreated: last.length > 20, speakingOrPending: speechSynthesis.speaking || speechSynthesis.pending }; })()`);
-  assert.equal(speech.supported, true);
-  assert.equal(speech.utteranceCreated, true);
-  await evaluate(`document.getElementById('listen-button').click(); true`);
-  await sleep(800);
-  const recognition = await evaluate(`(() => { const supported = !!(window.SpeechRecognition || window.webkitSpeechRecognition); const result = { supported, text: document.getElementById('voice-result').textContent, button: document.getElementById('listen-button').textContent }; try { recognition?.abort(); } catch {} return result; })()`);
-  if (!recognition.supported) assert.ok(recognition.text.includes('此浏览器不支持语音识别'));
-  pass('朗读、暂停、继续、重播、语速控件及语音识别降级路径调用', JSON.stringify({ speech, recognition }));
+  const ttsProbe = await evaluate(`(async () => { const response = await fetch('/api/tts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: '当前提醒：请按时办理养老资格认证。', speed: 0.9 }) }); const blob = await response.blob(); return { status: response.status, type: blob.type, size: blob.size, voicePanel: !!document.querySelector('.voice-panel'), listenButton: !!document.getElementById('listen-button'), controls: !!document.querySelector('.speech-controls') }; })()`);
+  assert.equal(ttsProbe.status, 200);
+  assert.equal(ttsProbe.type, 'audio/wav');
+  assert.ok(ttsProbe.size > 1000);
+  assert.equal(ttsProbe.voicePanel, false);
+  assert.equal(ttsProbe.listenButton, false);
+  assert.equal(ttsProbe.controls, true);
+  const summaryCheck = await evaluate(`(() => ({ summary: pageSummary(), brand: document.querySelector('.brand-subtitle').textContent }))()`);
+  assert.ok(summaryCheck.summary.startsWith('当前提醒：'));
+  assert.ok(summaryCheck.summary.length > 10);
+  await evaluate(`(async () => { speak('朗读测试，请稍候。'); await new Promise(resolve => setTimeout(resolve, 2600)); return true; })()`);
+  const playState = await evaluate(`({ hasAudio: !!state.audio, paused: state.audio ? state.audio.paused : null, mode: document.documentElement.dataset.tts || '', time: state.audio ? state.audio.currentTime : 0 })`);
+  assert.equal(playState.mode, 'voice-1');
+  assert.equal(playState.hasAudio, true);
+  assert.equal(playState.paused, false);
+  assert.ok(playState.time > 0);
+  pass('VoiceStudio 音色1 朗读接口与浏览器实际播放、语音助手面板已移除、朗读从当前提醒开始');
 
   const profileValidity = await evaluate(`(() => { const form = document.getElementById('profile-form'); return { valid: form.checkValidity(), invalid: [...form.elements].filter(x => !x.checkValidity()).map(x => ({ name: x.name, message: x.validationMessage, value: x.value })) }; })()`);
   console.log('PROFILE_DEBUG ' + JSON.stringify(profileValidity));
@@ -312,6 +310,10 @@ async function main() {
   assert.ok(mobile.body >= 20);
   assert.deepEqual(mobile.tooSmall, []);
   assert.deepEqual(mobile.smallText, []);
+  const mobileSettings = await evaluate(`(() => { const box = document.querySelector('.global-display-controls'); const buttons = [...box.querySelectorAll('.accessibility-control, [data-action="reset-display"]')]; return { overflow: box.scrollWidth > box.clientWidth + 1, clipped: buttons.filter(button => button.scrollWidth > button.clientWidth + 1).map(button => button.textContent), narrow: buttons.filter(button => button.getBoundingClientRect().width < 60 || button.getBoundingClientRect().height < 60).map(button => button.textContent) }; })()`);
+  assert.equal(mobileSettings.overflow, false);
+  assert.deepEqual(mobileSettings.clipped, []);
+  assert.deepEqual(mobileSettings.narrow, []);
   await evaluate(`window.scrollTo({ top: 0, behavior: 'instant' }); true`);
   await screenshot('browser-mobile-home.png');
   await evaluate(`document.querySelector('[data-type="home"]').click(); true`);
@@ -328,13 +330,14 @@ async function main() {
   await setViewport(1440, 1000, false);
   await logout();
   await login('family_a_test', 'family');
+  await screenshot('browser-family-home.png');
   assert.equal(await evaluate(`state.data.canBook`), false);
   assert.equal(await evaluate(`state.data.cases.length`), 0);
   assert.ok((await evaluate(`document.getElementById('family-panel').textContent`)).includes('未授权'));
   assert.equal(await evaluate(`document.getElementById('reminders-section').parentElement.classList.contains('side-column')`), true);
-  assert.equal(await evaluate(`document.querySelector('.voice-panel').parentElement.classList.contains('side-column')`), true);
-  assert.ok((await evaluate(`document.querySelector('.voice-note').textContent`)).includes('仅支持普通话'));
-  assert.equal(await evaluate(`getComputedStyle(document.querySelector('.elder-photo-scene')).display`), 'none');
+  assert.equal(await evaluate(`!!document.querySelector('.voice-panel')`), false);
+  assert.ok((await evaluate(`document.querySelector('.brand-subtitle').textContent`)).includes('家属'));
+  assert.equal(await evaluate(`!!document.querySelector('.role-strip')`), false);
   await logout();
   await login('community_test', 'community');
   const archiveCheck = await evaluate(`(() => { const current = state.data.residents.find(x => x.id === state.selectedResidentId); const form = document.getElementById('resident-profile-form'); return { selected: state.selectedResidentId, expected: current.id, name: form.elements.name.value, expectedName: current.name, annual: form.elements.annual.value, expectedAnnual: current.deadlines.annual }; })()`);
@@ -344,11 +347,11 @@ async function main() {
   await evaluate(`(() => { const select = document.getElementById('community-resident'); select.value = [...select.options].find(x => !x.selected).value; select.dispatchEvent(new Event('change', { bubbles: true })); })(); true`);
   await waitFor(`document.getElementById('resident-profile-form').elements.name.value === state.data.residents.find(x => x.id === state.selectedResidentId).name`, '切换档案后表单一致');
   assert.ok((await evaluate(`document.querySelector('#audit-section').textContent`)).includes('批量材料核验通过'));
-  const communityView = await evaluate(`(() => { const visible = el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); return { font: parseFloat(getComputedStyle(document.body).fontSize), speakVisible: visible(document.querySelector('[data-action="speak-page"]')), controlsVisible: visible(document.querySelector('.speech-controls')), voiceVisible: visible(document.querySelector('.voice-panel')), readButtons: document.querySelectorAll('#workspace [data-action^="read-"]').length, recommendation: document.getElementById('recommendation-list').textContent, mapHidden: document.getElementById('resource-map').hidden, mapPoints: document.querySelectorAll('#resource-map .map-point').length, overflow: document.documentElement.scrollWidth > innerWidth + 1 }; })()`);
+  const communityView = await evaluate(`(() => { const visible = el => !!(el.offsetWidth || el.offsetHeight || el.getClientRects().length); return { font: parseFloat(getComputedStyle(document.body).fontSize), speakVisible: visible(document.querySelector('[data-action="speak-page"]')), controlsVisible: visible(document.querySelector('.speech-controls')), voiceExists: !!document.querySelector('.voice-panel'), readButtons: document.querySelectorAll('#workspace [data-action^="read-"]').length, recommendation: document.getElementById('recommendation-list').textContent, mapHidden: document.getElementById('resource-map').hidden, mapPoints: document.querySelectorAll('#resource-map .map-point').length, overflow: document.documentElement.scrollWidth > innerWidth + 1 }; })()`);
   assert.equal(communityView.font, 15.5);
   assert.equal(communityView.speakVisible, false);
   assert.equal(communityView.controlsVisible, false);
-  assert.equal(communityView.voiceVisible, false);
+  assert.equal(communityView.voiceExists, false);
   assert.equal(communityView.readButtons, 0);
   assert.doesNotMatch(communityView.recommendation, /公里|示意距离|km|朗读/);
   assert.equal(communityView.mapHidden, true);
@@ -380,14 +383,14 @@ async function main() {
   assert.deepEqual(consoleErrors, []);
   assert.equal(crypto.createHash('sha256').update(fs.readFileSync(productionFile)).digest('hex'), productionHash);
   pass('浏览器运行无未捕获脚本异常，正式数据未修改');
-  return { speech, recognition };
+  return { ttsProbe, summaryCheck };
 }
 
 (async () => {
   let voice = {};
   try {
     voice = await main();
-    fs.writeFileSync(reportFile, JSON.stringify({ success: true, generatedAt: new Date().toISOString(), servicePort, results, voice, limitations: ['无头浏览器只验证 Web Speech API 调用与界面反馈，未验证扬声器实际听感。', '未取得真实麦克风语音转写结果；方言模型与方言纠错未实现，仍按普通话常用说法和文字指令验收。', '截图使用 Edge 无头模式，内置浏览器另用于打开正式地址。'], screenshots, results }, null, 2));
+    fs.writeFileSync(reportFile, JSON.stringify({ success: true, generatedAt: new Date().toISOString(), servicePort, results, voice, limitations: ['无头浏览器验证 /api/tts 返回 WAV 与页面调用，未验证扬声器实际听感。', '音色来自本机 VoiceStudio 已保存声音“1”（OmniVoice 零样本克隆）；VoiceStudio 未运行时回退浏览器语音。', '截图使用 Edge 无头模式，内置浏览器另用于打开正式地址。'], screenshots, results }, null, 2));
     console.log(`BROWSER_ACCEPTANCE_OK ${results.length} 项通过`);
   } catch (error) {
     fs.writeFileSync(reportFile, JSON.stringify({ success: false, generatedAt: new Date().toISOString(), servicePort, results, voice, consoleErrors, error: error.stack || error.message, screenshots }, null, 2));

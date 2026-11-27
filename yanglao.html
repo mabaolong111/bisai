@@ -33,12 +33,12 @@
     <header class="access-head">
       <div class="brand-mark" aria-hidden="true">暖</div>
       <div>
-        <h1>暖邻 · 本地试用</h1>
-        <p class="access-hint" id="access-hint">请使用社区开通的账号登录。</p>
+        <h1>暖邻 · 便民养老服务</h1>
+        <p class="access-hint" id="access-hint">请选择下面三个入口之一，再用账号和密码登录。</p>
       </div>
     </header>
 
-    <p class="notice">本页面需要通过本机服务打开。直接双击 HTML 的文件协议无法登录或保存数据。</p>
+    <p class="notice">长者本人使用老人端，替长辈办事用家属端，社区工作人员用社区端。</p>
 
     <section id="portal-picker" class="portal-picker" aria-label="选择登录端">
       <button type="button" class="portal-card active" data-action="select-portal" data-portal="elder" aria-pressed="true">
@@ -58,7 +58,7 @@
       </button>
     </section>
 
-    <p class="portal-tip">不知道怎么选？长者本人用老人端；替长辈办事用家属端；社区工作人员用社区端。账号与所选入口不一致时无法进入。</p>
+    <p class="portal-tip">账号与所选入口不一致时无法进入。</p>
 
     <form id="login-form">
       <h2 id="login-title">老人端登录</h2>
@@ -102,6 +102,7 @@
         </div>
       </div>
       <button class="secondary-button logout-button" type="button" data-action="logout" aria-label="退出当前账号并返回登录页">退出账号</button>
+      <button class="floating-help" type="button" data-action="help">社区求助</button>
     </header>
 
     <main id="main-content">
@@ -141,19 +142,6 @@
           </div>
         </div>
 
-        <div class="elder-photo-scene">
-          <div class="elder-photo-frame">
-            <img src="/assets/elder-community-home.jpg" alt="家中相互陪伴的两位老人" width="1200" height="1800" decoding="async">
-          </div>
-        </div>
-      </section>
-
-      <section class="role-strip" aria-label="当前账号">
-        <div class="role-intro">
-          <span class="role-label">当前账号</span>
-          <strong id="role-name"></strong>
-        </div>
-        <div class="location-pill" id="location-pill"></div>
       </section>
 
       <div class="dashboard-grid">
@@ -191,22 +179,6 @@
 
           <section class="panel family-panel" id="family-panel"></section>
 
-          <section class="panel voice-panel" aria-labelledby="voice-heading">
-            <span class="section-kicker">语音助手</span>
-            <h2 id="voice-heading">说出您想办的事</h2>
-            <p>可以说“明天下午三点三十分陪护照料”或“查查办理进度”。</p>
-            <button class="primary-button listen-button" type="button" id="listen-button" data-action="listen">开始语音识别</button>
-
-            <form id="voice-text-form" class="voice-text-form">
-              <label>也可以输入语音指令文字
-                <input id="voice-text" autocomplete="off" placeholder="例如：明天下午三点三十分陪护照料">
-              </label>
-              <button class="secondary-button" type="submit">解析并填写</button>
-            </form>
-
-            <p class="voice-note">仅支持普通话常用说法，不提供方言模型纠错。识别后必须核对并明确确认，语音不会直接提交申请。浏览器语音识别可能使用浏览器厂商或其语音服务处理音频；业务数据保存在本机，外部能力以状态说明为准。</p>
-            <div id="voice-result" class="voice-result" role="status" aria-live="polite"></div>
-          </section>
         </aside>
       </div>
     </main>

@@ -6,6 +6,7 @@ const state = {
   theme: 'normal',
   speechRate: .9,
   lastSpeech: '',
+  audio: null,
   activeType: '',
   selectedResource: '',
   selectedResidentId: '',
@@ -173,24 +174,104 @@ function resetDisplay() {
   setSpeechRate(.9);
   notify(state.role === 'community' ? '字号和配色已恢复标准设置' : '字号、配色和语速已恢复标准设置');
 }
-function speak(text) {
-  if (state.role === 'community') {
-    window.speechSynthesis?.cancel();
-    return;
+let speechSeq = 0;
+const ttsBlobCache = new Map();
+let ttsFallbackNotified = false;
+const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAABErAAABAAgAZGF0YQAAAAA=';
+let sharedAudio = null;
+let audioUnlocked = false;
+function audioElement() {
+  if (!sharedAudio) {
+    sharedAudio = new Audio();
+    sharedAudio.preload = 'auto';
+    sharedAudio.setAttribute('playsinline', '');
   }
-  const content = String(text || '').trim();
-  if (!content) { notify('当前没有可朗读的内容'); return; }
+  return sharedAudio;
+}
+function unlockAudio() {
+  const audio = audioElement();
+  if (audioUnlocked) return;
+  audioUnlocked = true;
+  audio.muted = true;
+  audio.src = SILENT_WAV;
+  audio.play().then(() => {
+    if (state.audio === audio) return;
+    audio.pause();
+    audio.currentTime = 0;
+    audio.muted = false;
+    audio.removeAttribute('src');
+  }).catch(() => { audio.muted = false; audio.removeAttribute('src'); });
+}
+function stopAudio() {
+  speechSeq += 1;
+  if (state.audio) {
+    try { state.audio.pause(); } catch {}
+    if (state.audio.objectUrl) URL.revokeObjectURL(state.audio.objectUrl);
+    state.audio = null;
+  }
+  window.speechSynthesis?.cancel();
+}
+function browserSpeak(content) {
   if (!('speechSynthesis' in window) || typeof SpeechSynthesisUtterance === 'undefined') {
-    notify('此浏览器不支持语音朗读，请阅读页面文字', true);
+    notify('语音朗读暂不可用，请阅读页面文字', true);
     return;
   }
-  state.lastSpeech = content;
-  window.speechSynthesis.cancel();
   const utterance = new SpeechSynthesisUtterance(content);
   utterance.lang = 'zh-CN';
   utterance.rate = state.speechRate;
   utterance.onerror = event => { if (event.error !== 'canceled' && event.error !== 'interrupted') notify('语音朗读未完成，请阅读页面文字', true); };
   window.speechSynthesis.speak(utterance);
+}
+function playTtsBlob(blob, content, seq) {
+  if (seq !== speechSeq) return;
+  const audio = audioElement();
+  const objectUrl = URL.createObjectURL(blob);
+  audio.pause();
+  audio.muted = false;
+  audio.volume = 1;
+  audio.src = objectUrl;
+  audio.objectUrl = objectUrl;
+  state.audio = audio;
+  document.documentElement.dataset.tts = 'voice-1';
+  audio.onended = () => { URL.revokeObjectURL(objectUrl); if (state.audio === audio) state.audio = null; };
+  audio.onerror = () => { URL.revokeObjectURL(objectUrl); if (state.audio === audio) state.audio = null; browserSpeak(content); };
+  const played = audio.play();
+  if (played?.catch) played.catch(error => {
+    if (error?.name === 'NotAllowedError' || error?.name === 'AbortError') {
+      notify('请再点一次“朗读本页”开始播放语音', true);
+      return;
+    }
+    browserSpeak(content);
+  });
+}
+async function speak(text) {
+  if (state.role === 'community') { stopAudio(); return; }
+  const content = String(text || '').trim();
+  if (!content) { notify('当前没有可朗读的内容'); return; }
+  state.lastSpeech = content;
+  stopAudio();
+  unlockAudio();
+  const seq = speechSeq;
+  const cacheKey = state.speechRate + '|' + content;
+  const cached = ttsBlobCache.get(cacheKey);
+  if (cached) { playTtsBlob(cached, content, seq); return; }
+  const loadingTimer = setTimeout(() => notify('正在准备语音，请稍候…'), 500);
+  try {
+    const response = await fetch('/api/tts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: content, speed: state.speechRate }) });
+    if (!response.ok) throw new Error('tts-unavailable');
+    const blob = await response.blob();
+    if (seq !== speechSeq) return;
+    ttsBlobCache.set(cacheKey, blob);
+    if (ttsBlobCache.size > 24) ttsBlobCache.delete(ttsBlobCache.keys().next().value);
+    playTtsBlob(blob, content, seq);
+  } catch {
+    if (seq !== speechSeq) return;
+    document.documentElement.dataset.tts = 'fallback';
+    if (!ttsFallbackNotified) { ttsFallbackNotified = true; notify('语音服务未连接，已改用系统语音', true); }
+    browserSpeak(content);
+  } finally {
+    clearTimeout(loadingTimer);
+  }
 }
 function eligibilitySpeech() {
   const eligibility = state.data?.eligibility;
@@ -219,7 +300,7 @@ function pageSummary() {
     const stats = data.stats || {};
     return `社区运营工作台。共有档案${stats.residentCount ?? 0}份，工单${stats.processingVolume?.total ?? 0}条，办结率${stats.completionRate ?? 0}%，已处置预警${stats.resolvedAlertCount ?? 0}条。当前提醒：${reminders || '暂无'}。${progressSpeech()}`;
   }
-  return `${roleLabel(state.role)}，${data.residentName || ''}。${document.getElementById('hero-description').textContent}。当前提醒：${reminders || '暂无'}。${progressSpeech()}。${eligibilitySpeech()}`;
+  return `当前提醒：${reminders || '暂无提醒'}。`;
 }
 function showAccount(data) {
   state.data = data;
@@ -247,8 +328,7 @@ async function showAccess() {
   state.directory = false;
   state.pendingBatch = [];
   state.slotRequest += 1;
-  recognition?.abort();
-  window.speechSynthesis?.cancel();
+  stopAudio();
   delete document.documentElement.dataset.role;
   appShell.hidden = true;
   document.getElementById('skip-link').href = '#access-screen';
@@ -594,12 +674,10 @@ function arrangeRoleLayout() {
   const workspace = document.getElementById('workspace');
   const reminders = document.getElementById('reminders-section');
   const family = document.getElementById('family-panel');
-  const voice = document.querySelector('.voice-panel');
   if (state.role === 'elder') {
     if (reminders.parentElement !== mainColumn) mainColumn.insertBefore(reminders, workspace);
-    if (voice.parentElement !== mainColumn) mainColumn.insertBefore(voice, workspace);
-  } else if (reminders.parentElement !== sideColumn || family.parentElement !== sideColumn || voice.parentElement !== sideColumn) {
-    sideColumn.append(reminders, family, voice);
+  } else if (reminders.parentElement !== sideColumn || family.parentElement !== sideColumn) {
+    sideColumn.append(reminders, family);
   }
 }
 function render() {
@@ -611,20 +689,12 @@ function render() {
   speakPage.hidden = community;
   speakPage.textContent = elder ? '朗读本页' : '朗读本页摘要';
   document.querySelector('.speech-controls').hidden = community;
-  document.querySelector('.voice-panel').hidden = community;
-  document.querySelector('.demo-banner').textContent = community ? '业务数据保存在本机；社区端外部能力以状态说明为准' : '业务数据保存在本机；浏览器语音识别等外部能力以状态说明为准';
-  if (community) {
-    recognition?.abort();
-    window.speechSynthesis?.cancel();
-  }
-  document.getElementById('role-name').textContent = `${roleLabel(state.role)} · ${data.username}`;
+  document.querySelector('.demo-banner').textContent = community ? '业务数据保存在本机；社区端外部能力以状态说明为准' : '业务数据保存在本机；语音朗读由本机语音服务提供';
+  if (community) stopAudio();
+  document.querySelector('.brand-subtitle').textContent = elder ? `${data.residentName || '长者'} · 长辈版` : state.role === 'family' ? `${data.residentName || '长者'}的家属` : '社区运营工作台';
   document.getElementById('greeting').textContent = community ? '社区运营工作台' : state.role === 'family' ? `您好，${data.residentName || '长者'}的家属` : `您好，${data.residentName || '长者'}`;
-  document.getElementById('hero-description').textContent = elder ? '选择下面一项开始。' : state.role === 'family' ? '仅在长者授权范围内代办、上传材料、查看进度、评价和接收同步提醒。' : '筛选和审核工单，维护档案、资源、探访、期限、预警与统计。';
-  document.getElementById('location-pill').textContent = elder ? `${data.profile?.district || '社区服务'}` : community ? `${currentResident()?.profile?.district || '社区服务'} · 居民推荐资源预览` : `${data.profile?.district || data.residentDistrict || '社区服务'} · 资源距离和坐标均为演示`;
+  document.getElementById('hero-description').textContent = elder ? '想办哪件事？点下面的大按钮，就能开始。' : state.role === 'family' ? '仅在长者授权范围内代办、上传材料、查看进度、评价和接收同步提醒。' : '筛选和审核工单，维护档案、资源、探访、期限、预警与统计。';
   document.getElementById('footer-service').textContent = data.hotline ? `社区服务热线 ${data.hotline} · 服务时间由社区配置` : '社区服务热线待社区配置 · 服务时间由社区配置';
-  document.querySelector('.voice-panel > p').textContent = elder ? '点击按钮说话，也可以输入文字。' : '可以说“明天下午三点三十分陪护照料”或“查查办理进度”。';
-  document.querySelector('.voice-note').textContent = elder ? '语音识别可能由浏览器厂商处理。识别后请核对，确认后才会提交。' : '仅支持普通话常用说法，不提供方言模型纠错。识别后必须核对并明确确认，语音不会直接提交申请。浏览器语音识别可能使用浏览器厂商或其语音服务处理音频；业务数据保存在本机，外部能力以状态说明为准。';
-  document.getElementById('listen-button').textContent = elder ? '点击说话' : '开始语音识别';
   arrangeRoleLayout();
   renderServiceHome();
   renderReminders();
@@ -640,19 +710,19 @@ function renderServiceHome() {
   const cards = elder ? [
     ['annual', '证', '养老资格认证', '办理认证或年审', 'green'],
     ['subsidy', '补', '高龄补贴', '申请补贴或办理年审', 'orange'],
-    ['home', '家', '居家养老', '预约送餐、保洁、陪护等服务', 'blue'],
+    ['home', '家', '居家养老', '预约送餐、保洁、陪护', 'blue'],
     ['checkup', '检', '体检预约', '选择体检项目和时间', 'purple'],
-    ['progress', '查', '办理进度', '查看申请到哪一步', 'teal'],
-    ['reminders', '醒', '重要提醒', '查看快到期和已逾期事项', 'rose']
+    ['progress', '查', '办理进度', '看看办到哪一步', 'teal'],
+    ['reminders', '醒', '重要提醒', '看看快到期的事', 'rose']
   ] : [
-    ['annual', '✓', '养老资格认证', '查看档案并提交年审核验', 'green'],
-    ['subsidy', '￥', '高龄补贴', '查看演示初审依据并上传材料', 'orange'],
-    ['home', '⌂', '居家养老', '七类服务、资源容量与时段', 'blue'],
-    ['checkup', '＋', '体检预约', '免费、普惠、慢病项目与低峰', 'purple'],
-    ['progress', '↗', '办理进度', '状态、历史、评分和报告', 'teal'],
-    ['reminders', '!', '重要提醒', '期限、逾期与服务同步提醒', 'rose']
+    ['annual', '证', '养老资格认证', '查看档案并提交年审核验', 'green'],
+    ['subsidy', '补', '高龄补贴', '查看演示初审依据并上传材料', 'orange'],
+    ['home', '家', '居家养老', '七类服务、资源容量与时段', 'blue'],
+    ['checkup', '检', '体检预约', '免费、普惠、慢病项目与低峰', 'purple'],
+    ['progress', '查', '办理进度', '状态、历史、评分和报告', 'teal'],
+    ['reminders', '醒', '重要提醒', '期限、逾期与服务同步提醒', 'rose']
   ];
-  container.innerHTML = `<div class="section-heading"><div><span class="section-kicker">高频服务</span><h2>${elder ? '您要办什么？' : '家属代办与查看'}</h2></div></div><div class="service-grid">${cards.map(([type, icon, title, description, color]) => {
+  container.innerHTML = `<div class="section-heading"><div><span class="section-kicker">高频服务</span><h2>${elder ? '今天要办什么？' : '家属代办与查看'}</h2></div></div><div class="service-grid">${cards.map(([type, icon, title, description, color]) => {
     const disabled = !state.data.canBook && !['progress', 'reminders'].includes(type);
     return `<button class="service-card service-card-${color}" data-action="open-entry" data-type="${type}" ${disabled ? 'disabled' : ''}><span class="service-icon" aria-hidden="true">${icon}</span><span class="service-title">${title}</span><span class="service-description">${description}${disabled ? ' · 未获代办授权' : ''}</span></button>`;
   }).join('')}</div>`;
@@ -841,7 +911,7 @@ function statsHtml() {
 function archiveAdminHtml() {
   const resident = currentResident();
   if (!resident) return '<p class="empty-state">请先新增长者档案。</p>';
-  return `<h3>选中档案：${e(resident.name)}</h3><p>下方画像、期限、账号和探访均使用当前选中档案 ${e(resident.name)}，日期保持一致。</p><form id="resident-profile-form">${profileFields(resident, true)}<button class="primary-button" type="submit">保存完整画像与期限</button></form><h3>家属授权状态</h3><p>进度查看 ${resident.family?.view ? '允许' : '未授权'} · 代办 ${resident.family?.proxy ? '允许' : '未授权'} · 健康报告 ${resident.family?.health ? '单独允许' : '未授权'} · 家属联系电话 ${e(resident.family?.phone || '未填写')}</p><p>授权变更历史 ${e((resident.familyHistory || []).length)} 条，权限由长者本人设置或撤销。</p><h3>该档案账号</h3><ul class="account-list">${(resident.accounts || []).map(account => `<li><span>${account.role === 'elder' ? '老人' : '家属'}账号：${e(account.username)}</span><button class="small-button" type="button" data-action="reset-password" data-username="${e(account.username)}">重置密码</button></li>`).join('') || '<li>尚无登录账号</li>'}</ul><form id="account-form" class="form-grid"><label>开通身份<select name="role"><option value="elder">老人账号</option><option value="family">家属账号</option></select></label><label>登录账号<input name="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_\-]{3,32}" autocomplete="off"></label><label>初始密码<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><p>为 ${e(resident.name)} 开通账号。密码仅提交本机后端，不在页面显示。</p><button class="primary-button" type="submit">开通选中档案账号</button></form><details><summary>新增其他长者档案</summary><form id="new-resident-form">${profileFields({ name: '', birthDate: '', birthDateEstimated: false, profile: { age: 80, district: '示例社区', local: true, living: '与家人同住', mobility: '自理', chronic: false, needs: [] }, deadlines: { annual: '', subsidy: '', checkup: '', welfare: {} } }, true)}<button class="primary-button" type="submit">新增档案</button></form></details>`;
+  return `<h3>选中档案：${e(resident.name)}</h3><p>下方画像、期限、账号和探访均使用当前选中档案 ${e(resident.name)}，日期保持一致。</p><form id="resident-profile-form">${profileFields(resident, true)}<button class="primary-button" type="submit">保存完整画像与期限</button></form><h3>家属授权状态</h3><p>进度查看 ${resident.family?.view ? '允许' : '未授权'} · 代办 ${resident.family?.proxy ? '允许' : '未授权'} · 健康报告 ${resident.family?.health ? '单独允许' : '未授权'} · 家属联系电话 ${e(resident.family?.phone || '未填写')}</p><p>授权变更历史 ${e((resident.familyHistory || []).length)} 条，权限由长者本人设置或撤销。</p><h3>该档案账号</h3><ul class="account-list">${(resident.accounts || []).map(account => `<li><span>${account.role === 'elder' ? '老人' : '家属'}账号：${e(account.role === 'elder' ? resident.name : resident.name + '的家属')}</span><button class="small-button" type="button" data-action="reset-password" data-username="${e(account.username)}">重置密码</button></li>`).join('') || '<li>尚无登录账号</li>'}</ul><form id="account-form" class="form-grid"><label>开通身份<select name="role"><option value="elder">老人账号</option><option value="family">家属账号</option></select></label><label>登录账号<input name="username" required minlength="3" maxlength="32" pattern="[A-Za-z0-9_\-]{3,32}" autocomplete="off"></label><label>初始密码<input name="password" type="password" required minlength="8" maxlength="128" autocomplete="new-password"></label><p>为 ${e(resident.name)} 开通账号。密码仅提交本机后端，不在页面显示。</p><button class="primary-button" type="submit">开通选中档案账号</button></form><details><summary>新增其他长者档案</summary><form id="new-resident-form">${profileFields({ name: '', birthDate: '', birthDateEstimated: false, profile: { age: 80, district: '示例社区', local: true, living: '与家人同住', mobility: '自理', chronic: false, needs: [] }, deadlines: { annual: '', subsidy: '', checkup: '', welfare: {} } }, true)}<button class="primary-button" type="submit">新增档案</button></form></details>`;
 }
 function resourceAdminHtml() {
   const resources = state.data.resources || [];
@@ -884,7 +954,7 @@ function renderWorkspace() {
   } else renderPersonalWorkspace();
 }
 function openChangePassword() {
-  const body = `<p>当前登录：${e(roleLabel(state.role))} · ${e(state.data.username)}</p><form id="password-form"><label class="stack-label">原密码<input name="oldPassword" type="password" autocomplete="current-password" required maxlength="128"></label><label class="stack-label">新密码<input name="newPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label><p class="notice">修改成功后将退出到登录页，请使用新密码重新登录。</p><div class="modal-actions"><button class="secondary-button" type="button" data-action="close-modal">取消</button><button class="primary-button" type="submit">确认修改密码</button></div></form>`;
+  const body = `<p>当前登录：${e(roleLabel(state.role))} · ${e(state.data.role === 'community' ? '社区管理员' : state.data.role === 'family' ? (state.data.residentName || '长者') + '的家属' : (state.data.residentName || '长者'))}</p><form id="password-form"><label class="stack-label">原密码<input name="oldPassword" type="password" autocomplete="current-password" required maxlength="128"></label><label class="stack-label">新密码<input name="newPassword" type="password" autocomplete="new-password" required minlength="8" maxlength="128"></label><p class="notice">修改成功后将退出到登录页，请使用新密码重新登录。</p><div class="modal-actions"><button class="secondary-button" type="button" data-action="close-modal">取消</button><button class="primary-button" type="submit">确认修改密码</button></div></form>`;
   openModal(modalFrame('账号安全 · 修改密码', body, '账号安全'), '[name="oldPassword"]');
 }
 function openResetPassword(username) {
@@ -977,157 +1047,10 @@ function profileBody(form, includeDeadlines) {
   }
   return body;
 }
-function voiceAliases() {
-  return new Map([
-    ['助餐配送', ['助餐配送', '送餐', '助餐', '配餐', '送饭']],
-    ['上门助浴', ['上门助浴', '助浴', '洗澡']],
-    ['居家保洁', ['居家保洁', '保洁', '打扫卫生', '打扫']],
-    ['陪护照料', ['陪护照料', '陪护', '照料', '照护']],
-    ['理发修脚', ['理发修脚', '理发', '修脚']],
-    ['上门维修', ['上门维修', '维修', '修理']],
-    ['日间照料', ['日间照料', '日托']]
-  ]);
-}
-function voiceDate(text) {
-  if (/大后天/.test(text)) return addDays(state.data.today, 3);
-  if (/后天/.test(text)) return addDays(state.data.today, 2);
-  if (/明天|明日/.test(text)) return addDays(state.data.today, 1);
-  if (/今天|今日/.test(text)) return state.data.today;
-  let match = text.match(/(20\d{2})[年\/-](\d{1,2})[月\/-](\d{1,2})日?/);
-  if (match) return `${match[1]}-${String(match[2]).padStart(2, '0')}-${String(match[3]).padStart(2, '0')}`;
-  match = text.match(/(\d{1,2})月(\d{1,2})[日号]/);
-  if (match) return `${state.data.today.slice(0, 4)}-${String(match[1]).padStart(2, '0')}-${String(match[2]).padStart(2, '0')}`;
-  return '';
-}
-function voiceSlot(text) {
-  const compact = String(text || '').replace(/\s/g, '');
-  const match = compact.match(/(上午|早上|下午|午后)?([零一二两三四五六七八九十]{1,3}|\d{1,2})[点:：](半|三十分|三十|30分|30|零分|00|[0-5]\d分?)?/);
-  if (!match) {
-    if (/下午|午后/.test(compact)) return { slot: '', issue: '已识别下午，但下午包含多个时段。请明确说出具体时间，本次未自动选择时段。' };
-    if (/上午|早上/.test(compact)) return { slot: '', issue: '已识别上午，但上午包含多个时段。请明确说出具体时间，本次未自动选择时段。' };
-    return { slot: '', issue: '' };
-  }
-  const values = { 零: 0, 一: 1, 二: 2, 两: 2, 三: 3, 四: 4, 五: 5, 六: 6, 七: 7, 八: 8, 九: 9 };
-  let hour;
-  if (/^\d+$/.test(match[2])) hour = Number(match[2]);
-  else if (match[2] === '十') hour = 10;
-  else if (match[2].startsWith('十')) hour = 10 + (values[match[2].slice(1)] || 0);
-  else hour = values[match[2]];
-  const minuteText = match[3] || '';
-  const minute = !minuteText || /零分|00/.test(minuteText) ? 0 : minuteText === '半' || /三十|30/.test(minuteText) ? 30 : Number(minuteText.replace('分', ''));
-  if (!Number.isInteger(hour) || hour < 0 || hour > 23 || !Number.isInteger(minute) || minute < 0 || minute > 59) return { slot: '', issue: '识别到的具体时间无效，本次未自动选择时段，请手动选择。' };
-  if (/下午|午后/.test(match[1] || '') && hour < 12) hour += 12;
-  if (/上午|早上/.test(match[1] || '') && hour === 12) hour = 0;
-  return { slot: `${String(hour).padStart(2, '0')}:${String(minute).padStart(2, '0')}`, issue: '' };
-}
 function setVoiceResult(message) {
-  document.getElementById('voice-result').textContent = message;
-}
-function handleVoice(text) {
-  if (state.role === 'community' || !state.data) return;
-  const cleanText = String(text || '').trim();
-  if (!cleanText) { notify('没有听到内容，请重试或使用文字表单', true); return; }
-  if (/进度|办理结果|审核结果/.test(cleanText)) {
-    const summary = progressSpeech();
-    setVoiceResult(`识别内容：${cleanText}。${summary}`);
-    speak(summary);
-    document.getElementById('progress-section')?.scrollIntoView({ block: 'start' });
-    return;
-  }
-  if (/政策|补贴条件|资格依据|初审依据/.test(cleanText)) {
-    const summary = eligibilitySpeech();
-    setVoiceResult(`识别内容：${cleanText}。${summary}`);
-    speak(summary);
-    return;
-  }
-  if (/提醒|到期|逾期/.test(cleanText) && !/补贴|认证|体检|居家|上门/.test(cleanText)) {
-    const summary = state.data.reminders.length ? state.data.reminders.map(item => `${serviceLabel(item.type)}${item.text}`).join('。') : '暂无重要提醒。';
-    setVoiceResult(`识别内容：${cleanText}。${summary}`);
-    speak(summary);
-    return;
-  }
-  if (!state.data.canBook) {
-    setVoiceResult('当前账号未获代办授权。仍可使用文字查看已授权信息，不能语音绕过授权。');
-    notify('未获代办授权', true);
-    return;
-  }
-  const aliases = voiceAliases();
-  const homeMatches = [...aliases.entries()].filter(([, words]) => words.some(word => cleanText.includes(word))).map(([kind]) => kind);
-  const business = [
-    ['annual', /养老资格|资格认证|生存认证|养老年审|认证年审/],
-    ['subsidy', /高龄补贴|补贴申请|补贴年审/],
-    ['checkup', /体检/],
-    ['home', /居家养老|上门服务/]
-  ].filter(([, pattern]) => pattern.test(cleanText)).map(([type]) => type);
-  if (homeMatches.length) business.push('home');
-  if (homeMatches.length > 1) {
-    const message = `同时听到${homeMatches.join('和')}。请一次只说并明确确认一个居家项目，本次未打开或填写申请表。`;
-    setVoiceResult(message);
-    speak(message);
-    return;
-  }
-  const uniqueBusiness = [...new Set(business)];
-  if (uniqueBusiness.length > 1) {
-    const message = `同时听到${uniqueBusiness.map(serviceLabel).join('和')}，存在歧义。请只说一项业务，或点击下方大入口。`;
-    setVoiceResult(message);
-    speak(message);
-    return;
-  }
-  const type = uniqueBusiness[0];
-  if (!type) {
-    const message = `已听到“${cleanText}”，但未明确识别业务。请说资格认证、高龄补贴、居家服务或体检，也可以直接点击按钮。`;
-    setVoiceResult(message);
-    speak(message);
-    return;
-  }
-  const issues = [];
-  let option = '';
-  if (type === 'home') {
-    option = homeMatches[0] || '';
-    if (!option) issues.push('已识别居家养老，但具体是送餐、助浴、保洁、陪护、理发修脚、维修还是日间照料尚不明确，请在表单中手动选择。');
-  } else option = state.data.services[type].slice(1).find(value => cleanText.includes(value)) || '';
-  if (type === 'annual') option = /家属.*材料|提交材料/.test(cleanText) ? '家属提交材料' : /人工|社区核验/.test(cleanText) ? '社区人工核验' : option;
-  if (type === 'subsidy') option = /年审/.test(cleanText) ? '补贴年审' : /首次/.test(cleanText) ? '首次申请' : option;
-  if (type === 'checkup') option = /慢病随访/.test(cleanText) ? '慢病随访体检' : /慢病专项/.test(cleanText) ? '慢病专项体检' : /免费/.test(cleanText) ? '免费老年体检' : /普惠/.test(cleanText) ? '普惠老年体检' : option;
-  const date = voiceDate(cleanText);
-  const time = voiceSlot(cleanText);
-  const slot = time.slot;
-  if (time.issue) issues.push(time.issue);
-  const nameMatch = cleanText.match(/(?:称呼我|叫我|称呼)[是为：:\s]*([\u4e00-\u9fa5A-Za-z0-9]{1,12})/);
-  const noteMatch = cleanText.match(/(?:特殊需求|需求)(?:是|为|：|:|\s)*([^，。；;]{1,80})/);
-  const namedResource = activeResources().find(resource => cleanText.includes(resource.name));
-  const draft = { text: cleanText, date, slot, name: nameMatch?.[1] || '', note: noteMatch?.[1] || '' };
-  if (!openService(type, option, namedResource?.id || '', draft)) return;
-  const summary = `识别原文：${cleanText}。已打开${serviceLabel(type)}${option ? `，项目${option}` : '，具体项目请核对'}${date ? `，日期${date}` : ''}${slot ? `，识别时段${slot}，以表单实际可选结果为准` : ''}${draft.name ? `，称呼${draft.name}` : ''}${draft.note ? `，特殊需求${draft.note}` : ''}${namedResource ? `，资源${namedResource.name}` : ''}。语音只负责辅助填写，必须由您核对并勾选明确确认后点击提交。`;
-  const result = issues.length ? `${issues.join(' ')} ${summary}` : summary;
-  setVoiceResult(result);
-  speak(issues.length ? `${issues.join(' ')} 请核对表单，语音识别不会直接提交。` : summary);
-}
-function startListening() {
-  if (state.role === 'community') return;
-  const Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (!Recognition) {
-    setVoiceResult('此浏览器不支持语音识别。所有业务仍可通过下方文字指令、表单和按钮办理。');
-    notify('此浏览器不支持语音识别，请使用文字或按钮', true);
-    return;
-  }
-  try { recognition?.abort(); } catch {}
-  recognition = new Recognition();
-  recognition.lang = 'zh-CN';
-  recognition.interimResults = false;
-  recognition.maxAlternatives = 1;
-  const button = document.getElementById('listen-button');
-  recognition.onstart = () => { button.textContent = '正在聆听，请说普通话'; setVoiceResult('正在聆听。识别后只会填写，不会直接提交。'); };
-  recognition.onresult = event => handleVoice(event.results[0][0].transcript);
-  recognition.onerror = event => {
-    const denied = ['not-allowed', 'service-not-allowed'].includes(event.error);
-    const message = denied ? '麦克风权限被拒绝或不可用。请使用文字指令、业务按钮和手工表单，功能不受影响。' : '没有听清或语音识别暂不可用，请重试，或改用文字和按钮。';
-    setVoiceResult(message);
-    notify(message, true);
-  };
-  recognition.onend = () => { button.textContent = '开始语音识别'; };
-  window.speechSynthesis?.cancel();
-  try { recognition.start(); } catch { notify('语音识别启动失败，请使用文字或按钮', true); }
+  const el = document.getElementById('voice-result');
+  if (el) { el.textContent = message; return; }
+  notify(message);
 }
 async function refreshState(silent = true) {
   if (!state.data || state.saving) return false;
@@ -1151,10 +1074,6 @@ document.addEventListener('submit', event => {
   const form = event.target;
   if (!(form instanceof HTMLFormElement)) return;
   event.preventDefault();
-  if (form.id === 'voice-text-form') {
-    handleVoice(document.getElementById('voice-text').value);
-    return;
-  }
   submitLocked(form, async () => {
     if (form.id === 'login-form' || form.id === 'setup-form') {
       const endpoint = form.id === 'login-form' ? '/session' : '/setup';
@@ -1280,11 +1199,10 @@ document.addEventListener('click', async event => {
   else if (name === 'reset-display') resetDisplay();
   else if (name === 'select-portal') selectPortal(target.dataset.portal);
   else if (name === 'close-modal') closeModal();
-  else if (name === 'speech-pause') window.speechSynthesis?.pause();
-  else if (name === 'speech-resume') window.speechSynthesis?.resume();
-  else if (name === 'speech-replay') speak(state.lastSpeech || pageSummary());
+  else if (name === 'speech-pause') { if (state.audio) state.audio.pause(); else window.speechSynthesis?.pause(); }
+  else if (name === 'speech-resume') { if (state.audio) state.audio.play().catch(() => {}); else window.speechSynthesis?.resume(); }
+  else if (name === 'speech-replay') { if (state.audio) { state.audio.currentTime = 0; state.audio.play().catch(() => {}); } else speak(state.lastSpeech || pageSummary()); }
   else if (name === 'speak-page') speak(pageSummary());
-  else if (name === 'listen') startListening();
   else if (name === 'home') {
     closeModal();
     state.directory = false;
