@@ -6,11 +6,14 @@ const path = require('node:path');
 const { randomUUID, randomBytes, scryptSync, timingSafeEqual } = require('node:crypto');
 
 const port = Number(process.env.NUANLIN_PORT || 8765);
+const bindHost = String(process.env.NUANLIN_BIND_HOST || '127.0.0.1').trim();
+const publicHost = String(process.env.NUANLIN_PUBLIC_HOST || '').trim().toLowerCase();
+const secureCookies = process.env.NUANLIN_SECURE_COOKIES === '1';
 const dataFile = process.env.NUANLIN_DATA || path.join(__dirname, 'nuanlin-data.json');
 const sessions = new Map();
 const loginAttempts = new Map();
 const primaryResidentId = 'resident-demo-1';
-const build = 'nuanlin-2026-11-25-4';
+const build = 'nuanlin-2026-11-27-5';
 const services = {
   annual: ['养老资格认证', '社区人工核验', '家属提交材料'],
   subsidy: ['高龄补贴申请', '首次申请', '补贴年审'],
@@ -50,6 +53,29 @@ function isObject(value) {
 function clean(value, max = 160) {
   if (typeof value !== 'string') return '';
   return value.trim().slice(0, max);
+}
+
+const voiceStudioUrl = (process.env.VOICE_STUDIO_URL || 'http://127.0.0.1:3900').replace(/\/+$/, '');
+const voiceStudioVoice = process.env.VOICE_STUDIO_VOICE || '1';
+const ttsCache = new Map();
+const ttsCacheMax = 40;
+
+async function synthesizeSpeech(text, speed) {
+  const rate = Number.isFinite(Number(speed)) ? Math.min(4, Math.max(.25, Number(speed))) : 1;
+  const cacheKey = rate + '|' + text;
+  const cached = ttsCache.get(cacheKey);
+  if (cached) return cached;
+  const response = await fetch(voiceStudioUrl + '/v1/audio/speech', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ model: 'omnivoice', input: text, voice: voiceStudioVoice, language: 'zh', response_format: 'wav', speed: rate }),
+    signal: AbortSignal.timeout(120000)
+  });
+  if (!response.ok) throw new Error('VoiceStudio 返回 ' + response.status);
+  const audio = Buffer.from(await response.arrayBuffer());
+  ttsCache.set(cacheKey, audio);
+  if (ttsCache.size > ttsCacheMax) ttsCache.delete(ttsCache.keys().next().value);
+  return audio;
 }
 
 function validDate(value) {
@@ -1178,7 +1204,8 @@ function json(res, payload, status = 200) {
 }
 
 function attemptKey(username, req) {
-  return username + '|' + (req.socket.remoteAddress || 'local');
+  const forwarded = String(req.headers['x-forwarded-for'] || '').split(',')[0].trim();
+  return username + '|' + (forwarded || req.socket.remoteAddress || 'local');
 }
 
 function checkLoginRate(key) {
@@ -1203,14 +1230,20 @@ function recordLoginFailure(key) {
 
 const server = http.createServer(async (req, res) => {
   try {
-    if (!['127.0.0.1:' + port, 'localhost:' + port].includes(req.headers.host)) fail('仅开放本机访问', 403);
-    if (req.headers.origin && req.headers.origin !== 'http://' + req.headers.host) fail('请求来源不受支持', 403);
+    const allowedHosts = ['127.0.0.1:' + port, 'localhost:' + port, '[::1]:' + port];
+    if (publicHost) allowedHosts.push(publicHost, publicHost + ':80', publicHost + ':443');
+    if (!allowedHosts.includes(String(req.headers.host || '').toLowerCase())) fail('仅开放本机访问', 403);
+    const originHeader = req.headers.origin;
+    const originAllowed = !originHeader
+      || originHeader === 'http://' + req.headers.host
+      || (publicHost && originHeader === 'https://' + req.headers.host);
+    if (!originAllowed) fail('请求来源不受支持', 403);
     let url;
     try { url = new URL(req.url, 'http://localhost'); }
     catch { fail('请求地址无效'); }
     if (req.method === 'GET' && Object.hasOwn(assets, url.pathname)) {
       const [name, type] = assets[url.pathname];
-      res.writeHead(200, { 'Content-Type': type + '; charset=utf-8', 'X-Content-Type-Options': 'nosniff' });
+      res.writeHead(200, { 'Content-Type': type + '; charset=utf-8', 'X-Content-Type-Options': 'nosniff', 'Cache-Control': 'no-store' });
       res.end(fs.readFileSync(path.join(__dirname, name)));
       return;
     }
@@ -1258,7 +1291,7 @@ const server = http.createServer(async (req, res) => {
       if (sessions.size >= 200) sessions.delete(sessions.keys().next().value);
       const sessionToken = newId();
       sessions.set(sessionToken, { accountId: account.id, expires: Date.now() + 8 * 3600000 });
-      res.setHeader('Set-Cookie', 'nuanlin=' + sessionToken + '; Max-Age=28800; HttpOnly; SameSite=Strict; Path=/');
+      res.setHeader('Set-Cookie', 'nuanlin=' + sessionToken + '; Max-Age=28800; HttpOnly; SameSite=Strict; Path=/' + (secureCookies ? '; Secure' : ''));
       json(res, snapshot(account));
       return;
     }
@@ -1273,6 +1306,18 @@ const server = http.createServer(async (req, res) => {
       fail('请先登录', 401);
     }
     if (req.method === 'GET' && url.pathname === '/api/state') json(res, snapshot(account, url.searchParams.get('date'), url.searchParams.get('elderId')));
+    else if (req.method === 'POST' && url.pathname === '/api/tts') {
+      if (account.role === 'community') fail('社区端不提供语音朗读', 403);
+      const body = await readBody(req);
+      if (sessions.get(token) !== session || session.expires <= Date.now()) fail('登录已失效，请重新登录', 401);
+      const text = clean(body.text, 1200);
+      if (!text) fail('朗读内容为空');
+      let audio;
+      try { audio = await synthesizeSpeech(text, body.speed); }
+      catch (error) { console.error('语音合成失败', error.message); fail('语音服务暂不可用，请稍后重试', 502); }
+      res.writeHead(200, { 'Content-Type': 'audio/wav', 'Content-Length': audio.length, 'Cache-Control': 'no-store' });
+      res.end(audio);
+    }
     else if (req.method === 'POST' && url.pathname === '/api/action') {
       const body = await readBody(req);
       if (sessions.get(token) !== session || session.expires <= Date.now()) fail('登录已失效，请重新登录', 401);
@@ -1286,8 +1331,8 @@ const server = http.createServer(async (req, res) => {
 });
 
 if (require.main === module) {
-  server.listen(port, '127.0.0.1', () => {
-    console.log('暖邻本地试用 http://127.0.0.1:' + port + '/yanglao.html');
+  server.listen(port, bindHost, () => {
+    console.log('暖邻服务 http://' + bindHost + ':' + port + '/yanglao.html');
     if (setupCode) console.log('在网页创建首个社区账号时输入本次启动的初始化码：' + setupCode);
   });
 }
