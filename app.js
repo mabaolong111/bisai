@@ -167,6 +167,7 @@ function setSpeechRate(value) {
   state.speechRate = [.7, .9, 1.15].includes(value) ? value : .9;
   document.getElementById('speech-rate').value = String(state.speechRate);
   storeSet('warm-neighbor-speech-rate', state.speechRate);
+  if (state.data) prefetchSpeech(pageSummary());
 }
 function resetDisplay() {
   setFont(1);
@@ -176,7 +177,9 @@ function resetDisplay() {
 }
 let speechSeq = 0;
 const ttsBlobCache = new Map();
+const ttsPrefetching = new Set();
 let ttsFallbackNotified = false;
+let ttsAvailable = false;
 const SILENT_WAV = 'data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAESsAABErAAABAAgAZGF0YQAAAAA=';
 let sharedAudio = null;
 let audioUnlocked = false;
@@ -200,7 +203,11 @@ function unlockAudio() {
     audio.currentTime = 0;
     audio.muted = false;
     audio.removeAttribute('src');
-  }).catch(() => { audio.muted = false; audio.removeAttribute('src'); });
+  }).catch(() => {
+    if (state.audio === audio) return;
+    audio.muted = false;
+    audio.removeAttribute('src');
+  });
 }
 function stopAudio() {
   speechSeq += 1;
@@ -222,6 +229,25 @@ function browserSpeak(content) {
   utterance.onerror = event => { if (event.error !== 'canceled' && event.error !== 'interrupted') notify('语音朗读未完成，请阅读页面文字', true); };
   window.speechSynthesis.speak(utterance);
 }
+function storeSpeechBlob(cacheKey, blob) {
+  ttsBlobCache.set(cacheKey, blob);
+  if (ttsBlobCache.size > 24) ttsBlobCache.delete(ttsBlobCache.keys().next().value);
+}
+async function prefetchSpeech(text) {
+  if (state.role === 'community') return;
+  const content = String(text || '').trim();
+  if (!content) return;
+  const cacheKey = state.speechRate + '|' + content;
+  if (ttsBlobCache.has(cacheKey) || ttsPrefetching.has(cacheKey)) return;
+  ttsPrefetching.add(cacheKey);
+  try {
+    const response = await fetch('/api/tts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: content, speed: state.speechRate }) });
+    if (!response.ok) throw new Error('tts-prefetch');
+    storeSpeechBlob(cacheKey, await response.blob());
+  } catch {} finally {
+    ttsPrefetching.delete(cacheKey);
+  }
+}
 function playTtsBlob(blob, content, seq) {
   if (seq !== speechSeq) return;
   const audio = audioElement();
@@ -232,17 +258,35 @@ function playTtsBlob(blob, content, seq) {
   audio.src = objectUrl;
   audio.objectUrl = objectUrl;
   state.audio = audio;
+  ttsAvailable = true;
   document.documentElement.dataset.tts = 'voice-1';
   audio.onended = () => { URL.revokeObjectURL(objectUrl); if (state.audio === audio) state.audio = null; };
-  audio.onerror = () => { URL.revokeObjectURL(objectUrl); if (state.audio === audio) state.audio = null; browserSpeak(content); };
+  audio.onerror = () => {
+    URL.revokeObjectURL(objectUrl);
+    if (state.audio === audio) state.audio = null;
+    if (ttsAvailable) notify('语音播放失败，请再点一次朗读', true);
+    else browserSpeak(content);
+  };
   const played = audio.play();
   if (played?.catch) played.catch(error => {
     if (error?.name === 'NotAllowedError' || error?.name === 'AbortError') {
       notify('请再点一次“朗读本页”开始播放语音', true);
       return;
     }
-    browserSpeak(content);
+    if (ttsAvailable) notify('语音播放失败，请再点一次朗读', true);
+    else browserSpeak(content);
   });
+}
+async function fetchSpeechBlob(content, seq) {
+  for (let attempt = 0; attempt < 2; attempt += 1) {
+    if (seq !== speechSeq) return null;
+    try {
+      const response = await fetch('/api/tts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: content, speed: state.speechRate }) });
+      if (response.ok) return await response.blob();
+    } catch {}
+    if (attempt === 0) await new Promise(resolve => setTimeout(resolve, 700));
+  }
+  return null;
 }
 async function speak(text) {
   if (state.role === 'community') { stopAudio(); return; }
@@ -257,15 +301,18 @@ async function speak(text) {
   if (cached) { playTtsBlob(cached, content, seq); return; }
   const loadingTimer = setTimeout(() => notify('正在准备语音，请稍候…'), 500);
   try {
-    const response = await fetch('/api/tts', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ text: content, speed: state.speechRate }) });
-    if (!response.ok) throw new Error('tts-unavailable');
-    const blob = await response.blob();
+    const blob = await fetchSpeechBlob(content, seq);
+    if (!blob) throw new Error('tts-unavailable');
     if (seq !== speechSeq) return;
-    ttsBlobCache.set(cacheKey, blob);
-    if (ttsBlobCache.size > 24) ttsBlobCache.delete(ttsBlobCache.keys().next().value);
+    storeSpeechBlob(cacheKey, blob);
     playTtsBlob(blob, content, seq);
   } catch {
     if (seq !== speechSeq) return;
+    if (ttsAvailable) {
+      document.documentElement.dataset.tts = 'voice-1';
+      notify('语音服务暂时不可用，请稍后再试', true);
+      return;
+    }
     document.documentElement.dataset.tts = 'fallback';
     if (!ttsFallbackNotified) { ttsFallbackNotified = true; notify('语音服务未连接，已改用系统语音', true); }
     browserSpeak(content);
@@ -300,7 +347,7 @@ function pageSummary() {
     const stats = data.stats || {};
     return `社区运营工作台。共有档案${stats.residentCount ?? 0}份，工单${stats.processingVolume?.total ?? 0}条，办结率${stats.completionRate ?? 0}%，已处置预警${stats.resolvedAlertCount ?? 0}条。当前提醒：${reminders || '暂无'}。${progressSpeech()}`;
   }
-  return `当前提醒：${reminders || '暂无提醒'}。`;
+  return `${reminders || '暂无重要提醒'}。`;
 }
 function showAccount(data) {
   state.data = data;
@@ -702,6 +749,7 @@ function render() {
   renderWorkspace();
   if (community) document.querySelectorAll('#workspace [data-action^="read-"]').forEach(button => button.remove());
   renderResources();
+  if (!community) prefetchSpeech(pageSummary());
 }
 function renderServiceHome() {
   const container = document.getElementById('service-home');

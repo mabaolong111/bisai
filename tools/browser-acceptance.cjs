@@ -273,8 +273,8 @@ async function main() {
   assert.equal(ttsProbe.listenButton, false);
   assert.equal(ttsProbe.controls, true);
   const summaryCheck = await evaluate(`(() => ({ summary: pageSummary(), brand: document.querySelector('.brand-subtitle').textContent }))()`);
-  assert.ok(summaryCheck.summary.startsWith('当前提醒：'));
-  assert.ok(summaryCheck.summary.length > 10);
+  assert.ok(summaryCheck.summary.length > 5);
+  assert.ok(!summaryCheck.summary.startsWith('当前提醒'));
   await evaluate(`(async () => { speak('朗读测试，请稍候。'); await new Promise(resolve => setTimeout(resolve, 2600)); return true; })()`);
   const playState = await evaluate(`({ hasAudio: !!state.audio, paused: state.audio ? state.audio.paused : null, mode: document.documentElement.dataset.tts || '', time: state.audio ? state.audio.currentTime : 0 })`);
   assert.equal(playState.mode, 'voice-1');
